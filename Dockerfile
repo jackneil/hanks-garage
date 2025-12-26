@@ -15,8 +15,6 @@ RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY apps/web ./apps/web
-COPY design ./design
-COPY CLAUDE.md ./
 
 # Build the app
 ENV NEXT_TELEMETRY_DISABLED=1
