@@ -1,0 +1,97 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Kid-friendly theme for Neil's Adventure Hub */
+@plugin "daisyui/theme" {
+  name: "adventure";
+  default: true;
+
+  /* Colors - bright and fun! */
+  --color-base-100: #ffffff;
+  --color-base-200: #f0f9ff;
+  --color-base-300: #e0f2fe;
+  --color-base-content: #1e3a5f;
+
+  /* Primary - Fun Blue */
+  --color-primary: #3b82f6;
+  --color-primary-content: #ffffff;
+
+  /* Secondary - Nature Green */
+  --color-secondary: #22c55e;
+  --color-secondary-content: #ffffff;
+
+  /* Accent - Energetic Orange */
+  --color-accent: #f97316;
+  --color-accent-content: #ffffff;
+
+  /* Neutral */
+  --color-neutral: #374151;
+  --color-neutral-content: #ffffff;
+
+  /* Info, Success, Warning, Error */
+  --color-info: #06b6d4;
+  --color-success: #10b981;
+  --color-warning: #fbbf24;
+  --color-error: #ef4444;
+
+  /* Rounded corners for playful feel */
+  --radius-box: 1rem;
+  --radius-btn: 0.75rem;
+  --radius-badge: 0.5rem;
+}
+
+/* Dark theme for nighttime gaming */
+@plugin "daisyui/theme" {
+  name: "adventure-dark";
+
+  --color-base-100: #1a1a2e;
+  --color-base-200: #16213e;
+  --color-base-300: #0f3460;
+  --color-base-content: #e2e8f0;
+
+  --color-primary: #60a5fa;
+  --color-primary-content: #1e3a5f;
+
+  --color-secondary: #4ade80;
+  --color-secondary-content: #14532d;
+
+  --color-accent: #fb923c;
+  --color-accent-content: #431407;
+
+  --color-neutral: #9ca3af;
+  --color-neutral-content: #1f2937;
+
+  --color-info: #22d3ee;
+  --color-success: #34d399;
+  --color-warning: #fcd34d;
+  --color-error: #f87171;
+
+  --radius-box: 1rem;
+  --radius-btn: 0.75rem;
+  --radius-badge: 0.5rem;
+}
+
+/* Kid-friendly base styles */
+body {
+  font-family: 'Nunito', 'Comic Sans MS', cursive, sans-serif;
+  min-height: 100vh;
+}
+
+/* Big touch targets for kids - 44px minimum */
+.btn {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Fun hover effects */
+.btn:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Card hover for game tiles */
+.card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.2s ease;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+}

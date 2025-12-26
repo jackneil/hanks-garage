@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:99designs.com)",
+      "Fetch",
+      "WebFetch",
+      "Curl",
+      "Dir",
+      "Bash(mkdir:*)",
+      "Bash(pnpm add:*)",
+      "Bash(npm view:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm build:*)"
+    ]
+  }
+}
