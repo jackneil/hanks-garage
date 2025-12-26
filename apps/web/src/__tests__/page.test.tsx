@@ -5,8 +5,8 @@ import Home from '../app/page';
 describe('Home Page', () => {
   it('renders the main heading', () => {
     render(<Home />);
-    // Use getByRole to target the h1 specifically since "Hank's Garage" appears in footer too
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent("Hank's Garage");
+    // Use getByRole to target the h1 specifically since "Hank's Hits" appears in footer too
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent("Hank's Hits");
   });
 
   it('renders the tagline', () => {
@@ -19,11 +19,6 @@ describe('Home Page', () => {
   it('renders the Play Monster Truck button', () => {
     render(<Home />);
     expect(screen.getByText('Play Monster Truck')).toBeInTheDocument();
-  });
-
-  it('renders the All Games button', () => {
-    render(<Home />);
-    expect(screen.getByText('All Games')).toBeInTheDocument();
   });
 
   it('renders the How to Play section', () => {
@@ -43,9 +38,4 @@ describe('Home Page', () => {
     expect(playButton).toHaveAttribute('href', '/games/monster-truck');
   });
 
-  it('has correct link to dashboard', () => {
-    render(<Home />);
-    const dashboardButton = screen.getByText('All Games').closest('a');
-    expect(dashboardButton).toHaveAttribute('href', '/dashboard');
-  });
 });

@@ -12,7 +12,7 @@ export default function Home() {
               <span className="text-8xl">🚗</span>
             </div>
             <h1 className="text-6xl font-bold text-primary mb-4">
-              Hank&apos;s Garage
+              Hank&apos;s Hits
             </h1>
             <p className="text-2xl text-base-content/80 mb-8">
               Monster trucks, games, and awesome stuff!
@@ -33,13 +33,6 @@ export default function Home() {
               >
                 <span className="text-2xl">🏔️</span>
                 Hill Climb Racing
-              </a>
-              <a
-                href="/dashboard"
-                className="btn btn-secondary btn-lg text-xl gap-2"
-              >
-                <span className="text-2xl">🎮</span>
-                All Games
               </a>
             </div>
           </div>
@@ -129,7 +122,7 @@ export default function Home() {
       <footer className="footer footer-center p-8 bg-base-300 text-base-content">
         <div>
           <p className="text-lg">
-            <span className="text-2xl">🚗</span> Hank&apos;s Garage
+            <span className="text-2xl">🚗</span> Hank&apos;s Hits
           </p>
           <p className="text-base-content/60">Made for Hank with ❤️</p>
         </div>

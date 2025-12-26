@@ -1,4 +1,4 @@
-# Claude Instructions for Hank's Garage
+# Claude Instructions for Hank's Hits
 
 ## IMPORTANT: Read This First
 
@@ -8,7 +8,7 @@
 
 ## What Is This Project?
 
-This is **Hank's Garage** - a web platform where an **8-year-old boy named Hank Neil** can request random things to be built:
+This is **Hank's Hits** - a web platform where an **8-year-old boy named Hank Neil** can request random things to be built:
 - Simple apps (weather, toy finder, jokes)
 - **3D Games** (monster truck open world, racing, etc.)
 - Whatever random idea pops into his head

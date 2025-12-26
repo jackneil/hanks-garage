@@ -1,10 +1,10 @@
-# Hank's Garage - Architecture Design Document
+# Hank's Hits - Architecture Design Document
 
 ## Executive Summary
 
 A web platform for 8-year-old Hank Neil to play 3D games and use simple apps. **Claude builds and maintains all code.**
 
-**Site Name:** Hank's Garage
+**Site Name:** Hank's Hits
 **Hosting:** Railway only (PostgreSQL + web app)
 
 ---
@@ -294,7 +294,7 @@ From [THREE.Terrain](https://github.com/IceCreamYou/THREE.Terrain):
 
 - [x] Turborepo + pnpm workspace
 - [x] Next.js 16 app with React 19
-- [x] DaisyUI kid theme ("Hank's Garage")
+- [x] DaisyUI kid theme ("Hank's Hits")
 - [x] Layout with title
 - [ ] **Next: Landing page**
 - [ ] **Then: Phase 1 (drivable truck)**

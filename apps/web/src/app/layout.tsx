@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/shared/components";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -9,7 +10,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Hank's Garage",
+  title: "Hank's Hits",
   description: "Games, trucks, and awesome stuff!",
   icons: {
     icon: "/favicon.ico",
@@ -24,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="adventure">
       <body className={`${nunito.className} antialiased min-h-screen bg-base-100`}>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

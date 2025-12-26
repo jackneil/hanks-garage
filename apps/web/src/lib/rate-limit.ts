@@ -1,0 +1,136 @@
+/**
+ * Simple in-memory rate limiter using sliding window algorithm
+ *
+ * No external dependencies (no Redis). Resets on server restart,
+ * but still prevents most abuse during a deployment.
+ */
+
+type RateLimitEntry = {
+  count: number;
+  windowStart: number;
+};
+
+// In-memory storage for rate limiting
+const rateLimitStore = new Map<string, RateLimitEntry>();
+
+// Cleanup old entries periodically (every 5 minutes)
+const CLEANUP_INTERVAL = 5 * 60 * 1000;
+let lastCleanup = Date.now();
+
+function cleanupOldEntries(windowMs: number) {
+  const now = Date.now();
+  if (now - lastCleanup < CLEANUP_INTERVAL) return;
+
+  lastCleanup = now;
+  const cutoff = now - windowMs * 2; // Keep entries for 2x the window
+
+  for (const [key, entry] of rateLimitStore.entries()) {
+    if (entry.windowStart < cutoff) {
+      rateLimitStore.delete(key);
+    }
+  }
+}
+
+type RateLimitResult = {
+  success: boolean;
+  remaining: number;
+  resetIn: number; // seconds until reset
+};
+
+/**
+ * Check if a request should be rate limited
+ *
+ * @param key - Unique identifier (IP address, email, etc.)
+ * @param limit - Maximum requests allowed in the window
+ * @param windowMs - Time window in milliseconds
+ * @returns Result with success flag and remaining requests
+ */
+export function checkRateLimit(
+  key: string,
+  limit: number,
+  windowMs: number
+): RateLimitResult {
+  const now = Date.now();
+
+  // Periodic cleanup
+  cleanupOldEntries(windowMs);
+
+  const entry = rateLimitStore.get(key);
+
+  // No existing entry - create one
+  if (!entry) {
+    rateLimitStore.set(key, { count: 1, windowStart: now });
+    return {
+      success: true,
+      remaining: limit - 1,
+      resetIn: Math.ceil(windowMs / 1000),
+    };
+  }
+
+  // Window expired - reset
+  if (now - entry.windowStart >= windowMs) {
+    rateLimitStore.set(key, { count: 1, windowStart: now });
+    return {
+      success: true,
+      remaining: limit - 1,
+      resetIn: Math.ceil(windowMs / 1000),
+    };
+  }
+
+  // Within window - check limit
+  if (entry.count >= limit) {
+    const resetIn = Math.ceil((entry.windowStart + windowMs - now) / 1000);
+    return {
+      success: false,
+      remaining: 0,
+      resetIn,
+    };
+  }
+
+  // Increment count
+  entry.count += 1;
+  const resetIn = Math.ceil((entry.windowStart + windowMs - now) / 1000);
+
+  return {
+    success: true,
+    remaining: limit - entry.count,
+    resetIn,
+  };
+}
+
+// Pre-configured rate limiters
+
+/**
+ * Rate limit for signup: 5 requests per minute per IP
+ */
+export function checkSignupRateLimit(ip: string): RateLimitResult {
+  return checkRateLimit(`signup:${ip}`, 5, 60 * 1000);
+}
+
+/**
+ * Rate limit for login: 10 attempts per 15 minutes per email
+ * More lenient than signup since users may forget passwords
+ */
+export function checkLoginRateLimit(email: string): RateLimitResult {
+  const normalizedEmail = email.toLowerCase().trim();
+  return checkRateLimit(`login:${normalizedEmail}`, 10, 15 * 60 * 1000);
+}
+
+/**
+ * Helper to extract IP from request headers
+ */
+export function getClientIP(request: Request): string {
+  // Railway/Vercel/Cloudflare headers
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    return forwarded.split(",")[0].trim();
+  }
+
+  const realIP = request.headers.get("x-real-ip");
+  if (realIP) {
+    return realIP;
+  }
+
+  // Fallback - shouldn't happen in production
+  return "unknown";
+}
