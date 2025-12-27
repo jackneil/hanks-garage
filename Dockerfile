@@ -9,12 +9,14 @@ WORKDIR /app
 # Copy all package files
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
 COPY apps/web/package.json ./apps/web/
+COPY packages/db/package.json ./packages/db/
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY apps/web ./apps/web
+COPY packages/db ./packages/db
 
 # Build the app
 ENV NEXT_TELEMETRY_DISABLED=1
