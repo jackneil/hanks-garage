@@ -1,0 +1,19 @@
+{
+  "name": "Hank's Garage",
+  "short_name": "Hank's Garage",
+  "description": "Fun games and apps for kids!",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#1a1a2e",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -20,6 +20,7 @@ import { useGameStore } from './lib/store';
 import { sounds } from './lib/sounds';
 import { WORLD } from './lib/constants';
 import { getTerrainHeight } from './lib/terrainUtils';
+import { FullscreenButton, OrientationWarning } from '@/shared/components';
 
 // Loading screen component
 function LoadingScreen() {
@@ -189,6 +190,14 @@ export function MonsterTruckGame() {
 
   return (
     <div className="fixed inset-0 bg-black">
+      {/* Orientation warning - shows in portrait mode */}
+      <OrientationWarning />
+
+      {/* Fullscreen button - top right corner */}
+      <div className="absolute top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       {/* 3D Canvas */}
       <Canvas
         shadows

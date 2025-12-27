@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { AuthProvider } from "@/shared/components";
 
@@ -9,11 +10,26 @@ const nunito = Nunito({
   variable: "--font-nunito",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
-  title: "Hank's Hits",
+  title: "Hank's Garage",
   description: "Games, trucks, and awesome stuff!",
+  manifest: "/manifest.json",
   icons: {
     icon: "/favicon.ico",
+    apple: "/icon.svg",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Hank's Garage",
   },
 };
 
@@ -24,6 +40,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="adventure">
+      <head>
+        <Script
+          id="register-sw"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.register('/sw.js').catch(() => {});
+            }`,
+          }}
+        />
+      </head>
       <body className={`${nunito.className} antialiased min-h-screen bg-base-100`}>
         <AuthProvider>{children}</AuthProvider>
       </body>

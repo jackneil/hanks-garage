@@ -30,6 +30,7 @@ import { MobileControls } from './ui/MobileControls';
 import { GameOverScreen } from './ui/GameOverScreen';
 import { PauseMenu } from './ui/PauseMenu';
 import { Garage } from './ui/Garage';
+import { FullscreenButton, OrientationWarning } from '@/shared/components';
 
 // =============================================================================
 // TYPES
@@ -1110,7 +1111,15 @@ export function HillClimbGame() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      <canvas ref={canvasRef} className="absolute inset-0" />
+      <canvas ref={canvasRef} className="absolute inset-0" style={{ touchAction: 'none' }} />
+
+      {/* Orientation warning - shows in portrait mode */}
+      <OrientationWarning />
+
+      {/* Fullscreen button - top right corner */}
+      <div className="absolute top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
 
       {isPlaying && (
         <>

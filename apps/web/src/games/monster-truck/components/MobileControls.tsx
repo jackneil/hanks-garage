@@ -135,8 +135,8 @@ export function MobileControls({
         </div>
       )}
 
-      {/* Bottom pedals */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 flex pointer-events-auto">
+      {/* Bottom pedals - with safe area for notched phones */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 flex pointer-events-auto pb-[env(safe-area-inset-bottom)]">
         {/* Brake pedal */}
         <button
           {...handlers.brake}

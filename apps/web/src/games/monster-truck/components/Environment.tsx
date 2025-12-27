@@ -3,6 +3,7 @@
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Sky, Cloud } from '@react-three/drei';
+import { RigidBody, CylinderCollider, BallCollider } from '@react-three/rapier';
 import * as THREE from 'three';
 import { getTerrainHeight } from '../lib/terrainUtils';
 import { LAKES } from '../lib/constants';
@@ -100,7 +101,7 @@ function isInLake(x: number, z: number): boolean {
   });
 }
 
-// Simple tree
+// Simple tree with collision on trunk
 function Tree({ position }: { position: [number, number, number] }) {
   // Memoize random values so they don't change every frame (was causing seizure-inducing flickering)
   const { scale, treeRotation } = useMemo(() => ({
@@ -109,26 +110,30 @@ function Tree({ position }: { position: [number, number, number] }) {
   }), []);
 
   return (
-    <group position={position} scale={scale} rotation={[0, treeRotation, 0]}>
-      {/* Trunk */}
-      <mesh castShadow position={[0, 2, 0]}>
-        <cylinderGeometry args={[0.3, 0.5, 4, 8]} />
-        <meshStandardMaterial color="#654321" roughness={0.9} />
-      </mesh>
-      {/* Foliage layers */}
-      <mesh castShadow position={[0, 5, 0]}>
-        <coneGeometry args={[2.5, 4, 8]} />
-        <meshStandardMaterial color="#228B22" roughness={0.8} />
-      </mesh>
-      <mesh castShadow position={[0, 7, 0]}>
-        <coneGeometry args={[2, 3, 8]} />
-        <meshStandardMaterial color="#32CD32" roughness={0.8} />
-      </mesh>
-      <mesh castShadow position={[0, 8.5, 0]}>
-        <coneGeometry args={[1.2, 2, 8]} />
-        <meshStandardMaterial color="#228B22" roughness={0.8} />
-      </mesh>
-    </group>
+    <RigidBody type="fixed" position={position} colliders={false}>
+      {/* Trunk collision - only collide with trunk, can drive through foliage */}
+      <CylinderCollider args={[2 * scale, 0.4 * scale]} position={[0, 2 * scale, 0]} />
+      <group scale={scale} rotation={[0, treeRotation, 0]}>
+        {/* Trunk */}
+        <mesh castShadow position={[0, 2, 0]}>
+          <cylinderGeometry args={[0.3, 0.5, 4, 8]} />
+          <meshStandardMaterial color="#654321" roughness={0.9} />
+        </mesh>
+        {/* Foliage layers */}
+        <mesh castShadow position={[0, 5, 0]}>
+          <coneGeometry args={[2.5, 4, 8]} />
+          <meshStandardMaterial color="#228B22" roughness={0.8} />
+        </mesh>
+        <mesh castShadow position={[0, 7, 0]}>
+          <coneGeometry args={[2, 3, 8]} />
+          <meshStandardMaterial color="#32CD32" roughness={0.8} />
+        </mesh>
+        <mesh castShadow position={[0, 8.5, 0]}>
+          <coneGeometry args={[1.2, 2, 8]} />
+          <meshStandardMaterial color="#228B22" roughness={0.8} />
+        </mesh>
+      </group>
+    </RigidBody>
   );
 }
 
@@ -160,13 +165,16 @@ function Trees() {
   );
 }
 
-// Rock
+// Rock with collision
 function Rock({ position, scale = 1 }: { position: [number, number, number]; scale?: number }) {
   return (
-    <mesh position={position} scale={scale} castShadow>
-      <dodecahedronGeometry args={[1, 0]} />
-      <meshStandardMaterial color="#666" roughness={0.9} />
-    </mesh>
+    <RigidBody type="fixed" position={position} colliders={false}>
+      <BallCollider args={[scale * 0.8]} />
+      <mesh scale={scale} castShadow>
+        <dodecahedronGeometry args={[1, 0]} />
+        <meshStandardMaterial color="#666" roughness={0.9} />
+      </mesh>
+    </RigidBody>
   );
 }
 

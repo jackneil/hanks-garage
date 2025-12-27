@@ -77,6 +77,11 @@ body {
   min-height: 100vh;
 }
 
+/* Prevent pull-to-refresh and overscroll on mobile games */
+html, body {
+  overscroll-behavior: none;
+}
+
 /* Big touch targets for kids - 44px minimum */
 .btn {
   min-height: 44px;

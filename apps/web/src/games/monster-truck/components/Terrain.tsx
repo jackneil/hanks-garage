@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { RigidBody, CuboidCollider, HeightfieldCollider } from '@react-three/rapier';
+import { RigidBody, CuboidCollider, HeightfieldCollider, ConvexHullCollider } from '@react-three/rapier';
 import * as THREE from 'three';
 import { WORLD, RAMPS, LAKES } from '../lib/constants';
 import { getTerrainHeight, getTerrainSlope, generateHeightfield } from '../lib/terrainUtils';
@@ -99,7 +99,7 @@ export function Terrain() {
   );
 }
 
-// Ramp component - properly placed on terrain
+// Ramp component - properly placed on terrain with accurate wedge collision
 function Ramp({
   position,
   rotation = 0,
@@ -152,13 +152,21 @@ function Ramp({
     return geo;
   }, [WIDTH, LENGTH, HEIGHT]);
 
+  // ConvexHull points for wedge collision - matches visual geometry exactly
+  const colliderPoints = useMemo(() => new Float32Array([
+    // Bottom face (4 corners at ground level)
+    -WIDTH/2, 0, -LENGTH/2,
+     WIDTH/2, 0, -LENGTH/2,
+     WIDTH/2, 0,  LENGTH/2,
+    -WIDTH/2, 0,  LENGTH/2,
+    // Top (raised end only - 2 corners)
+     WIDTH/2, HEIGHT, LENGTH/2,
+    -WIDTH/2, HEIGHT, LENGTH/2,
+  ]), [WIDTH, LENGTH, HEIGHT]);
+
   return (
-    <RigidBody type="fixed" position={position} rotation={[0, rotation, 0]}>
-      <CuboidCollider
-        args={[WIDTH / 2, HEIGHT / 2, LENGTH / 2]}
-        position={[0, HEIGHT / 4, 0]}
-        rotation={[Math.atan2(HEIGHT, LENGTH), 0, 0]}
-      />
+    <RigidBody type="fixed" position={position} rotation={[0, rotation, 0]} colliders={false}>
+      <ConvexHullCollider args={[colliderPoints]} friction={1.0} />
       <mesh geometry={rampGeometry} castShadow receiveShadow>
         <meshStandardMaterial color="#8B4513" roughness={0.7} />
       </mesh>
@@ -175,32 +183,53 @@ function isInLake(x: number, z: number): boolean {
 }
 
 function Ramps() {
-  // Define ramp configs with terrain-sampled heights, avoiding lakes
+  // Paired jump/landing ramps - proper motocross track style
   const ramps = useMemo(() => {
-    const configs = [
-      // Starting area ramps
-      { x: 30, z: 0, rotation: 0, size: 'small' as const },
-      { x: 50, z: 20, rotation: Math.PI / 4, size: 'medium' as const },
-      { x: -40, z: 30, rotation: -Math.PI / 6, size: 'small' as const },
+    // Define jump pairs: each has a launch ramp and a landing ramp
+    const jumpPairs = [
+      // Near spawn - easy intro jumps (straight ahead from spawn)
+      { jumpX: 25, jumpZ: 0, landX: 45, landZ: 0, size: 'small' as const, rotation: 0 },
+      { jumpX: -25, jumpZ: 15, landX: -45, landZ: 15, size: 'small' as const, rotation: Math.PI },
 
-      // Around the world - adjusted to avoid lakes
-      { x: 20, z: -50, rotation: 0, size: 'large' as const },
-      { x: 80, z: 50, rotation: Math.PI / 3, size: 'medium' as const },
-      { x: -80, z: -60, rotation: Math.PI / 4, size: 'mega' as const },
-      { x: 100, z: -30, rotation: -Math.PI / 4, size: 'large' as const },
-      { x: -40, z: 100, rotation: 0, size: 'small' as const },
-      { x: 60, z: -120, rotation: Math.PI / 2, size: 'medium' as const },
+      // Medium jumps around the map
+      { jumpX: 60, jumpZ: -40, landX: 85, landZ: -40, size: 'medium' as const, rotation: 0 },
+      { jumpX: -55, jumpZ: -55, landX: -80, landZ: -55, size: 'medium' as const, rotation: Math.PI },
+      { jumpX: 45, jumpZ: 70, landX: 70, landZ: 70, size: 'medium' as const, rotation: 0 },
+      { jumpX: -45, jumpZ: 85, landX: -70, landZ: 85, size: 'medium' as const, rotation: Math.PI },
+
+      // Large jumps - further out
+      { jumpX: 95, jumpZ: 0, landX: 130, landZ: 0, size: 'large' as const, rotation: 0 },
+      { jumpX: -95, jumpZ: 25, landX: -135, landZ: 25, size: 'large' as const, rotation: Math.PI },
+
+      // MEGA jump - challenge ramp
+      { jumpX: 0, jumpZ: -90, landX: 0, landZ: -140, size: 'mega' as const, rotation: -Math.PI / 2 },
     ];
 
-    // Sample terrain height for each ramp, skip lakes and steep terrain
-    return configs
-      .filter(r => !isInLake(r.x, r.z))
-      .filter(r => getTerrainSlope(r.x, r.z, 10) < 0.15) // Only flat areas (<15% grade)
-      .map(r => ({
-        position: [r.x, getTerrainHeight(r.x, r.z), r.z] as [number, number, number],
-        rotation: r.rotation,
-        size: r.size,
-      }));
+    const result: { position: [number, number, number]; rotation: number; size: 'small' | 'medium' | 'large' | 'mega' }[] = [];
+
+    for (const pair of jumpPairs) {
+      // Skip if in lake or too steep
+      if (isInLake(pair.jumpX, pair.jumpZ)) continue;
+      if (isInLake(pair.landX, pair.landZ)) continue;
+      if (getTerrainSlope(pair.jumpX, pair.jumpZ, 10) > 0.12) continue;
+      if (getTerrainSlope(pair.landX, pair.landZ, 10) > 0.12) continue;
+
+      // Add jump ramp (launch)
+      result.push({
+        position: [pair.jumpX, getTerrainHeight(pair.jumpX, pair.jumpZ), pair.jumpZ],
+        rotation: pair.rotation,
+        size: pair.size,
+      });
+
+      // Add landing ramp (opposite rotation, smaller for gentle landing)
+      result.push({
+        position: [pair.landX, getTerrainHeight(pair.landX, pair.landZ), pair.landZ],
+        rotation: pair.rotation + Math.PI, // Facing back toward jump
+        size: 'small', // Landing ramps are gentler
+      });
+    }
+
+    return result;
   }, []);
 
   return (
