@@ -6,7 +6,7 @@ export interface SpareParts { wheels: number; axles: number; tongues: number; }
 export interface Supplies { food: number; oxen: number; clothing: number; ammunition: number; spareParts: SpareParts; money: number; }
 export type PaceType = 'steady' | 'strenuous' | 'grueling';
 export interface Pace { id: PaceType; name: string; milesPerDay: number; foodMultiplier: number; healthRisk: number; }
-export type WeatherType = 'clear' | 'rainy' | 'hot' | 'cold' | 'snowy' | 'stormy';
+export type WeatherType = 'clear' | 'rain' | 'hot' | 'cold' | 'snow' | 'storm';
 export interface Weather { type: WeatherType; name: string; travelModifier: number; healthRisk: number; }
 export type Month = 'march' | 'april' | 'may' | 'june' | 'july';
 export interface Landmark { id: string; name: string; description: string; milesFromStart: number; hasStore: boolean; hasRiver: boolean; riverName?: string; funFact?: string; }

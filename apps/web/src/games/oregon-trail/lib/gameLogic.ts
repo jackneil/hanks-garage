@@ -22,8 +22,20 @@ export function calculateFoodConsumption(pace: PaceType, occupation: OccupationT
 }
 
 export function getRandomWeather(month: Month): WeatherType {
-  const ch: Record<Month, Record<string, number>>={march:{clear:0.3,rainy:0.3,cold:0.25,snowy:0.1,hot:0,stormy:0.05},april:{clear:0.35,rainy:0.35,cold:0.1,snowy:0.05,hot:0.05,stormy:0.1},may:{clear:0.4,rainy:0.25,cold:0.05,snowy:0,hot:0.15,stormy:0.15},june:{clear:0.45,rainy:0.2,cold:0,snowy:0,hot:0.25,stormy:0.1},july:{clear:0.4,rainy:0.15,cold:0,snowy:0,hot:0.35,stormy:0.1}};
-  let cum=0;const r=Math.random();for(const[t,p]of Object.entries(ch[month])){cum+=p;if(r<cum)return t as WeatherType;}return"clear";
+  const ch: Record<Month, Record<string, number>> = {
+    march: { clear: 0.3, rain: 0.3, cold: 0.25, snow: 0.1, hot: 0, storm: 0.05 },
+    april: { clear: 0.35, rain: 0.35, cold: 0.1, snow: 0.05, hot: 0.05, storm: 0.1 },
+    may: { clear: 0.4, rain: 0.25, cold: 0.05, snow: 0, hot: 0.15, storm: 0.15 },
+    june: { clear: 0.45, rain: 0.2, cold: 0, snow: 0, hot: 0.25, storm: 0.1 },
+    july: { clear: 0.4, rain: 0.15, cold: 0, snow: 0, hot: 0.35, storm: 0.1 },
+  };
+  let cum = 0;
+  const r = Math.random();
+  for (const [t, p] of Object.entries(ch[month])) {
+    cum += p;
+    if (r < cum) return t as WeatherType;
+  }
+  return "clear";
 }
 
 export function updatePartyHealth(party: PartyMember[], pace: PaceType, weather: WeatherType, food: number, clothing: number): PartyMember[] {
