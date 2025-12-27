@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Matter from 'matter-js';
+import { GameShell } from '@/shared/components';
 
 /**
  * Hill Climb Racing Physics Proof-of-Concept
@@ -427,6 +428,7 @@ export default function HillClimbPOC() {
   }, [handleKeyDown, handleKeyUp]);
 
   return (
+    <GameShell gameName="Hill Climb POC" canPause={false} showPauseButton={false}>
     <div className="min-h-screen bg-gray-900 p-4">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-white mb-4">
@@ -493,5 +495,6 @@ export default function HillClimbPOC() {
         </div>
       </div>
     </div>
+    </GameShell>
   );
 }

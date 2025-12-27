@@ -1,0 +1,212 @@
+/**
+ * Weather App Zustand Store
+ * Handles location, preferences, and persistence
+ */
+
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { WeatherCondition } from "./constants";
+
+// Location data from geocoding API
+export interface GeoLocation {
+  name: string;
+  latitude: number;
+  longitude: number;
+  country?: string;
+  admin1?: string; // State/region
+}
+
+// Current weather data from API
+export interface CurrentWeather {
+  temperature: number;
+  feelsLike: number;
+  weatherCode: number;
+  condition: WeatherCondition;
+  humidity: number;
+  windSpeed: number;
+  isDay: boolean;
+}
+
+// Forecast day data
+export interface ForecastDay {
+  date: string;
+  dayName: string;
+  tempHigh: number;
+  tempLow: number;
+  weatherCode: number;
+  condition: WeatherCondition;
+  precipChance: number;
+}
+
+// Progress data shape (for sync)
+export interface WeatherProgress {
+  [key: string]: unknown;
+  savedLocations: GeoLocation[];
+  units: "fahrenheit" | "celsius";
+  lastLocation: GeoLocation | null;
+  lastModified: number;
+}
+
+// Store state
+interface WeatherStoreState extends WeatherProgress {
+  // Current session state (not persisted in sync)
+  currentWeather: CurrentWeather | null;
+  forecast: ForecastDay[] | null;
+  searchResults: GeoLocation[];
+  isLoading: boolean;
+  isSearching: boolean;
+  error: string | null;
+  searchQuery: string;
+  currentFact: string;
+}
+
+// Store actions
+interface WeatherStoreActions {
+  // Location actions
+  setLastLocation: (location: GeoLocation | null) => void;
+  addSavedLocation: (location: GeoLocation) => void;
+  removeSavedLocation: (name: string) => void;
+  isSavedLocation: (name: string) => boolean;
+
+  // Search actions
+  setSearchQuery: (query: string) => void;
+  setSearchResults: (results: GeoLocation[]) => void;
+  setIsSearching: (searching: boolean) => void;
+  clearSearch: () => void;
+
+  // Weather data actions
+  setCurrentWeather: (weather: CurrentWeather | null) => void;
+  setForecast: (forecast: ForecastDay[] | null) => void;
+
+  // Settings
+  setUnits: (units: "fahrenheit" | "celsius") => void;
+  toggleUnits: () => void;
+
+  // UI state
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+  setCurrentFact: (fact: string) => void;
+
+  // Sync helpers
+  getProgress: () => WeatherProgress;
+  setProgress: (data: WeatherProgress) => void;
+}
+
+const STORAGE_KEY = "weather-app-progress";
+
+const defaultProgress: WeatherProgress = {
+  savedLocations: [],
+  units: "fahrenheit",
+  lastLocation: null,
+  lastModified: Date.now(),
+};
+
+export const useWeatherStore = create<WeatherStoreState & WeatherStoreActions>()(
+  persist(
+    (set, get) => ({
+      // Initial state
+      ...defaultProgress,
+      currentWeather: null,
+      forecast: null,
+      searchResults: [],
+      isLoading: false,
+      isSearching: false,
+      error: null,
+      searchQuery: "",
+      currentFact: "",
+
+      // Location actions
+      setLastLocation: (location) => {
+        set({
+          lastLocation: location,
+          lastModified: Date.now(),
+        });
+      },
+
+      addSavedLocation: (location) => {
+        const existing = get().savedLocations;
+        // Don't add duplicates
+        if (existing.some((l) => l.name === location.name)) return;
+        set({
+          savedLocations: [...existing, location],
+          lastModified: Date.now(),
+        });
+      },
+
+      removeSavedLocation: (name) => {
+        set((state) => ({
+          savedLocations: state.savedLocations.filter((l) => l.name !== name),
+          lastModified: Date.now(),
+        }));
+      },
+
+      isSavedLocation: (name) => {
+        return get().savedLocations.some((l) => l.name === name);
+      },
+
+      // Search actions
+      setSearchQuery: (query) => set({ searchQuery: query }),
+
+      setSearchResults: (results) => set({ searchResults: results }),
+
+      setIsSearching: (searching) => set({ isSearching: searching }),
+
+      clearSearch: () => set({ searchQuery: "", searchResults: [] }),
+
+      // Weather data actions
+      setCurrentWeather: (weather) => set({ currentWeather: weather }),
+
+      setForecast: (forecast) => set({ forecast: forecast }),
+
+      // Settings
+      setUnits: (units) => {
+        set({ units, lastModified: Date.now() });
+      },
+
+      toggleUnits: () => {
+        const current = get().units;
+        set({
+          units: current === "fahrenheit" ? "celsius" : "fahrenheit",
+          lastModified: Date.now(),
+        });
+      },
+
+      // UI state
+      setLoading: (loading) => set({ isLoading: loading }),
+
+      setError: (error) => set({ error: error }),
+
+      setCurrentFact: (fact) => set({ currentFact: fact }),
+
+      // Sync helpers
+      getProgress: (): WeatherProgress => {
+        const state = get();
+        return {
+          savedLocations: state.savedLocations,
+          units: state.units,
+          lastLocation: state.lastLocation,
+          lastModified: state.lastModified,
+        } as WeatherProgress;
+      },
+
+      setProgress: (data) => {
+        set({
+          savedLocations: data.savedLocations ?? [],
+          units: data.units ?? "fahrenheit",
+          lastLocation: data.lastLocation ?? null,
+          lastModified: Date.now(),
+        });
+      },
+    }),
+    {
+      name: STORAGE_KEY,
+      // Only persist user preferences, not weather data
+      partialize: (state) => ({
+        savedLocations: state.savedLocations,
+        units: state.units,
+        lastLocation: state.lastLocation,
+        lastModified: state.lastModified,
+      }),
+    }
+  )
+);

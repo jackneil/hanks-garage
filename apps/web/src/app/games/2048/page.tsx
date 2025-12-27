@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { GameShell } from "@/shared/components";
 
 const Game2048 = dynamic(
   () => import("@/games/2048"),
@@ -19,5 +20,9 @@ const Game2048 = dynamic(
 );
 
 export default function Page2048() {
-  return <Game2048 />;
+  return (
+    <GameShell gameName="2048" canPause>
+      <Game2048 />
+    </GameShell>
+  );
 }

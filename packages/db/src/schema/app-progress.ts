@@ -60,6 +60,7 @@ export const VALID_APP_IDS = [
   "hill-climb",
   "monster-truck",
   "checkers",
+  "chess",
   "oregon-trail",
   "flappy-bird",
   "2048",
@@ -67,6 +68,12 @@ export const VALID_APP_IDS = [
   "memory-match",
   "joke-generator",
   "endless-runner",
+  "weather",
+  "cookie-clicker",
+  "toy-finder",
+  "quoridor",
+  "platformer",
+  "retro-arcade",
 ] as const;
 
 export type ValidAppId = (typeof VALID_APP_IDS)[number];

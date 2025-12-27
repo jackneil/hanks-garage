@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { GameShell } from '@/shared/components';
 
 // Dynamic import with no SSR - R3F doesn't work with SSR
 const MonsterTruckGame = dynamic(
@@ -21,5 +22,9 @@ const MonsterTruckGame = dynamic(
 );
 
 export default function MonsterTruckPage() {
-  return <MonsterTruckGame />;
+  return (
+    <GameShell gameName="Monster Truck" canPause={false} showPauseButton={false}>
+      <MonsterTruckGame />
+    </GameShell>
+  );
 }

@@ -7,6 +7,7 @@
  */
 
 import dynamic from 'next/dynamic';
+import { GameShell } from '@/shared/components';
 
 const HillClimbGame = dynamic(
   () => import('@/games/hill-climb'),
@@ -24,5 +25,9 @@ const HillClimbGame = dynamic(
 );
 
 export default function HillClimbPage() {
-  return <HillClimbGame />;
+  return (
+    <GameShell gameName="Hill Climb" canPause={false} showPauseButton={false}>
+      <HillClimbGame />
+    </GameShell>
+  );
 }

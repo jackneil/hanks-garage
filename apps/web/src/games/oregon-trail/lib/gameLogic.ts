@@ -12,7 +12,8 @@ export function createInitialState(leaderName: string, occupation: OccupationTyp
 
 export function calculateDailyTravel(pace: PaceType, weather: WeatherType, oxen: number): number {
   if(oxen<=0)return 0;
-  return Math.floor(PACES[pace].milesPerDay*WEATHER_CONDITIONS[weather].travelModifier*Math.min(1,oxen/2));
+  const wc = WEATHER_CONDITIONS[weather] || WEATHER_CONDITIONS.clear;
+  return Math.floor(PACES[pace].milesPerDay*wc.travelModifier*Math.min(1,oxen/2));
 }
 
 export function calculateFoodConsumption(pace: PaceType, occupation: OccupationType, aliveMembers: number): number {
@@ -39,7 +40,8 @@ export function getRandomWeather(month: Month): WeatherType {
 }
 
 export function updatePartyHealth(party: PartyMember[], pace: PaceType, weather: WeatherType, food: number, clothing: number): PartyMember[] {
-  const risk=PACES[pace].healthRisk+WEATHER_CONDITIONS[weather].healthRisk;
+  const wc = WEATHER_CONDITIONS[weather] || WEATHER_CONDITIONS.clear;
+  const risk=PACES[pace].healthRisk+wc.healthRisk;
   return party.map(m=>{if(m.leftBehind)return m;const nm={...m};if(nm.isSick){nm.sickDays++;if(nm.sickDays>=5&&Math.random()<0.5){nm.isSick=false;nm.sickDays=0;nm.health="fair" as HealthStatus;}else if(nm.sickDays>=10)nm.health="very_poor" as HealthStatus;}const r2=risk*(food>0?1:2)*(clothing>0?1:1.5);if(Math.random()<r2&&!nm.isSick){nm.isSick=true;nm.sickDays=0;nm.health="poor" as HealthStatus;}return nm;});
 }
 

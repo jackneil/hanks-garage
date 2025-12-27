@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { GameShell } from "@/shared/components";
 
 const CheckersGame = dynamic(
   () => import("@/games/checkers"),
@@ -20,5 +21,9 @@ const CheckersGame = dynamic(
 );
 
 export default function CheckersPage() {
-  return <CheckersGame />;
+  return (
+    <GameShell gameName="Checkers" canPause>
+      <CheckersGame />
+    </GameShell>
+  );
 }

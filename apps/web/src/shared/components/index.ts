@@ -8,3 +8,7 @@ export { SyncIndicator } from "./SyncIndicator";
 export { FullscreenButton } from "./FullscreenButton";
 export { IOSInstallPrompt } from "./IOSInstallPrompt";
 export { OrientationWarning } from "./OrientationWarning";
+
+// Game shell components
+export { GameShell } from "./GameShell";
+export { PauseMenu } from "./PauseMenu";
