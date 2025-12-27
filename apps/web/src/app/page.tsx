@@ -1,8 +1,16 @@
 "use client";
 
+import Link from "next/link";
+import { LoginButton } from "@/shared/components";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-base-200 to-base-300">
+      {/* Login Button - Fixed top-right */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex justify-end p-4 bg-base-200/80 backdrop-blur-sm">
+        <LoginButton />
+      </header>
+
       {/* Hero Section */}
       <div className="hero min-h-[70vh]">
         <div className="hero-content text-center">
@@ -20,20 +28,20 @@ export default function Home() {
 
             {/* Main CTA */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-              <a
+              <Link
                 href="/games/monster-truck"
                 className="btn btn-primary btn-lg text-xl gap-2"
               >
                 <span className="text-2xl">🚗</span>
                 Play Monster Truck
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/games/hill-climb"
                 className="btn btn-accent btn-lg text-xl gap-2"
               >
                 <span className="text-2xl">🏔️</span>
                 Hill Climb Racing
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -48,60 +56,60 @@ export default function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {/* Monster Truck */}
-            <a href="/games/monster-truck" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+            <Link href="/games/monster-truck" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
               <div className="card-body items-center text-center p-4">
                 <span className="text-5xl mb-2">🚗</span>
                 <h3 className="card-title text-lg">Monster Truck</h3>
               </div>
-            </a>
+            </Link>
 
             {/* Hill Climb */}
-            <a href="/games/hill-climb" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+            <Link href="/games/hill-climb" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
               <div className="card-body items-center text-center p-4">
                 <span className="text-5xl mb-2">🏔️</span>
                 <h3 className="card-title text-lg">Hill Climb</h3>
               </div>
-            </a>
+            </Link>
 
             {/* Flappy Bird */}
-            <a href="/games/flappy-bird" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+            <Link href="/games/flappy-bird" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
               <div className="card-body items-center text-center p-4">
                 <span className="text-5xl mb-2">🐦</span>
                 <h3 className="card-title text-lg">Flappy Bird</h3>
               </div>
-            </a>
+            </Link>
 
             {/* Snake */}
-            <a href="/games/snake" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+            <Link href="/games/snake" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
               <div className="card-body items-center text-center p-4">
                 <span className="text-5xl mb-2">🐍</span>
                 <h3 className="card-title text-lg">Snake</h3>
               </div>
-            </a>
+            </Link>
 
             {/* 2048 */}
-            <a href="/games/2048" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+            <Link href="/games/2048" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
               <div className="card-body items-center text-center p-4">
                 <span className="text-5xl mb-2">🔢</span>
                 <h3 className="card-title text-lg">2048</h3>
               </div>
-            </a>
+            </Link>
 
             {/* Checkers */}
-            <a href="/games/checkers" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+            <Link href="/games/checkers" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
               <div className="card-body items-center text-center p-4">
                 <span className="text-5xl mb-2">🔴</span>
                 <h3 className="card-title text-lg">Checkers</h3>
               </div>
-            </a>
+            </Link>
 
             {/* Oregon Trail */}
-            <a href="/games/oregon-trail" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+            <Link href="/games/oregon-trail" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
               <div className="card-body items-center text-center p-4">
                 <span className="text-5xl mb-2">🤠</span>
                 <h3 className="card-title text-lg">Oregon Trail</h3>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

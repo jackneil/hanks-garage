@@ -72,19 +72,26 @@ export function LoginButton() {
       >
         <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
           {userImage ? (
-            <img src={userImage} alt={userName} />
-          ) : (
-            <div className="bg-primary text-primary-content flex items-center justify-center w-full h-full text-lg font-bold">
-              {initials}
-            </div>
-          )}
+            <img
+              src={userImage}
+              alt={userName}
+              onError={(e) => {
+                // Fallback to initials on image load failure
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+          ) : null}
+          <div className={`bg-primary text-primary-content flex items-center justify-center w-full h-full text-lg font-bold ${userImage ? 'hidden' : ''}`}>
+            {initials}
+          </div>
         </div>
       </div>
 
       {dropdownOpen && (
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-lg bg-base-100 rounded-box w-52"
+          className="menu menu-sm dropdown-content mt-3 z-[60] p-2 shadow-lg bg-base-100 rounded-box w-52"
         >
           <li className="menu-title">
             <span className="text-base font-bold">{userName}</span>
