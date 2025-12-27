@@ -39,6 +39,73 @@ export default function Home() {
         </div>
       </div>
 
+      {/* All Games Section */}
+      <div className="py-16 px-4 bg-base-100">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            🎮 All Games
+          </h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {/* Monster Truck */}
+            <a href="/games/monster-truck" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+              <div className="card-body items-center text-center p-4">
+                <span className="text-5xl mb-2">🚗</span>
+                <h3 className="card-title text-lg">Monster Truck</h3>
+              </div>
+            </a>
+
+            {/* Hill Climb */}
+            <a href="/games/hill-climb" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+              <div className="card-body items-center text-center p-4">
+                <span className="text-5xl mb-2">🏔️</span>
+                <h3 className="card-title text-lg">Hill Climb</h3>
+              </div>
+            </a>
+
+            {/* Flappy Bird */}
+            <a href="/games/flappy-bird" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+              <div className="card-body items-center text-center p-4">
+                <span className="text-5xl mb-2">🐦</span>
+                <h3 className="card-title text-lg">Flappy Bird</h3>
+              </div>
+            </a>
+
+            {/* Snake */}
+            <a href="/games/snake" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+              <div className="card-body items-center text-center p-4">
+                <span className="text-5xl mb-2">🐍</span>
+                <h3 className="card-title text-lg">Snake</h3>
+              </div>
+            </a>
+
+            {/* 2048 */}
+            <a href="/games/2048" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+              <div className="card-body items-center text-center p-4">
+                <span className="text-5xl mb-2">🔢</span>
+                <h3 className="card-title text-lg">2048</h3>
+              </div>
+            </a>
+
+            {/* Checkers */}
+            <a href="/games/checkers" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+              <div className="card-body items-center text-center p-4">
+                <span className="text-5xl mb-2">🔴</span>
+                <h3 className="card-title text-lg">Checkers</h3>
+              </div>
+            </a>
+
+            {/* Oregon Trail */}
+            <a href="/games/oregon-trail" className="card bg-base-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all cursor-pointer">
+              <div className="card-body items-center text-center p-4">
+                <span className="text-5xl mb-2">🤠</span>
+                <h3 className="card-title text-lg">Oregon Trail</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Features Section */}
       <div className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
