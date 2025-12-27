@@ -604,7 +604,7 @@ export function TravelScene() {
       />
       {/* Weather indicator overlay */}
       <div className="absolute top-2 right-2 bg-black/30 backdrop-blur-sm rounded px-2 py-1 text-white text-sm">
-        {WEATHER_CONDITIONS[weather]?.emoji} {WEATHER_CONDITIONS[weather]?.name}
+        {(WEATHER_CONDITIONS[weather] || WEATHER_CONDITIONS.clear).emoji} {(WEATHER_CONDITIONS[weather] || WEATHER_CONDITIONS.clear).name}
       </div>
     </div>
   );

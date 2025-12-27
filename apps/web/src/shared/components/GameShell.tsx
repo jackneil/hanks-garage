@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useGameShell } from "../hooks/useGameShell";
 import { PauseMenu } from "./PauseMenu";
 
@@ -29,21 +28,12 @@ export function GameShell({
   headerClassName = "",
   pauseMenuChildren,
 }: GameShellProps) {
-  const router = useRouter();
-  const { isPaused, pause, resume, togglePause, goHome } = useGameShell({
+  const { isPaused, resume, togglePause, goHome } = useGameShell({
     canPause,
     onPause,
     onResume,
     pauseOnBlur,
   });
-
-  const handleHome = () => {
-    router.push("/dashboard");
-  };
-
-  const handleResume = () => {
-    resume();
-  };
 
   return (
     <div className="relative w-full h-full min-h-screen">
@@ -54,7 +44,7 @@ export function GameShell({
         {/* Home button */}
         {showHomeButton && (
           <button
-            onClick={handleHome}
+            onClick={goHome}
             className="min-w-[44px] min-h-[44px] flex items-center justify-center text-2xl hover:scale-110 transition-transform active:scale-95"
             title="Go Home"
           >
@@ -89,8 +79,8 @@ export function GameShell({
       {canPause && (
         <PauseMenu
           isOpen={isPaused}
-          onResume={handleResume}
-          onHome={handleHome}
+          onResume={resume}
+          onHome={goHome}
           gameName={gameName}
         >
           {pauseMenuChildren}

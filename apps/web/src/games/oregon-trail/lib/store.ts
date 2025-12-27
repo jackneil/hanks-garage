@@ -104,4 +104,21 @@ export const useOregonTrailStore = create<OregonTrailStore>()(persist((set, get)
     set({ gamePhase: lm.hasStore ? "store" : "travel" });
   },
   resetGame: () => set(defaultState),
-}), { name: "oregon-trail-storage" }));
+}), {
+  name: "oregon-trail-storage",
+  version: 1,
+  migrate: (persisted: any, version: number) => {
+    if (version === 0) {
+      // Fix old weather values from before the rename
+      const weatherMap: Record<string, string> = {
+        rainy: 'rain',
+        snowy: 'snow',
+        stormy: 'storm',
+      };
+      if (persisted.weather && weatherMap[persisted.weather]) {
+        persisted.weather = weatherMap[persisted.weather];
+      }
+    }
+    return persisted;
+  },
+}));
