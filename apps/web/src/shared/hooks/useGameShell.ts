@@ -35,7 +35,7 @@ export function useGameShell(options: UseGameShellOptions = {}) {
   }, [isPaused, pause, resume]);
 
   const goHome = useCallback(() => {
-    router.push("/dashboard");
+    router.push("/");
   }, [router]);
 
   // ESC key for pause
