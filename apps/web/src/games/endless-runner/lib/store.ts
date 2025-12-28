@@ -505,7 +505,7 @@ export const useEndlessRunnerStore = create<EndlessRunnerState>()(
       setProgress: (data) => set({ progress: data }),
     }),
     {
-      name: "endless-runner-progress",
+      name: "endless-runner-storage",
       partialize: (state) => ({ progress: state.progress }),
     }
   )

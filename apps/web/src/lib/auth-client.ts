@@ -48,7 +48,7 @@ const GAME_STORAGE_KEYS = [
   "monster-truck-save",
   "cookie-clicker-storage",
   "endless-runner-storage",
-  "platformer-storage",
+  "hank-platformer-progress",
   "oregon-trail-storage",
   // Apps
   "joke-generator-progress",
