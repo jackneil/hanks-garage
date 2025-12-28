@@ -81,7 +81,7 @@ export function LoginButton() {
   };
 
   return (
-    <div className="dropdown dropdown-end" ref={dropdownRef}>
+    <div className={`dropdown dropdown-end ${dropdownOpen ? 'dropdown-open' : ''}`} ref={dropdownRef}>
       <div
         tabIndex={0}
         role="button"
