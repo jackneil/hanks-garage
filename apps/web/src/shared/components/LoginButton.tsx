@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { signOutAndClear } from "@/lib/auth-client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 /**
  * Login button component - shows sign in or user dropdown
@@ -14,6 +14,24 @@ import { useState } from "react";
 export function LoginButton() {
   const { data: session, status } = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownOpen]);
 
   // Loading state
   if (status === "loading") {
@@ -63,11 +81,11 @@ export function LoginButton() {
   };
 
   return (
-    <div className="dropdown dropdown-end">
+    <div className="dropdown dropdown-end" ref={dropdownRef}>
       <div
         tabIndex={0}
         role="button"
-        className="btn btn-ghost btn-circle avatar"
+        className="btn btn-ghost btn-circle avatar cursor-pointer"
         onClick={() => setDropdownOpen(!dropdownOpen)}
       >
         <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
