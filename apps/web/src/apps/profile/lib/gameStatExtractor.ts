@@ -13,12 +13,22 @@ export interface GameDisplayInfo {
   primaryStat: { label: string; value: string } | null;
   secondaryStats: { label: string; value: string }[];
   progress?: number; // 0-100 if applicable
+  fullData: Record<string, unknown>; // Raw data for detail view
+  hasDetailView: boolean; // Whether this game has expandable details
 }
 
 /**
  * Extract display-friendly stats from a game's raw progress data.
  * Each game stores data differently, so we handle them individually.
  */
+// Games that have enough interesting data to warrant an expandable detail view
+const GAMES_WITH_DETAIL_VIEW = [
+  "monster-truck",
+  "hill-climb",
+  "oregon-trail",
+  "cookie-clicker",
+];
+
 export function extractGameStats(
   appId: string,
   data: Record<string, unknown>,
@@ -35,6 +45,8 @@ export function extractGameStats(
     lastPlayed,
     primaryStat: null,
     secondaryStats: [],
+    fullData: data,
+    hasDetailView: GAMES_WITH_DETAIL_VIEW.includes(appId),
   };
 
   // Extract stats based on game type

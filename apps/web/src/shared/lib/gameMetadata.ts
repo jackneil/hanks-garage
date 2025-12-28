@@ -132,9 +132,33 @@ export function getGameMetadata(appId: string): GameMetadata {
 }
 
 /**
+ * Static gradient class map - Tailwind can't analyze dynamic classes.
+ * All classes must be written out fully for the purge to include them.
+ */
+const GRADIENT_MAP: Record<string, string> = {
+  green: "from-green-500 to-green-700",
+  red: "from-red-500 to-red-700",
+  amber: "from-amber-500 to-amber-700",
+  slate: "from-slate-500 to-slate-700",
+  emerald: "from-emerald-500 to-emerald-700",
+  sky: "from-sky-500 to-sky-700",
+  orange: "from-orange-500 to-orange-700",
+  lime: "from-lime-500 to-lime-700",
+  purple: "from-purple-500 to-purple-700",
+  yellow: "from-yellow-500 to-yellow-700",
+  cyan: "from-cyan-500 to-cyan-700",
+  blue: "from-blue-500 to-blue-700",
+  pink: "from-pink-500 to-pink-700",
+  stone: "from-stone-500 to-stone-700",
+  indigo: "from-indigo-500 to-indigo-700",
+  violet: "from-violet-500 to-violet-700",
+  gray: "from-gray-500 to-gray-700",
+};
+
+/**
  * Get Tailwind background gradient classes for a game.
  */
 export function getGameGradient(appId: string): string {
   const { color } = getGameMetadata(appId);
-  return `from-${color}-500 to-${color}-700`;
+  return GRADIENT_MAP[color] || GRADIENT_MAP.gray;
 }

@@ -1,7 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import type { GameDisplayInfo } from "../lib/gameStatExtractor";
+import { GameDetailView } from "./game-details";
+import { getGameGradient } from "@/shared/lib/gameMetadata";
 
 interface GameProgressCardProps {
   game: GameDisplayInfo;
@@ -10,8 +13,11 @@ interface GameProgressCardProps {
 /**
  * Kid-friendly game progress card for the profile page.
  * Big, colorful, with fun stats.
+ * Expandable to show full game details for supported games.
  */
 export function GameProgressCard({ game }: GameProgressCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   // Format relative time (e.g., "2 hours ago", "Yesterday")
   const formatRelativeTime = (date: Date): string => {
     const now = new Date();
@@ -31,29 +37,39 @@ export function GameProgressCard({ game }: GameProgressCardProps) {
   // Determine game URL
   const gameUrl = `/games/${game.appId}`;
 
+  // Toggle expand without navigating
+  const handleExpandClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsExpanded((prev) => !prev);
+  };
+
+  // Get static gradient classes (Tailwind can't analyze dynamic classes)
+  const gradientClasses = getGameGradient(game.appId);
+
   return (
-    <Link
-      href={gameUrl}
+    <div
       className={`
         block p-4 rounded-2xl shadow-lg
-        bg-gradient-to-br from-${game.color}-500 to-${game.color}-700
-        hover:scale-[1.02] active:scale-[0.98]
-        transition-transform duration-150
-        border-2 border-white/20 hover:border-white/40
+        bg-gradient-to-br ${gradientClasses}
+        border-2 border-white/20
+        transition-all duration-200
       `}
     >
       {/* Header with icon and name */}
-      <div className="flex items-center gap-3 mb-3">
-        <span className="text-4xl">{game.icon}</span>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-white truncate">
-            {game.displayName}
-          </h3>
-          <p className="text-white/60 text-sm">
-            {formatRelativeTime(game.lastPlayed)}
-          </p>
+      <Link href={gameUrl} className="block">
+        <div className="flex items-center gap-3 mb-3 hover:scale-[1.01] active:scale-[0.99] transition-transform">
+          <span className="text-4xl">{game.icon}</span>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold text-white truncate">
+              {game.displayName}
+            </h3>
+            <p className="text-white/60 text-sm">
+              {formatRelativeTime(game.lastPlayed)}
+            </p>
+          </div>
         </div>
-      </div>
+      </Link>
 
       {/* Primary stat - big and bold */}
       {game.primaryStat && (
@@ -98,11 +114,62 @@ export function GameProgressCard({ game }: GameProgressCardProps) {
         </div>
       )}
 
-      {/* Play button hint */}
-      <div className="mt-3 text-center text-white/50 text-xs">
-        Tap to play!
-      </div>
-    </Link>
+      {/* Expandable Details */}
+      {game.hasDetailView && (
+        <>
+          {/* Expand/Collapse Button */}
+          <button
+            onClick={handleExpandClick}
+            className="mt-3 w-full py-2 rounded-lg bg-white/10 hover:bg-white/20
+                       active:bg-white/30 transition-colors text-white/70 text-sm
+                       flex items-center justify-center gap-2 min-h-[44px]"
+            aria-expanded={isExpanded}
+          >
+            <span>{isExpanded ? "Hide Details" : "Show Details"}</span>
+            <span
+              className={`transition-transform duration-200 ${
+                isExpanded ? "rotate-180" : ""
+              }`}
+            >
+              ▼
+            </span>
+          </button>
+
+          {/* Detail View with Animation */}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              isExpanded ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <GameDetailView game={game} />
+          </div>
+        </>
+      )}
+
+      {/* Play button - only show if no detail view OR if collapsed */}
+      {(!game.hasDetailView || !isExpanded) && (
+        <Link
+          href={gameUrl}
+          className="mt-3 block text-center py-2 rounded-lg bg-white/10 hover:bg-white/20
+                     active:bg-white/30 transition-colors text-white/70 text-sm min-h-[44px]
+                     flex items-center justify-center"
+        >
+          Tap to play!
+        </Link>
+      )}
+
+      {/* Play button when expanded */}
+      {game.hasDetailView && isExpanded && (
+        <Link
+          href={gameUrl}
+          className="mt-3 block text-center py-2 rounded-lg bg-white/20 hover:bg-white/30
+                     active:bg-white/40 transition-colors text-white text-sm font-medium
+                     min-h-[44px] flex items-center justify-center gap-2"
+        >
+          <span>▶</span> Play Now!
+        </Link>
+      )}
+    </div>
   );
 }
 
