@@ -103,6 +103,27 @@ export function LoginButton() {
           </li>
           <div className="divider my-0" />
           <li>
+            <Link
+              href="/profile"
+              onClick={() => setDropdownOpen(false)}
+              className="flex items-center gap-2"
+            >
+              <span className="text-lg">👤</span>
+              My Profile
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/profile#games"
+              onClick={() => setDropdownOpen(false)}
+              className="flex items-center gap-2"
+            >
+              <span className="text-lg">🎮</span>
+              My Games
+            </Link>
+          </li>
+          <div className="divider my-0" />
+          <li>
             <button
               onClick={handleSignOut}
               className="text-error hover:bg-error/10"
