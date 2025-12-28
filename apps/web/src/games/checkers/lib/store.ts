@@ -16,6 +16,7 @@ import { getValidMovesForPiece, executeMove, checkGameStatus, countPieces, count
 import { getAIMove } from "./ai";
 
 export type CheckersProgress = {
+  [key: string]: unknown;
   gamesPlayed: number;
   gamesWon: number;
   gamesLost: number;
@@ -30,6 +31,8 @@ export type CheckersProgress = {
   mediumLosses: number;
   hardWins: number;
   hardLosses: number;
+  // Settings (synced to cloud)
+  difficulty: Difficulty;
   lastModified: number;
 };
 
@@ -64,6 +67,7 @@ const defaultProgress: CheckersProgress = {
   gamesPlayed: 0, gamesWon: 0, gamesLost: 0, totalPiecesCaptured: 0, totalKingsEarned: 0,
   longestJumpChain: 0, currentWinStreak: 0, bestWinStreak: 0,
   easyWins: 0, easyLosses: 0, mediumWins: 0, mediumLosses: 0, hardWins: 0, hardLosses: 0,
+  difficulty: "easy",
   lastModified: Date.now(),
 };
 
@@ -223,8 +227,14 @@ export const useCheckersStore = create<GameState & GameActions>()(
         });
       },
 
-      getProgress: () => get().progress,
-      setProgress: (data) => set({ progress: data }),
+      getProgress: () => ({
+        ...get().progress,
+        difficulty: get().difficulty,
+      }),
+      setProgress: (data) => set({
+        progress: data,
+        difficulty: data.difficulty ?? get().difficulty,
+      }),
     }),
     {
       name: "checkers-progress",

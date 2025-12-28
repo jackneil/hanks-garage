@@ -29,6 +29,9 @@ export type MemoryMatchProgress = {
   favoriteTheme: ThemeId;
   soundEnabled: boolean;
   unlockedThemes: ThemeId[];
+  // Settings (synced to cloud)
+  difficulty: Difficulty;
+  theme: ThemeId;
 };
 
 // Current game state
@@ -87,6 +90,8 @@ const defaultProgress: MemoryMatchProgress = {
   favoriteTheme: "animals",
   soundEnabled: true,
   unlockedThemes: ["animals"],
+  difficulty: "medium",
+  theme: "animals",
 };
 
 export const useMemoryMatchStore = create<GameState & GameActions>()(
@@ -287,10 +292,18 @@ export const useMemoryMatchStore = create<GameState & GameActions>()(
         }
       },
 
-      getProgress: () => get().progress,
+      getProgress: () => ({
+        ...get().progress,
+        difficulty: get().difficulty,
+        theme: get().theme,
+      }),
 
       setProgress: (data: MemoryMatchProgress) => {
-        set({ progress: data });
+        set({
+          progress: data,
+          difficulty: data.difficulty ?? get().difficulty,
+          theme: data.theme ?? get().theme,
+        });
       },
 
       isThemeUnlocked: (theme: ThemeId) => {

@@ -16,6 +16,7 @@ import {
 } from "./chessLogic";
 
 export type ChessProgress = {
+  [key: string]: unknown;
   gamesPlayed: number;
   gamesWon: number;
   gamesLost: number;
@@ -30,6 +31,10 @@ export type ChessProgress = {
   mediumLosses: number;
   hardWins: number;
   hardLosses: number;
+  // Settings (synced to cloud)
+  difficulty: Difficulty;
+  gameMode: GameMode;
+  playerColor: "white" | "black";
   lastModified: number;
 };
 
@@ -103,6 +108,9 @@ const defaultProgress: ChessProgress = {
   mediumLosses: 0,
   hardWins: 0,
   hardLosses: 0,
+  difficulty: "easy",
+  gameMode: "ai",
+  playerColor: "white",
   lastModified: Date.now(),
 };
 
@@ -395,8 +403,18 @@ export const useChessStore = create<GameState & GameActions>()(
         }));
       },
 
-      getProgress: () => get().progress,
-      setProgress: (data) => set({ progress: data }),
+      getProgress: () => ({
+        ...get().progress,
+        difficulty: get().difficulty,
+        gameMode: get().gameMode,
+        playerColor: get().playerColor,
+      }),
+      setProgress: (data) => set({
+        progress: data,
+        difficulty: data.difficulty ?? get().difficulty,
+        gameMode: data.gameMode ?? get().gameMode,
+        playerColor: data.playerColor ?? get().playerColor,
+      }),
 
       clearMessage: () => set({ message: null }),
 

@@ -26,6 +26,7 @@ import {
 
 // Progress tracking for persistence
 export type QuoridorProgress = {
+  [key: string]: unknown;
   gamesPlayed: number;
   gamesWon: number;
   gamesLost: number;
@@ -34,6 +35,9 @@ export type QuoridorProgress = {
   totalWallsPlaced: number;
   totalMovesToWin: number;
   fastestWin: number | null;
+  // Settings (synced to cloud)
+  difficulty: Difficulty;
+  gameMode: GameMode;
   lastModified: number;
 };
 
@@ -103,6 +107,8 @@ const defaultProgress: QuoridorProgress = {
   totalWallsPlaced: 0,
   totalMovesToWin: 0,
   fastestWin: null,
+  difficulty: "easy",
+  gameMode: "local",
   lastModified: Date.now(),
 };
 
@@ -424,8 +430,16 @@ export const useQuoridorStore = create<GameState & GameActions>()(
         }));
       },
 
-      getProgress: () => get().progress,
-      setProgress: (data: QuoridorProgress) => set({ progress: data }),
+      getProgress: () => ({
+        ...get().progress,
+        difficulty: get().difficulty,
+        gameMode: get().gameMode,
+      }),
+      setProgress: (data: QuoridorProgress) => set({
+        progress: data,
+        difficulty: data.difficulty ?? get().difficulty,
+        gameMode: data.gameMode ?? get().gameMode,
+      }),
     }),
     {
       name: "quoridor-progress",
