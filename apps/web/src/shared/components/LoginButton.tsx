@@ -81,7 +81,7 @@ export function LoginButton() {
   };
 
   return (
-    <div className={`dropdown dropdown-end ${dropdownOpen ? 'dropdown-open' : ''}`} ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <div
         tabIndex={0}
         role="button"
@@ -109,7 +109,7 @@ export function LoginButton() {
       {dropdownOpen && (
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-[60] p-2 shadow-lg bg-base-100 rounded-box w-52"
+          className="absolute right-0 top-full mt-3 z-[60] p-2 shadow-lg bg-base-100 rounded-box w-52 menu menu-sm"
         >
           <li className="menu-title">
             <span className="text-base font-bold">{userName}</span>
