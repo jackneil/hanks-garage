@@ -19,7 +19,9 @@ import {
 // TYPES
 // ============================================================================
 
+// Index signature required for AppProgressData compatibility
 export interface CookieClickerProgress {
+  [key: string]: unknown;
   cookies: number;
   totalCookiesBaked: number;
   totalClicks: number;

@@ -14,6 +14,10 @@ const defaultState: GameState = {
   daysRested: 0, foodHunted: 0, riversCrossed: 0, eventsEncountered: 0,
 };
 
+// Type for cloud sync (game state + timestamp)
+// Index signature required for AppProgressData compatibility
+export type OregonTrailSyncData = GameState & { lastModified: number; [key: string]: unknown };
+
 interface OregonTrailStore extends GameState {
   setPhase: (phase: GamePhase) => void;
   startGame: (name: string, occ: OccupationType, partyNames: string[], month: Month) => void;
@@ -27,6 +31,10 @@ interface OregonTrailStore extends GameState {
   crossRiver: (method: string) => void;
   continueFromLandmark: () => void;
   resetGame: () => void;
+
+  // Cloud sync
+  getProgress: () => OregonTrailSyncData;
+  setProgress: (data: OregonTrailSyncData) => void;
 }
 
 export const useOregonTrailStore = create<OregonTrailStore>()(persist((set, get) => ({
@@ -104,6 +112,59 @@ export const useOregonTrailStore = create<OregonTrailStore>()(persist((set, get)
     set({ gamePhase: lm.hasStore ? "store" : "travel" });
   },
   resetGame: () => set(defaultState),
+
+  // Cloud sync
+  getProgress: () => {
+    const state = get();
+    return {
+      gamePhase: state.gamePhase,
+      gameStarted: state.gameStarted,
+      leaderName: state.leaderName,
+      occupation: state.occupation,
+      party: state.party,
+      departureMonth: state.departureMonth,
+      currentDay: state.currentDay,
+      milesTraveled: state.milesTraveled,
+      currentLandmarkIndex: state.currentLandmarkIndex,
+      pace: state.pace,
+      supplies: state.supplies,
+      weather: state.weather,
+      currentEvent: state.currentEvent,
+      currentRiver: state.currentRiver,
+      huntingFood: state.huntingFood,
+      huntingAmmoUsed: state.huntingAmmoUsed,
+      daysRested: state.daysRested,
+      foodHunted: state.foodHunted,
+      riversCrossed: state.riversCrossed,
+      eventsEncountered: state.eventsEncountered,
+      lastModified: Date.now(),
+    };
+  },
+
+  setProgress: (data) => {
+    set({
+      gamePhase: data.gamePhase,
+      gameStarted: data.gameStarted,
+      leaderName: data.leaderName,
+      occupation: data.occupation,
+      party: data.party,
+      departureMonth: data.departureMonth,
+      currentDay: data.currentDay,
+      milesTraveled: data.milesTraveled,
+      currentLandmarkIndex: data.currentLandmarkIndex,
+      pace: data.pace,
+      supplies: data.supplies,
+      weather: data.weather,
+      currentEvent: data.currentEvent,
+      currentRiver: data.currentRiver,
+      huntingFood: data.huntingFood,
+      huntingAmmoUsed: data.huntingAmmoUsed,
+      daysRested: data.daysRested,
+      foodHunted: data.foodHunted,
+      riversCrossed: data.riversCrossed,
+      eventsEncountered: data.eventsEncountered,
+    });
+  },
 }), {
   name: "oregon-trail-storage",
   version: 1,

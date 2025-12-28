@@ -5,6 +5,31 @@ import { persist } from 'zustand/middleware';
 // TYPES
 // ============================================================================
 
+// Progress type for cloud sync
+// Index signature required for AppProgressData compatibility
+export type MonsterTruckProgress = {
+  [key: string]: unknown;
+  coins: number;
+  totalCoinsEarned: number;
+  currentTruckId: string;
+  trucks: Truck[];
+  upgrades: Record<string, {
+    engine: Upgrade;
+    suspension: Upgrade;
+    tires: Upgrade;
+    nos: Upgrade;
+  }>;
+  customization: Record<string, {
+    paintColor: string;
+    decal: string | null;
+  }>;
+  starsCollected: number;
+  challenges: Challenge[];
+  soundEnabled: boolean;
+  musicEnabled: boolean;
+  lastModified: number;
+};
+
 export interface Truck {
   id: string;
   name: string;
@@ -125,6 +150,10 @@ export interface GameActions {
   getCurrentTruck: () => Truck;
   getTruckStats: (truckId: string) => { engine: number; suspension: number; tires: number; nos: number };
   getNextUpgradeCost: (truckId: string, stat: 'engine' | 'suspension' | 'tires' | 'nos') => number | null;
+
+  // Cloud sync
+  getProgress: () => MonsterTruckProgress;
+  setProgress: (data: MonsterTruckProgress) => void;
 }
 
 // ============================================================================
@@ -403,6 +432,39 @@ export const useGameStore = create<GameState & GameActions>()(
         if (upgrade.level >= upgrade.maxLevel) return null;
 
         return upgrade.costs[upgrade.level];
+      },
+
+      // Cloud sync
+      getProgress: () => {
+        const state = get();
+        return {
+          coins: state.coins,
+          totalCoinsEarned: state.totalCoinsEarned,
+          currentTruckId: state.currentTruckId,
+          trucks: state.trucks,
+          upgrades: state.upgrades,
+          customization: state.customization,
+          starsCollected: state.starsCollected,
+          challenges: state.challenges,
+          soundEnabled: state.soundEnabled,
+          musicEnabled: state.musicEnabled,
+          lastModified: Date.now(),
+        };
+      },
+
+      setProgress: (data) => {
+        set({
+          coins: data.coins,
+          totalCoinsEarned: data.totalCoinsEarned,
+          currentTruckId: data.currentTruckId,
+          trucks: data.trucks,
+          upgrades: data.upgrades,
+          customization: data.customization,
+          starsCollected: data.starsCollected,
+          challenges: data.challenges,
+          soundEnabled: data.soundEnabled,
+          musicEnabled: data.musicEnabled,
+        });
       },
     }),
     {

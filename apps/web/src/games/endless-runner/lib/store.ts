@@ -20,7 +20,9 @@ import {
 } from "./constants";
 
 // Progress data that gets synced to server
+// Index signature required for AppProgressData compatibility
 export type EndlessRunnerProgress = {
+  [key: string]: unknown;
   highScore: number;
   totalDistance: number;
   totalCoins: number;

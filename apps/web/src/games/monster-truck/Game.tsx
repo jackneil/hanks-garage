@@ -16,7 +16,8 @@ import { MobileControls } from './components/MobileControls';
 import { GameUI, PauseMenu } from './components/GameUI';
 import { Garage } from './components/Garage';
 import { useCombinedControls } from './hooks/useControls';
-import { useGameStore } from './lib/store';
+import { useGameStore, type MonsterTruckProgress } from './lib/store';
+import { useAuthSync } from '@/shared/hooks/useAuthSync';
 import { sounds } from './lib/sounds';
 import { WORLD } from './lib/constants';
 import { getTerrainHeight } from './lib/terrainUtils';
@@ -107,6 +108,16 @@ export function MonsterTruckGame() {
   const vehicleRef = useRef<RapierRigidBody | null>(null);
   const [speed, setSpeed] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // Cloud sync for authenticated users
+  const store = useGameStore();
+  useAuthSync<MonsterTruckProgress>({
+    appId: "monster-truck",
+    localStorageKey: "monster-truck-save",
+    getState: () => store.getProgress(),
+    setState: (data) => store.setProgress(data),
+    debounceMs: 3000,
+  });
 
   // Game state from store
   const isPaused = useGameStore((s) => s.isPaused);

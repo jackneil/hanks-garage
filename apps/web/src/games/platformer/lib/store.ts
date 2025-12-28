@@ -21,7 +21,9 @@ import {
 } from "./constants";
 
 // Progress data that gets synced to server
+// Index signature required for AppProgressData compatibility
 export type PlatformerProgress = {
+  [key: string]: unknown;
   // Level progress
   levels: {
     [levelId: string]: {

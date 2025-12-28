@@ -113,7 +113,6 @@ export function useAuthSync<T extends AppProgressData>({
    */
   const performInitialSync = useCallback(async () => {
     if (initialSyncDoneRef.current) return;
-    initialSyncDoneRef.current = true;
 
     setSyncStatus("syncing");
 
@@ -124,11 +123,8 @@ export function useAuthSync<T extends AppProgressData>({
     const serverResult = await fetchFromServer();
 
     if (!serverResult) {
-      // Server fetch failed - just upload local state
-      if (localState && Object.keys(localState).length > 0) {
-        await saveToServer(localState, false);
-        onSyncComplete?.("local");
-      }
+      // Server fetch failed - DON'T set flag, allow retry on next auth change
+      setSyncStatus("error");
       return;
     }
 
@@ -137,8 +133,15 @@ export function useAuthSync<T extends AppProgressData>({
     // No server data - upload local
     if (!serverData) {
       if (localState && Object.keys(localState).length > 0) {
-        await saveToServer(localState, false);
-        onSyncComplete?.("local");
+        const success = await saveToServer(localState, false);
+        if (success) {
+          initialSyncDoneRef.current = true;
+          onSyncComplete?.("local");
+        }
+      } else {
+        // No data anywhere, but sync is "done"
+        initialSyncDoneRef.current = true;
+        setSyncStatus("synced");
       }
       return;
     }
@@ -152,6 +155,7 @@ export function useAuthSync<T extends AppProgressData>({
           ? new Date(serverResult.lastSyncedAt)
           : new Date()
       );
+      initialSyncDoneRef.current = true;
       onSyncComplete?.("server");
       return;
     }
@@ -164,6 +168,7 @@ export function useAuthSync<T extends AppProgressData>({
       const merged = await fetchFromServer();
       if (merged?.data) {
         setState(merged.data as T);
+        initialSyncDoneRef.current = true;
         onSyncComplete?.("server");
       }
     }

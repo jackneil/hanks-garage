@@ -9,7 +9,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Matter from 'matter-js';
 import { useCombinedControls, useIsMobile, usePauseKeyboard } from './hooks/useControls';
-import { useHillClimbStore } from './lib/store';
+import { useHillClimbStore, type HillClimbProgress } from './lib/store';
+import { useAuthSync } from '@/shared/hooks/useAuthSync';
 import {
   createVehicle,
   applyWheelTorque,
@@ -89,6 +90,17 @@ export function HillClimbGame() {
   usePauseKeyboard(); // Handle Escape key for pause menu
 
   // Store
+  const store = useHillClimbStore();
+
+  // Cloud sync for authenticated users
+  useAuthSync<HillClimbProgress>({
+    appId: "hill-climb",
+    localStorageKey: "hill-climb-storage",
+    getState: () => store.getProgress(),
+    setState: (data) => store.setProgress(data),
+    debounceMs: 3000,
+  });
+
   const {
     isPlaying,
     isGameOver,
@@ -110,7 +122,7 @@ export function HillClimbGame() {
     addAirtime,
     updateDistance,
     getVehicleStats,
-  } = useHillClimbStore();
+  } = store;
 
   // Local state
   const [speed, setSpeed] = useState(0);

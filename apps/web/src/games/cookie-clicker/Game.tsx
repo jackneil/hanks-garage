@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useCookieClickerStore } from "./lib/store";
+import { useCookieClickerStore, type CookieClickerProgress } from "./lib/store";
 import {
   BUILDINGS,
   GAME_CONFIG,
@@ -12,6 +12,7 @@ import {
   getAchievementById,
   type BuildingId,
 } from "./lib/constants";
+import { useAuthSync } from "@/shared/hooks/useAuthSync";
 
 // ============================================================================
 // MAIN GAME COMPONENT
@@ -23,6 +24,15 @@ export function CookieClickerGame() {
   const [offlineEarnings, setOfflineEarnings] = useState(0);
   const tickRef = useRef<NodeJS.Timeout | null>(null);
   const hasInitialized = useRef(false);
+
+  // Cloud sync for authenticated users
+  useAuthSync<CookieClickerProgress>({
+    appId: "cookie-clicker",
+    localStorageKey: "cookie-clicker-storage",
+    getState: () => store.getProgress(),
+    setState: (data) => store.setProgress(data),
+    debounceMs: 5000, // Cookie clicker state changes frequently
+  });
 
   // Initialize game on mount
   useEffect(() => {

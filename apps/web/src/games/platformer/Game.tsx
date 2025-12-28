@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useCallback, useState } from "react";
-import { usePlatformerStore } from "./lib/store";
+import { usePlatformerStore, type PlatformerProgress } from "./lib/store";
+import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import {
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
@@ -23,6 +24,16 @@ export function PlatformerGame() {
   const [scale, setScale] = useState(1);
 
   const store = usePlatformerStore();
+
+  // Cloud sync for authenticated users
+  useAuthSync<PlatformerProgress>({
+    appId: "platformer",
+    localStorageKey: "hank-platformer-progress",
+    getState: () => store.getProgress(),
+    setState: (data) => store.setProgress(data),
+    debounceMs: 3000,
+  });
+
   const {
     gameState,
     currentLevelIndex,

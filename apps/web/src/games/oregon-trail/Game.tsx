@@ -1,5 +1,6 @@
 "use client";
-import { useOregonTrailStore } from "./lib/store";
+import { useOregonTrailStore, type OregonTrailSyncData } from "./lib/store";
+import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import { TitleScreen } from "./components/TitleScreen";
 import { Store } from "./components/Store";
 import { Travel } from "./components/Travel";
@@ -9,7 +10,17 @@ import { Hunting } from "./components/Hunting";
 import { GameUI } from "./components/GameUI";
 
 export default function OregonTrailGame() {
-  const { gamePhase } = useOregonTrailStore();
+  const store = useOregonTrailStore();
+  const { gamePhase } = store;
+
+  // Cloud sync for authenticated users
+  useAuthSync<OregonTrailSyncData>({
+    appId: "oregon-trail",
+    localStorageKey: "oregon-trail-storage",
+    getState: () => store.getProgress(),
+    setState: (data) => store.setProgress(data),
+    debounceMs: 5000,
+  });
 
   switch (gamePhase) {
     case "title":

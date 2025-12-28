@@ -20,6 +20,25 @@ export interface VehicleUpgrades {
   nitro: number;
 }
 
+// Progress type for cloud sync
+// Index signature required for AppProgressData compatibility
+export type HillClimbProgress = {
+  [key: string]: unknown;
+  coins: number;
+  totalCoinsEarned: number;
+  bestDistance: number;
+  bestDistancePerStage: Record<string, number>;
+  currentVehicleId: string;
+  unlockedVehicles: string[];
+  vehicleUpgrades: Record<string, VehicleUpgrades>;
+  currentStageId: string;
+  unlockedStages: string[];
+  leanSensitivity: number;
+  soundEnabled: boolean;
+  musicEnabled: boolean;
+  lastModified: number;
+};
+
 export interface GameState {
   // Currency
   coins: number;
@@ -109,6 +128,10 @@ export interface GameActions {
   toggleMusic: () => void;
   setLeanSensitivity: (value: number) => void;
   resetProgress: () => void;
+
+  // Cloud sync
+  getProgress: () => HillClimbProgress;
+  setProgress: (data: HillClimbProgress) => void;
 }
 
 // =============================================================================
@@ -458,6 +481,43 @@ export const useHillClimbStore = create<GameState & GameActions>()(
 
       resetProgress: () => {
         set(initialState);
+      },
+
+      // Cloud sync
+      getProgress: () => {
+        const state = get();
+        return {
+          coins: state.coins,
+          totalCoinsEarned: state.totalCoinsEarned,
+          bestDistance: state.bestDistance,
+          bestDistancePerStage: state.bestDistancePerStage,
+          currentVehicleId: state.currentVehicleId,
+          unlockedVehicles: state.unlockedVehicles,
+          vehicleUpgrades: state.vehicleUpgrades,
+          currentStageId: state.currentStageId,
+          unlockedStages: state.unlockedStages,
+          leanSensitivity: state.leanSensitivity,
+          soundEnabled: state.soundEnabled,
+          musicEnabled: state.musicEnabled,
+          lastModified: Date.now(),
+        };
+      },
+
+      setProgress: (data) => {
+        set({
+          coins: data.coins,
+          totalCoinsEarned: data.totalCoinsEarned,
+          bestDistance: data.bestDistance,
+          bestDistancePerStage: data.bestDistancePerStage,
+          currentVehicleId: data.currentVehicleId,
+          unlockedVehicles: data.unlockedVehicles,
+          vehicleUpgrades: data.vehicleUpgrades,
+          currentStageId: data.currentStageId,
+          unlockedStages: data.unlockedStages,
+          leanSensitivity: data.leanSensitivity,
+          soundEnabled: data.soundEnabled,
+          musicEnabled: data.musicEnabled,
+        });
       },
     }),
     {

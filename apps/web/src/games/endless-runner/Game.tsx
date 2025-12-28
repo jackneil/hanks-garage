@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useCallback, useState } from "react";
-import { useEndlessRunnerStore } from "./lib/store";
+import { useEndlessRunnerStore, type EndlessRunnerProgress } from "./lib/store";
 import {
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
@@ -15,6 +15,7 @@ import {
   CHARACTERS,
   type CharacterId,
 } from "./lib/constants";
+import { useAuthSync } from "@/shared/hooks/useAuthSync";
 
 export function EndlessRunnerGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -24,6 +25,16 @@ export function EndlessRunnerGame() {
   const [scale, setScale] = useState(1);
 
   const store = useEndlessRunnerStore();
+
+  // Cloud sync for authenticated users
+  useAuthSync<EndlessRunnerProgress>({
+    appId: "endless-runner",
+    localStorageKey: "endless-runner-storage",
+    getState: () => store.getProgress(),
+    setState: (data) => store.setProgress(data),
+    debounceMs: 3000,
+  });
+
   const {
     gameState,
     score,
