@@ -8,24 +8,12 @@ const nextConfig: NextConfig = {
   transpilePackages: ["three"],
 
   // Security headers to prevent clickjacking, XSS, MIME sniffing
+  // IMPORTANT: Order matters! When multiple rules match, LAST one wins for each header.
+  // So put general rules FIRST, specific overrides LAST.
   async headers() {
     return [
-      // Emulator needs to be framed by same origin (retro-arcade game loads it in iframe)
-      {
-        source: "/emulator/:path*",
-        headers: [
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-DNS-Prefetch-Control", value: "on" },
-          {
-            key: "Content-Security-Policy",
-            value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.emulatorjs.org https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.emulatorjs.org; img-src 'self' data: https: blob:; font-src 'self' data: https://cdn.emulatorjs.org; connect-src 'self' https: blob:; media-src 'self' blob:; worker-src 'self' blob:; frame-ancestors 'self';",
-          },
-        ],
-      },
       // All other routes - strict security (no framing allowed)
+      // This is FIRST so the emulator rule below can override it
       {
         source: "/:path*",
         headers: [
@@ -45,6 +33,22 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value:
               "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; media-src 'self' blob:; worker-src 'self' blob:; frame-ancestors 'none';",
+          },
+        ],
+      },
+      // Emulator needs to be framed by same origin (retro-arcade game loads it in iframe)
+      // This is LAST so it overrides the global rule above for /emulator/* paths
+      {
+        source: "/emulator/:path*",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-DNS-Prefetch-Control", value: "on" },
+          {
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.emulatorjs.org https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.emulatorjs.org; img-src 'self' data: https: blob:; font-src 'self' data: https://cdn.emulatorjs.org; connect-src 'self' https: blob:; media-src 'self' blob:; worker-src 'self' blob:; frame-ancestors 'self';",
           },
         ],
       },
