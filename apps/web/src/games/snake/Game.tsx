@@ -12,6 +12,7 @@ import {
 } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import { FullscreenButton } from "@/shared/components/FullscreenButton";
+import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
 
 // ============================================
 // GAME BOARD COMPONENT
@@ -518,6 +519,9 @@ export function SnakeGame() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-800 to-green-950 p-4 flex flex-col items-center justify-center gap-6">
+      {/* iOS install prompt */}
+      <IOSInstallPrompt />
+
       {/* Fullscreen button */}
       <div className="fixed top-4 right-4 z-50">
         <FullscreenButton />

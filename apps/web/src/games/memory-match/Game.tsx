@@ -12,6 +12,7 @@ import {
 } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import { FullscreenButton } from "@/shared/components/FullscreenButton";
+import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
 
 // Card component with flip animation
 function Card({
@@ -368,6 +369,9 @@ export function MemoryMatchGame() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-800 to-purple-900 p-4 flex flex-col items-center gap-4 md:gap-6">
+      {/* iOS install prompt */}
+      <IOSInstallPrompt />
+
       {/* Fullscreen button */}
       <div className="fixed top-4 right-4 z-50">
         <FullscreenButton />

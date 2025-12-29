@@ -9,6 +9,8 @@ import {
   type Joke,
 } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
+import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
+import { FullscreenButton } from "@/shared/components/FullscreenButton";
 
 /**
  * Joke Generator - Kid-friendly joke app
@@ -124,6 +126,14 @@ export function JokeGenerator() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-300 via-yellow-400 to-orange-400 p-4 flex flex-col">
+      {/* iOS install prompt */}
+      <IOSInstallPrompt />
+
+      {/* Fullscreen button */}
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       {/* Header */}
       <header className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">

@@ -11,6 +11,8 @@ import {
   type SystemInfo,
 } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
+import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
+import { FullscreenButton } from "@/shared/components/FullscreenButton";
 import { GameBrowser } from "./components/GameBrowser";
 import { type CatalogGame, SNES_CATALOG } from "./lib/snes-catalog";
 
@@ -389,6 +391,14 @@ export function RetroArcadeGame() {
   // Show console selection
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 p-6 flex flex-col">
+      {/* iOS install prompt */}
+      <IOSInstallPrompt />
+
+      {/* Fullscreen button */}
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       <header className="text-center mb-8">
         <h1 className="text-5xl font-bold text-white mb-2">Retro Arcade</h1>
         <p className="text-white/70 text-xl">Pick a console to play!</p>

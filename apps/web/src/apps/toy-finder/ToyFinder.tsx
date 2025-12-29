@@ -12,6 +12,8 @@ import {
   type Priority,
 } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
+import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
+import { FullscreenButton } from "@/shared/components/FullscreenButton";
 
 /**
  * Toy Finder - Kid-friendly toy discovery app
@@ -80,6 +82,14 @@ export function ToyFinder() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-400 via-blue-500 to-purple-500 p-4 flex flex-col">
+      {/* iOS install prompt */}
+      <IOSInstallPrompt />
+
+      {/* Fullscreen button */}
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       {/* Header */}
       <header className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">

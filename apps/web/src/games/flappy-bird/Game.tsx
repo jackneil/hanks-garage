@@ -409,7 +409,7 @@ export function FlappyBirdGame() {
             e.preventDefault();
             handleInput();
           }}
-          className="rounded-lg shadow-2xl cursor-pointer touch-none"
+          className="rounded-lg shadow-2xl cursor-pointer touch-manipulation"
           style={{
             width: CANVAS_WIDTH * scale,
             height: CANVAS_HEIGHT * scale,

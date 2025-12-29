@@ -5,6 +5,7 @@ import { use2048Store } from "./lib/store";
 import { getTileColors, GRID_SIZE, TIMINGS, type Direction } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import { FullscreenButton } from "@/shared/components/FullscreenButton";
+import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
 
 // Tile component with animations
 function Tile({
@@ -335,6 +336,9 @@ export function Game2048() {
 
   return (
     <div className="min-h-screen bg-[#faf8ef] p-4 flex flex-col items-center justify-center">
+      {/* iOS install prompt */}
+      <IOSInstallPrompt />
+
       {/* Fullscreen button */}
       <div className="fixed top-4 right-4 z-50">
         <FullscreenButton />
