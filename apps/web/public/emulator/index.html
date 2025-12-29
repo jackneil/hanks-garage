@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- SECURITY: Content Security Policy for emulator iframe -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.emulatorjs.org;
+                 style-src 'self' 'unsafe-inline' https://cdn.emulatorjs.org;
+                 img-src 'self' data: blob: https:;
+                 media-src 'self' blob:;
+                 connect-src 'self' https: blob:;
+                 worker-src 'self' blob:;
+                 font-src 'self' data: https://cdn.emulatorjs.org;">
+  <title>Retro Arcade Emulator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+    #game {
+      width: 100%;
+      height: 100%;
+    }
+    #loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      color: #fff;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    #loading .icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: bounce 1s infinite;
+    }
+    #loading .text {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    #loading .subtext {
+      font-size: 0.875rem;
+      color: #888;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="icon">🎮</div>
+    <div class="text">Loading Emulator...</div>
+    <div class="subtext">This may take a moment</div>
+  </div>
+  <div id="game"></div>
+
+  <script>
+    // SECURITY: Get parent origin for secure postMessage
+    // This prevents messages from being sent to/received from unauthorized origins
+    const PARENT_ORIGIN = window.location.origin;
+
+    // SECURITY: Allowed ROM URL patterns
+    // Allow HTTPS URLs from our CDN, Railway, or same origin
+    const ALLOWED_ROM_PATTERNS = [
+      /^https:\/\/[^/]+\.railway\.app\//,  // Railway S3
+      /^https:\/\/storage\.railway\.app\//,  // Railway storage
+      new RegExp(`^${window.location.origin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/`),  // Same origin
+      /^\/[^/]/,  // Relative paths (starting with /)
+    ];
+
+    function isValidRomUrl(url) {
+      if (!url) return false;
+
+      // Block dangerous protocols
+      const lowerUrl = url.toLowerCase();
+      if (lowerUrl.startsWith('javascript:') ||
+          lowerUrl.startsWith('data:') ||
+          lowerUrl.startsWith('vbscript:')) {
+        return false;
+      }
+
+      // SECURITY: Allow blob: URLs but only from same origin
+      // User-uploaded ROMs use blob: URLs created via URL.createObjectURL()
+      if (url.startsWith('blob:')) {
+        try {
+          // blob: URLs have format: blob:https://origin/uuid
+          const blobUrl = new URL(url);
+          // The origin is in the pathname for blob URLs
+          const blobOrigin = blobUrl.origin;
+          return blobOrigin === window.location.origin;
+        } catch {
+          return false;
+        }
+      }
+
+      // Allow relative URLs (same origin) but NOT protocol-relative URLs
+      // Protocol-relative URLs like //evil.com would bypass validation
+      if (url.startsWith('/') && !url.startsWith('//')) {
+        return true;
+      }
+
+      // Must be valid URL for HTTPS
+      try {
+        const parsed = new URL(url);
+        // Only allow HTTPS
+        if (parsed.protocol !== 'https:') {
+          return false;
+        }
+      } catch {
+        return false;
+      }
+
+      // Check against allowed patterns
+      return ALLOWED_ROM_PATTERNS.some(pattern => pattern.test(url));
+    }
+
+    // Parse URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const core = params.get('core') || 'nes';
+    const romUrl = params.get('rom');
+    // SECURITY: Sanitize game name to prevent XSS
+    const gameName = (params.get('name') || 'Game').replace(/[<>"'&]/g, '');
+
+    // Validate required parameters
+    if (!romUrl) {
+      document.getElementById('loading').innerHTML = `
+        <div class="icon">⚠️</div>
+        <div class="text">No ROM specified</div>
+        <div class="subtext">Please provide a ROM file</div>
+      `;
+      throw new Error('No ROM URL provided');
+    }
+
+    // SECURITY: Validate ROM URL
+    if (!isValidRomUrl(romUrl)) {
+      document.getElementById('loading').innerHTML = `
+        <div class="icon">🚫</div>
+        <div class="text">Invalid ROM URL</div>
+        <div class="subtext">ROM must be from an authorized source</div>
+      `;
+      throw new Error('Invalid ROM URL: ' + romUrl);
+    }
+
+    // EmulatorJS configuration
+    window.EJS_player = '#game';
+    window.EJS_core = core;
+    window.EJS_gameUrl = romUrl;
+    window.EJS_gameName = gameName;
+    window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+
+    // Kid-friendly defaults
+    window.EJS_volume = 0.5;
+    window.EJS_startOnLoaded = true;
+    window.EJS_fullscreenOnLoaded = false;
+    window.EJS_color = '#3B82F6';
+
+    // Enable virtual gamepad on mobile
+    window.EJS_VirtualGamepadSettings = {
+      enabled: true,
+      leftHandLayout: false,
+      leftHandDeadzone: 0.1,
+      rightHandDeadzone: 0.1,
+      opacity: 0.7,
+      size: 1.2
+    };
+
+    // Notify parent when emulator is ready
+    // SECURITY: Use specific origin instead of wildcard '*'
+    window.EJS_onGameStart = function() {
+      document.getElementById('loading').classList.add('hidden');
+      window.parent.postMessage({ type: 'ready' }, PARENT_ORIGIN);
+    };
+
+    // Handle save states
+    // SECURITY: Use specific origin instead of wildcard '*'
+    window.EJS_onSaveState = function(data) {
+      window.parent.postMessage({ type: 'saveState', data: data }, PARENT_ORIGIN);
+    };
+
+    window.EJS_onLoadState = function() {
+      window.parent.postMessage({ type: 'requestLoadState' }, PARENT_ORIGIN);
+    };
+
+    // Listen for messages from parent
+    // SECURITY: Validate message origin before processing
+    window.addEventListener('message', function(event) {
+      // Only accept messages from same origin
+      if (event.origin !== PARENT_ORIGIN) {
+        console.warn('Ignoring message from unauthorized origin:', event.origin);
+        return;
+      }
+
+      if (event.data.type === 'loadState' && event.data.data) {
+        // Handle load state from parent
+        if (window.EJS_emulator && window.EJS_emulator.gameManager) {
+          window.EJS_emulator.gameManager.loadState(event.data.data);
+        }
+      }
+    });
+
+    // Load the EmulatorJS loader script
+    const script = document.createElement('script');
+    script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+    script.async = true;
+    script.onerror = function() {
+      document.getElementById('loading').innerHTML = `
+        <div class="icon">❌</div>
+        <div class="text">Failed to load emulator</div>
+        <div class="subtext">Please check your internet connection</div>
+      `;
+    };
+    document.body.appendChild(script);
+  </script>
+</body>
+</html>
