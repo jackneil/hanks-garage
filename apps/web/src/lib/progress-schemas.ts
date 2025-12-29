@@ -14,6 +14,11 @@ import type { ValidAppId } from "@hank-neil/db/schema";
 // Common limits
 const MAX_CURRENCY = 1_000_000_000_000; // 1 trillion - generous for any game
 const MAX_COUNT = 1_000_000; // 1 million items/games/etc
+const MAX_STRING_LENGTH = 255; // Max length for string fields
+const MAX_RECORD_KEYS = 100; // Max keys in a record/object
+
+// Bounded string helper - all strings have max length
+const boundedString = z.string().max(MAX_STRING_LENGTH);
 
 // Timestamp validation - computed at validation time, not module load
 // This prevents the bug where MAX_TIMESTAMP becomes stale after 24h uptime
@@ -21,6 +26,13 @@ const timestampSchema = z.number().min(0).refine(
   (val) => val <= Date.now() + 86400000,
   { message: "Timestamp cannot be more than 1 day in the future" }
 ).optional();
+
+// Helper to create a bounded record (limits number of keys)
+const boundedRecord = <T extends z.ZodTypeAny>(valueSchema: T) =>
+  z.record(boundedString, valueSchema).refine(
+    (obj) => Object.keys(obj).length <= MAX_RECORD_KEYS,
+    { message: `Too many entries (max ${MAX_RECORD_KEYS})` }
+  );
 
 // ============================================================================
 // 2048
@@ -31,7 +43,7 @@ const game2048Schema = z.object({
   gamesPlayed: z.number().min(0).max(MAX_COUNT),
   gamesWon: z.number().min(0).max(MAX_COUNT),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Snake
@@ -41,14 +53,14 @@ const snakeSchema = z.object({
   gamesPlayed: z.number().min(0).max(MAX_COUNT),
   totalFoodEaten: z.number().min(0).max(MAX_COUNT),
   longestSnake: z.number().min(0).max(1000),
-  unlockedThemes: z.array(z.string()).max(100),
-  selectedTheme: z.string().optional(),
+  unlockedThemes: z.array(boundedString).max(100),
+  selectedTheme: boundedString.optional(),
   soundEnabled: z.boolean().optional(),
   wraparoundWalls: z.boolean().optional(),
-  controlMode: z.string().optional(),
+  controlMode: boundedString.optional(),
   speed: z.number().min(1).max(10).optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Flappy Bird
@@ -65,7 +77,7 @@ const flappyBirdSchema = z.object({
   }).optional(),
   soundEnabled: z.boolean().optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Cookie Clicker
@@ -74,13 +86,13 @@ const cookieClickerSchema = z.object({
   cookies: z.number().min(0).max(MAX_CURRENCY),
   totalCookiesBaked: z.number().min(0).max(MAX_CURRENCY),
   totalClicks: z.number().min(0).max(MAX_CURRENCY),
-  buildings: z.record(z.string(), z.number().min(0).max(10000)),
-  purchasedUpgrades: z.array(z.string()).max(500),
-  unlockedAchievements: z.array(z.string()).max(500),
+  buildings: boundedRecord(z.number().min(0).max(10000)),
+  purchasedUpgrades: z.array(boundedString).max(500),
+  unlockedAchievements: z.array(boundedString).max(500),
   soundEnabled: z.boolean().optional(),
   lastTick: timestampSchema,
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Memory Match
@@ -88,13 +100,13 @@ const cookieClickerSchema = z.object({
 const memoryMatchSchema = z.object({
   gamesWon: z.number().min(0).max(MAX_COUNT),
   totalMatches: z.number().min(0).max(MAX_COUNT),
-  bestTimes: z.record(z.string(), z.number().min(0).max(86400000)).optional(), // Max 24h
-  unlockedThemes: z.array(z.string()).max(100),
-  selectedTheme: z.string().optional(),
-  difficulty: z.string().optional(),
+  bestTimes: boundedRecord(z.number().min(0).max(86400000)).optional(), // Max 24h
+  unlockedThemes: z.array(boundedString).max(100),
+  selectedTheme: boundedString.optional(),
+  difficulty: boundedString.optional(),
   soundEnabled: z.boolean().optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Checkers
@@ -105,13 +117,13 @@ const checkersSchema = z.object({
   gamesLost: z.number().min(0).max(MAX_COUNT),
   winStreak: z.number().min(0).max(MAX_COUNT),
   bestWinStreak: z.number().min(0).max(MAX_COUNT),
-  perDifficulty: z.record(z.string(), z.object({
+  perDifficulty: boundedRecord(z.object({
     played: z.number().min(0).max(MAX_COUNT),
     won: z.number().min(0).max(MAX_COUNT),
   })).optional(),
-  difficulty: z.string().optional(),
+  difficulty: boundedString.optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Chess
@@ -121,17 +133,17 @@ const chessSchema = z.object({
   wins: z.number().min(0).max(MAX_COUNT),
   losses: z.number().min(0).max(MAX_COUNT),
   draws: z.number().min(0).max(MAX_COUNT),
-  perDifficulty: z.record(z.string(), z.object({
+  perDifficulty: boundedRecord(z.object({
     played: z.number().min(0).max(MAX_COUNT),
     won: z.number().min(0).max(MAX_COUNT),
     lost: z.number().min(0).max(MAX_COUNT),
     drawn: z.number().min(0).max(MAX_COUNT),
   })).optional(),
-  difficulty: z.string().optional(),
-  gameMode: z.string().optional(),
-  playerColor: z.string().optional(),
+  difficulty: boundedString.optional(),
+  gameMode: boundedString.optional(),
+  playerColor: boundedString.optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Quoridor
@@ -140,15 +152,15 @@ const quoridorSchema = z.object({
   gamesPlayed: z.number().min(0).max(MAX_COUNT),
   wins: z.number().min(0).max(MAX_COUNT),
   losses: z.number().min(0).max(MAX_COUNT),
-  perDifficulty: z.record(z.string(), z.object({
+  perDifficulty: boundedRecord(z.object({
     played: z.number().min(0).max(MAX_COUNT),
     won: z.number().min(0).max(MAX_COUNT),
     lost: z.number().min(0).max(MAX_COUNT),
   })).optional(),
-  difficulty: z.string().optional(),
-  gameMode: z.string().optional(),
+  difficulty: boundedString.optional(),
+  gameMode: boundedString.optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Oregon Trail
@@ -164,14 +176,14 @@ const oregonTrailSchema = z.object({
   totalDaysTraveled: z.number().min(0).max(MAX_COUNT),
   totalPartySaved: z.number().min(0).max(MAX_COUNT),
   totalPartyLost: z.number().min(0).max(MAX_COUNT),
-  partyMemberNames: z.array(z.string()).max(100),
-  achievementsUnlocked: z.array(z.string()).max(100),
-  preferredOccupation: z.string().optional(),
-  lastDepartureMonth: z.string().optional(),
+  partyMemberNames: z.array(boundedString).max(100),
+  achievementsUnlocked: z.array(boundedString).max(100),
+  preferredOccupation: boundedString.optional(),
+  lastDepartureMonth: boundedString.optional(),
   lastPlayedAt: timestampSchema,
   totalPlaytimeMinutes: z.number().min(0).max(MAX_COUNT),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Monster Truck
@@ -181,26 +193,26 @@ const monsterTruckSchema = z.object({
   totalCoinsEarned: z.number().min(0).max(MAX_CURRENCY),
   starsCollected: z.number().min(0).max(MAX_COUNT),
   trucks: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
+    id: boundedString,
+    name: boundedString,
     unlocked: z.boolean(),
-    color: z.string(),
+    color: boundedString,
   })).max(100),
-  upgrades: z.record(z.string(), z.record(z.string(), z.object({
+  upgrades: boundedRecord(boundedRecord(z.object({
     level: z.number().min(0).max(100),
     maxLevel: z.number().min(0).max(100),
   }))).optional(),
   challenges: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
+    id: boundedString,
+    name: boundedString,
     completed: z.boolean(),
     reward: z.number().min(0).max(MAX_CURRENCY),
   })).max(500),
-  currentTruckId: z.string().optional(),
+  currentTruckId: boundedString.optional(),
   soundEnabled: z.boolean().optional(),
   musicEnabled: z.boolean().optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Hill Climb
@@ -209,23 +221,23 @@ const hillClimbSchema = z.object({
   coins: z.number().min(0).max(MAX_CURRENCY),
   totalCoinsEarned: z.number().min(0).max(MAX_CURRENCY),
   bestDistance: z.number().min(0).max(MAX_CURRENCY),
-  currentVehicleId: z.string().optional(),
-  currentStageId: z.string().optional(),
-  unlockedVehicles: z.array(z.string()).max(100),
-  unlockedStages: z.array(z.string()).max(100),
-  vehicleUpgrades: z.record(z.string(), z.object({
+  currentVehicleId: boundedString.optional(),
+  currentStageId: boundedString.optional(),
+  unlockedVehicles: z.array(boundedString).max(100),
+  unlockedStages: z.array(boundedString).max(100),
+  vehicleUpgrades: boundedRecord(z.object({
     engine: z.number().min(0).max(100),
     suspension: z.number().min(0).max(100),
     tires: z.number().min(0).max(100),
     fuelTank: z.number().min(0).max(100),
     nitro: z.number().min(0).max(100),
   })).optional(),
-  bestDistancePerStage: z.record(z.string(), z.number().min(0).max(MAX_CURRENCY)).optional(),
+  bestDistancePerStage: boundedRecord(z.number().min(0).max(MAX_CURRENCY)).optional(),
   soundEnabled: z.boolean().optional(),
   musicEnabled: z.boolean().optional(),
   leanSensitivity: z.number().min(0.1).max(5).optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Endless Runner
@@ -235,11 +247,11 @@ const endlessRunnerSchema = z.object({
   totalDistance: z.number().min(0).max(MAX_CURRENCY),
   totalCoins: z.number().min(0).max(MAX_CURRENCY),
   gamesPlayed: z.number().min(0).max(MAX_COUNT),
-  unlockedCharacters: z.array(z.string()).max(100),
-  selectedCharacter: z.string().optional(),
+  unlockedCharacters: z.array(boundedString).max(100),
+  selectedCharacter: boundedString.optional(),
   powerupsUsed: z.number().min(0).max(MAX_COUNT).optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Platformer
@@ -250,42 +262,42 @@ const platformerSchema = z.object({
   currentLevel: z.number().min(0).max(100),
   totalStars: z.number().min(0).max(MAX_COUNT),
   totalCoins: z.number().min(0).max(MAX_CURRENCY),
-  levelProgress: z.record(z.string(), z.object({
+  levelProgress: boundedRecord(z.object({
     completed: z.boolean(),
     stars: z.number().min(0).max(3),
     bestTime: z.number().min(0).max(86400000).optional(),
   })).optional(),
-  unlockedCharacters: z.array(z.string()).max(100),
-  selectedCharacter: z.string().optional(),
+  unlockedCharacters: z.array(boundedString).max(100),
+  selectedCharacter: boundedString.optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Retro Arcade
 // ============================================================================
 const retroArcadeSchema = z.object({
-  favorites: z.array(z.string()).max(500),
+  favorites: z.array(boundedString).max(500),
   recentlyPlayed: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-    system: z.string(),
+    id: boundedString,
+    name: boundedString,
+    system: boundedString,
     lastPlayed: z.number(),
     playtime: z.number().min(0).max(MAX_COUNT),
   })).max(100),
-  saveStates: z.record(z.string(), z.object({
-    data: z.string().optional(),
-    screenshot: z.string().optional(),
+  saveStates: boundedRecord(z.object({
+    data: z.string().max(1_000_000).optional(), // 1MB max for save state data
+    screenshot: z.string().max(500_000).optional(), // 500KB max for screenshot
     createdAt: z.number(),
   })).optional(),
   customRoms: z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-    system: z.string(),
+    id: boundedString,
+    name: boundedString,
+    system: boundedString,
   })).max(500),
   stats: z.object({
     totalPlaytime: z.number().min(0).max(MAX_CURRENCY),
     gamesPlayed: z.number().min(0).max(MAX_COUNT),
-    favoriteSystem: z.string().optional(),
+    favoriteSystem: boundedString.optional(),
   }).optional(),
   settings: z.object({
     volume: z.number().min(0).max(1),
@@ -293,29 +305,29 @@ const retroArcadeSchema = z.object({
     showTouchControls: z.boolean(),
   }).optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Apps (non-games)
 // ============================================================================
 const weatherSchema = z.object({
-  favoriteLocations: z.array(z.string()).max(50),
-  lastLocation: z.string().optional(),
+  favoriteLocations: z.array(boundedString).max(50),
+  lastLocation: boundedString.optional(),
   temperatureUnit: z.enum(["celsius", "fahrenheit"]).optional(),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 const jokeGeneratorSchema = z.object({
-  favoriteJokes: z.array(z.string()).max(500),
+  favoriteJokes: z.array(z.string().max(2000)).max(500), // Jokes can be longer
   jokesViewed: z.number().min(0).max(MAX_COUNT),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 const toyFinderSchema = z.object({
-  wishlist: z.array(z.string()).max(500),
-  viewedToys: z.array(z.string()).max(1000),
+  wishlist: z.array(boundedString).max(500),
+  viewedToys: z.array(boundedString).max(1000),
   lastModified: timestampSchema,
-}).passthrough();
+}).strict();
 
 // ============================================================================
 // Schema Registry

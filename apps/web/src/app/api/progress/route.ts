@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db, eq } from "@hank-neil/db";
 import { appProgress } from "@hank-neil/db/schema";
+import { checkProgressRateLimit } from "@/lib/rate-limit";
 
 /**
  * GET /api/progress
@@ -17,6 +18,15 @@ export async function GET() {
       return NextResponse.json(
         { error: "Unauthorized - please log in" },
         { status: 401 }
+      );
+    }
+
+    // Rate limit: 60 requests per minute per user
+    const rateLimit = checkProgressRateLimit(session.user.id);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: `Too many requests. Try again in ${rateLimit.resetIn}s` },
+        { status: 429 }
       );
     }
 

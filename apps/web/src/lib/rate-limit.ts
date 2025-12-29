@@ -117,6 +117,14 @@ export function checkLoginRateLimit(email: string): RateLimitResult {
 }
 
 /**
+ * Rate limit for progress saves: 60 requests per minute per user
+ * Generous limit but prevents spam/abuse
+ */
+export function checkProgressRateLimit(userId: string): RateLimitResult {
+  return checkRateLimit(`progress:${userId}`, 60, 60 * 1000);
+}
+
+/**
  * Helper to extract IP from request headers
  */
 export function getClientIP(request: Request): string {

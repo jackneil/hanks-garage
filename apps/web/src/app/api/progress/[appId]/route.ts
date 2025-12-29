@@ -9,6 +9,7 @@ import {
 } from "@hank-neil/db/schema";
 import { mergeProgress } from "@/lib/progress-merge";
 import { validateProgress } from "@/lib/progress-schemas";
+import { checkProgressRateLimit } from "@/lib/rate-limit";
 
 type RouteContext = {
   params: Promise<{ appId: string }>;
@@ -28,6 +29,15 @@ export async function GET(request: Request, context: RouteContext) {
       return NextResponse.json(
         { error: "Unauthorized - please log in" },
         { status: 401 }
+      );
+    }
+
+    // Rate limit: 60 requests per minute per user
+    const rateLimit = checkProgressRateLimit(session.user.id);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: `Too many requests. Try again in ${rateLimit.resetIn}s` },
+        { status: 429 }
       );
     }
 
@@ -88,6 +98,15 @@ export async function POST(request: Request, context: RouteContext) {
       return NextResponse.json(
         { error: "Unauthorized - please log in" },
         { status: 401 }
+      );
+    }
+
+    // Rate limit: 60 saves per minute per user
+    const rateLimit = checkProgressRateLimit(session.user.id);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: `Too many requests. Try again in ${rateLimit.resetIn}s` },
+        { status: 429 }
       );
     }
 
@@ -223,6 +242,15 @@ export async function DELETE(request: Request, context: RouteContext) {
       return NextResponse.json(
         { error: "Unauthorized - please log in" },
         { status: 401 }
+      );
+    }
+
+    // Rate limit: 10 deletes per minute per user (stricter than saves)
+    const rateLimit = checkProgressRateLimit(session.user.id);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: `Too many requests. Try again in ${rateLimit.resetIn}s` },
+        { status: 429 }
       );
     }
 
