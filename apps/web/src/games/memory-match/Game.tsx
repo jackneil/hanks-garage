@@ -11,6 +11,7 @@ import {
   calculateStars,
 } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
+import { FullscreenButton } from "@/shared/components/FullscreenButton";
 
 // Card component with flip animation
 function Card({
@@ -153,7 +154,7 @@ function DifficultySelector({
           onClick={() => onChange(d)}
           disabled={disabled}
           className={`
-            px-4 py-2 rounded-full font-bold text-sm md:text-base
+            px-5 py-3 rounded-full font-bold text-sm md:text-base touch-manipulation
             transition-all duration-200
             ${
               current === d
@@ -199,7 +200,7 @@ function ThemeSelector({
             onClick={() => isUnlocked && onChange(t)}
             disabled={disabled || !isUnlocked}
             className={`
-              px-4 py-2 rounded-full font-bold text-sm md:text-base
+              px-5 py-3 rounded-full font-bold text-sm md:text-base touch-manipulation
               transition-all duration-200 flex items-center gap-2
               ${
                 current === t
@@ -367,6 +368,11 @@ export function MemoryMatchGame() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-800 to-purple-900 p-4 flex flex-col items-center gap-4 md:gap-6">
+      {/* Fullscreen button */}
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       {/* Header */}
       <header className="text-center">
         <h1 className="text-3xl md:text-5xl font-bold text-white mb-1">

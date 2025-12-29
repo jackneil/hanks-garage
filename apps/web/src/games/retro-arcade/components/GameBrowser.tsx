@@ -62,8 +62,9 @@ function GameCard({
         transition-all duration-150 cursor-pointer
         border-2 border-white/20 hover:border-white/40
         flex flex-col items-center text-center
-        min-h-[100px] sm:min-h-[120px]
+        min-h-[120px] sm:min-h-[130px]
         disabled:opacity-50 disabled:cursor-wait
+        touch-manipulation
       `}
     >
       {/* Favorite star */}
@@ -203,8 +204,8 @@ export function GameBrowser({ onGameSelect, onUploadClick }: GameBrowserProps) {
         <span className="text-sm sm:text-base">Upload Your Own ROM</span>
       </button>
 
-      {/* Games grid - responsive columns */}
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
+      {/* Games grid - responsive columns (2 on tiny screens for bigger touch targets) */}
+      <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4">
         {filteredGames.map((game) => (
           <GameCard
             key={game.id}

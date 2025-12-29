@@ -25,7 +25,7 @@ function ConsoleCard({
   return (
     <button
       onClick={onClick}
-      className={`bg-gradient-to-br ${system.bgGradient} p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform cursor-pointer border-4 border-white/20 hover:border-white/40 min-w-[140px]`}
+      className={`bg-gradient-to-br ${system.bgGradient} p-6 rounded-2xl shadow-lg hover:scale-105 active:scale-95 transition-transform cursor-pointer border-4 border-white/20 hover:border-white/40 min-w-[140px] touch-manipulation`}
     >
       <div className="text-5xl mb-2">{system.icon}</div>
       <h3 className="text-xl font-bold text-white">{system.name}</h3>

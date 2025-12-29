@@ -24,12 +24,12 @@ export function TitleScreen() {
   if (gamePhase === "setup_name") {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-amber-900 text-amber-100 p-4">
-        <h2 className="text-3xl mb-6">What is your name, wagon leader?</h2>
-        <input type="text" value={name} onChange={e => setName(e.target.value)} className="input input-bordered text-black text-xl w-64 mb-4" placeholder="Enter your name" />
+        <h2 className="text-2xl md:text-3xl mb-6 text-center">What is your name, wagon leader?</h2>
+        <input type="text" value={name} onChange={e => setName(e.target.value)} className="input input-bordered text-black text-xl w-full max-w-xs mb-4" placeholder="Enter your name" />
         <h3 className="text-xl mb-2">Choose your job:</h3>
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-wrap justify-center gap-2 mb-6 max-w-md">
           {OCCUPATIONS.map(o => (
-            <button key={o.id} onClick={() => setOcc(o.id)} className={"btn " + (occ === o.id ? "btn-primary" : "btn-ghost")}>{o.name}<br/><small>{o.description}</small></button>
+            <button key={o.id} onClick={() => setOcc(o.id)} className={"btn btn-md " + (occ === o.id ? "btn-primary" : "btn-ghost")}>{o.name}<br/><small>{o.description}</small></button>
           ))}
         </div>
         <button onClick={() => name && setPhase("setup_party")} className="btn btn-primary btn-lg" disabled={!name}>Next</button>
@@ -40,9 +40,9 @@ export function TitleScreen() {
   if (gamePhase === "setup_party") {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-amber-900 text-amber-100 p-4">
-        <h2 className="text-3xl mb-6">Name your party members!</h2>
+        <h2 className="text-2xl md:text-3xl mb-6 text-center">Name your party members!</h2>
         {party.map((p, i) => (
-          <input key={i} type="text" value={p} onChange={e => { const np = [...party]; np[i] = e.target.value; setParty(np); }} className="input input-bordered text-black mb-2 w-64" placeholder={"Member " + (i+1)} />
+          <input key={i} type="text" value={p} onChange={e => { const np = [...party]; np[i] = e.target.value; setParty(np); }} className="input input-bordered text-black mb-2 w-full max-w-xs" placeholder={"Member " + (i+1)} />
         ))}
         <button onClick={() => setPhase("setup_month")} className="btn btn-primary btn-lg mt-4">Next</button>
       </div>
@@ -52,10 +52,10 @@ export function TitleScreen() {
   if (gamePhase === "setup_month") {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-amber-900 text-amber-100 p-4">
-        <h2 className="text-3xl mb-6">When will you leave?</h2>
-        <div className="flex gap-2 mb-6">
+        <h2 className="text-2xl md:text-3xl mb-6 text-center">When will you leave?</h2>
+        <div className="flex flex-wrap justify-center gap-2 mb-6 max-w-sm">
           {(Object.keys(MONTH_NAMES) as Month[]).map(m => (
-            <button key={m} onClick={() => setMonth(m)} className={"btn " + (month === m ? "btn-primary" : "btn-ghost")}>{MONTH_NAMES[m]}</button>
+            <button key={m} onClick={() => setMonth(m)} className={"btn btn-md " + (month === m ? "btn-primary" : "btn-ghost")}>{MONTH_NAMES[m]}</button>
           ))}
         </div>
         <button onClick={() => startGame(name, occ, party, month)} className="btn btn-primary btn-lg">Start the Journey!</button>

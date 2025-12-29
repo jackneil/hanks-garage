@@ -388,8 +388,8 @@ function UpgradeItem({ upgradeId }: { upgradeId: string }) {
       onClick={handleBuy}
       disabled={!canAfford}
       className={`
-        p-2 rounded-lg flex flex-col items-center min-w-[80px]
-        transition-all duration-150
+        p-3 rounded-lg flex flex-col items-center min-w-[100px]
+        transition-all duration-150 touch-manipulation
         ${
           canAfford
             ? "bg-purple-100 hover:bg-purple-200 active:bg-purple-300 border-2 border-purple-400"

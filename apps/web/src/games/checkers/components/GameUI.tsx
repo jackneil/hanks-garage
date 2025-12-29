@@ -52,12 +52,12 @@ export function GameUI() {
       </div>
 
       {/* Difficulty selector */}
-      <div className="flex gap-2 justify-center">
+      <div className="flex gap-2 justify-center flex-wrap">
         {(["easy", "medium", "hard"] as Difficulty[]).map((d) => (
           <button
             key={d}
             onClick={() => setDifficulty(d)}
-            className={`px-4 py-2 rounded-lg font-bold text-white transition-colors ${
+            className={`px-5 py-3 rounded-lg font-bold text-white transition-colors touch-manipulation ${
               difficulty === d ? getDifficultyColor(d) : "bg-gray-600 hover:bg-gray-500"
             }`}
           >
@@ -67,16 +67,16 @@ export function GameUI() {
       </div>
 
       {/* Action buttons */}
-      <div className="flex gap-2 justify-center">
+      <div className="flex gap-2 justify-center flex-wrap">
         <button
           onClick={() => newGame()}
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors"
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors touch-manipulation"
         >
           New Game
         </button>
         <button
           onClick={() => setShowStats(!showStats)}
-          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-colors"
+          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-colors touch-manipulation"
         >
           Stats
         </button>

@@ -114,7 +114,7 @@ export function ToyFinder() {
           <button
             key={cat.id}
             onClick={() => handleCategoryChange(cat.id)}
-            className={`btn btn-sm md:btn-md rounded-full font-bold transition-all whitespace-nowrap ${
+            className={`btn btn-md rounded-full font-bold transition-all whitespace-nowrap touch-manipulation ${
               store.selectedCategory === cat.id
                 ? "bg-yellow-400 text-purple-900 shadow-lg scale-105"
                 : "bg-white/80 text-purple-800 hover:bg-white"

@@ -153,7 +153,7 @@ export function JokeGenerator() {
           <button
             key={cat.id}
             onClick={() => handleCategoryChange(cat.id)}
-            className={`btn btn-sm md:btn-md rounded-full font-bold transition-all ${
+            className={`btn btn-md rounded-full font-bold transition-all touch-manipulation ${
               store.lastCategory === cat.id
                 ? "bg-purple-600 text-white shadow-lg scale-105"
                 : "bg-white/80 text-purple-800 hover:bg-white"

@@ -16,6 +16,9 @@ import {
   type CharacterId,
 } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
+import { FullscreenButton } from "@/shared/components/FullscreenButton";
+import { OrientationWarning } from "@/shared/components/OrientationWarning";
+import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
 
 export function EndlessRunnerGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -593,6 +596,17 @@ export function EndlessRunnerGame() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-400 to-sky-600 flex flex-col items-center justify-center p-4">
+      {/* Orientation warning for landscape */}
+      <OrientationWarning />
+
+      {/* iOS install prompt */}
+      <IOSInstallPrompt />
+
+      {/* Fullscreen button */}
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       {/* Header */}
       <header className="mb-4 text-center">
         <h1 className="text-3xl font-bold text-white drop-shadow-lg">

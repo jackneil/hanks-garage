@@ -4,6 +4,7 @@ import { useEffect, useCallback, useRef } from "react";
 import { use2048Store } from "./lib/store";
 import { getTileColors, GRID_SIZE, TIMINGS, type Direction } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
+import { FullscreenButton } from "@/shared/components/FullscreenButton";
 
 // Tile component with animations
 function Tile({
@@ -334,6 +335,11 @@ export function Game2048() {
 
   return (
     <div className="min-h-screen bg-[#faf8ef] p-4 flex flex-col items-center justify-center">
+      {/* Fullscreen button */}
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       {/* Inline styles for animations */}
       <style jsx global>{`
         @keyframes spawn {

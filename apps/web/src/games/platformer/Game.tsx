@@ -3,6 +3,9 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { usePlatformerStore, type PlatformerProgress } from "./lib/store";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
+import { FullscreenButton } from "@/shared/components/FullscreenButton";
+import { OrientationWarning } from "@/shared/components/OrientationWarning";
+import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
 import {
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
@@ -787,6 +790,17 @@ export function PlatformerGame() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-400 to-sky-600 flex flex-col items-center justify-center p-4">
+      {/* Orientation warning for mobile */}
+      <OrientationWarning />
+
+      {/* iOS install prompt */}
+      <IOSInstallPrompt />
+
+      {/* Fullscreen button */}
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       {/* Header */}
       <header className="mb-4 text-center">
         <h1 className="text-3xl font-bold text-white drop-shadow-lg">
@@ -816,13 +830,54 @@ export function PlatformerGame() {
         />
       </div>
 
+      {/* Visible mobile controls */}
+      {gameState === "playing" && (
+        <div className="md:hidden fixed bottom-4 left-0 right-0 flex justify-between px-4 pointer-events-none">
+          <button
+            onTouchStart={(e) => {
+              e.preventDefault();
+              setMovingLeft(true);
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              setMovingLeft(false);
+            }}
+            className="w-20 h-20 bg-white/30 rounded-full flex items-center justify-center text-4xl font-bold text-white shadow-lg active:bg-white/50 pointer-events-auto touch-manipulation"
+          >
+            ◀
+          </button>
+          <button
+            onTouchStart={(e) => {
+              e.preventDefault();
+              jump();
+            }}
+            className="w-24 h-24 bg-green-500/60 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-lg active:bg-green-500/80 pointer-events-auto touch-manipulation"
+          >
+            JUMP
+          </button>
+          <button
+            onTouchStart={(e) => {
+              e.preventDefault();
+              setMovingRight(true);
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              setMovingRight(false);
+            }}
+            className="w-20 h-20 bg-white/30 rounded-full flex items-center justify-center text-4xl font-bold text-white shadow-lg active:bg-white/50 pointer-events-auto touch-manipulation"
+          >
+            ▶
+          </button>
+        </div>
+      )}
+
       {/* Mobile controls hint */}
       <div className="mt-4 text-center text-white/80 text-sm">
         <p>
           <strong>Desktop:</strong> A/D or Arrows to move, Space to jump
         </p>
         <p className="md:hidden">
-          <strong>Mobile:</strong> Tap left/right to move, center to jump
+          <strong>Mobile:</strong> Use the buttons below to move and jump
         </p>
       </div>
 

@@ -16,10 +16,18 @@ export function Store() {
   ];
   return (
     <div className="min-h-screen bg-amber-800 text-amber-100 p-4">
-      <h2 className="text-3xl mb-2 text-center">General Store at {lm?.name || "Independence"}</h2>
+      <h2 className="text-2xl md:text-3xl mb-2 text-center">General Store at {lm?.name || "Independence"}</h2>
       <p className="text-xl text-center mb-4">Money: ${supplies.money.toFixed(2)}</p>
-      <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
-        {items.map(item => (<div key={item.id} className="bg-amber-700 p-4 rounded"><h3>{item.name}</h3><button onClick={() => buySupply(item.id, item.unit)} className="btn btn-sm btn-primary">Buy</button></div>))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
+        {items.map(item => (
+          <div key={item.id} className="bg-amber-700 p-4 rounded flex justify-between items-center gap-4">
+            <div>
+              <h3 className="font-bold">{item.name}</h3>
+              <p className="text-sm opacity-80">${item.price} each</p>
+            </div>
+            <button onClick={() => buySupply(item.id, item.unit)} className="btn btn-primary min-w-[80px]">Buy {item.unit > 1 ? item.unit : ""}</button>
+          </div>
+        ))}
       </div>
       <div className="text-center mt-6">
         <button onClick={leaveStore} className="btn btn-primary btn-lg">Leave Store</button>

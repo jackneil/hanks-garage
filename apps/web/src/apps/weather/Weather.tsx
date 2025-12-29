@@ -333,7 +333,7 @@ export function Weather() {
                     longitude: loc.longitude,
                   })
                 }
-                className="btn btn-sm md:btn-md bg-white/80 text-gray-800 border-none rounded-full font-bold hover:bg-white shadow-lg"
+                className="btn btn-md bg-white/80 text-gray-800 border-none rounded-full font-bold hover:bg-white shadow-lg touch-manipulation"
               >
                 {loc.name}
               </button>
@@ -506,7 +506,7 @@ export function Weather() {
             <p className="text-gray-700 font-medium">{store.currentFact}</p>
             <button
               onClick={() => store.setCurrentFact(getRandomFact())}
-              className="btn btn-sm mt-3 bg-blue-500 text-white border-none rounded-full hover:bg-blue-600"
+              className="btn btn-md mt-3 bg-blue-500 text-white border-none rounded-full hover:bg-blue-600 touch-manipulation"
             >
               Tell me another!
             </button>

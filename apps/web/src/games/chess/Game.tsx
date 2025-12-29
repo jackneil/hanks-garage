@@ -197,10 +197,10 @@ export function ChessGame() {
       </div>
 
       {/* Game mode selector */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap justify-center">
         <button
           onClick={() => store.newGame({ mode: "ai" })}
-          className={`px-4 py-2 rounded-lg font-bold text-white transition-colors ${
+          className={`px-5 py-3 rounded-lg font-bold text-white transition-colors touch-manipulation ${
             store.gameMode === "ai" ? "bg-blue-600" : "bg-gray-600 hover:bg-gray-500"
           }`}
         >
@@ -208,7 +208,7 @@ export function ChessGame() {
         </button>
         <button
           onClick={() => store.newGame({ mode: "local" })}
-          className={`px-4 py-2 rounded-lg font-bold text-white transition-colors ${
+          className={`px-5 py-3 rounded-lg font-bold text-white transition-colors touch-manipulation ${
             store.gameMode === "local" ? "bg-blue-600" : "bg-gray-600 hover:bg-gray-500"
           }`}
         >
@@ -218,7 +218,7 @@ export function ChessGame() {
 
       {/* Difficulty selector (only for AI mode) */}
       {store.gameMode === "ai" && (
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap justify-center">
           {(["easy", "medium", "hard"] as Difficulty[]).map((d) => (
             <button
               key={d}
@@ -226,7 +226,7 @@ export function ChessGame() {
                 store.setDifficulty(d);
                 store.newGame({ difficulty: d });
               }}
-              className={`px-4 py-2 rounded-lg font-bold text-white transition-colors ${
+              className={`px-5 py-3 rounded-lg font-bold text-white transition-colors touch-manipulation ${
                 store.difficulty === d ? getDifficultyColor(d) : "bg-gray-600 hover:bg-gray-500"
               }`}
             >
@@ -238,10 +238,10 @@ export function ChessGame() {
 
       {/* Color selector (only for AI mode) */}
       {store.gameMode === "ai" && (
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap justify-center">
           <button
             onClick={() => store.newGame({ playerColor: "white" })}
-            className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            className={`px-5 py-3 rounded-lg font-bold transition-colors touch-manipulation ${
               store.playerColor === "white"
                 ? "bg-white text-gray-800"
                 : "bg-gray-600 text-white hover:bg-gray-500"
@@ -251,7 +251,7 @@ export function ChessGame() {
           </button>
           <button
             onClick={() => store.newGame({ playerColor: "black" })}
-            className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            className={`px-5 py-3 rounded-lg font-bold transition-colors touch-manipulation ${
               store.playerColor === "black"
                 ? "bg-gray-900 text-white"
                 : "bg-gray-600 text-white hover:bg-gray-500"
@@ -266,27 +266,27 @@ export function ChessGame() {
       <div className="flex gap-2 flex-wrap justify-center">
         <button
           onClick={() => store.newGame()}
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors"
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors touch-manipulation"
         >
           New Game
         </button>
         <button
           onClick={() => store.undoMove()}
           disabled={store.status !== "playing" || store.game.history().length === 0}
-          className="px-6 py-3 bg-orange-600 hover:bg-orange-700 disabled:bg-gray-600 disabled:opacity-50 text-white font-bold rounded-lg transition-colors"
+          className="px-6 py-3 bg-orange-600 hover:bg-orange-700 disabled:bg-gray-600 disabled:opacity-50 text-white font-bold rounded-lg transition-colors touch-manipulation"
         >
           Undo
         </button>
         <button
           onClick={() => store.resign()}
           disabled={store.status !== "playing"}
-          className="px-6 py-3 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:opacity-50 text-white font-bold rounded-lg transition-colors"
+          className="px-6 py-3 bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:opacity-50 text-white font-bold rounded-lg transition-colors touch-manipulation"
         >
           Resign
         </button>
         <button
           onClick={() => setShowStats(!showStats)}
-          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-colors"
+          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-colors touch-manipulation"
         >
           Stats
         </button>

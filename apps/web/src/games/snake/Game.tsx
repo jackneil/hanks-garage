@@ -11,6 +11,7 @@ import {
   getTickInterval,
 } from "./lib/constants";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
+import { FullscreenButton } from "@/shared/components/FullscreenButton";
 
 // ============================================
 // GAME BOARD COMPONENT
@@ -159,12 +160,20 @@ function MobileControls() {
 
   if (progress.controlMode === "swipe") {
     return (
-      <div
-        className="fixed inset-0 z-10 pointer-events-auto"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        style={{ touchAction: "none" }}
-      />
+      <>
+        {/* Invisible touch layer for swipe detection */}
+        <div
+          className="fixed inset-0 z-10 pointer-events-auto"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          style={{ touchAction: "none" }}
+        />
+        {/* Visible swipe instruction */}
+        <div className="mt-4 text-center text-green-200 animate-pulse">
+          <div className="text-4xl mb-2">👆</div>
+          <div className="text-lg font-bold">Swipe anywhere to move</div>
+        </div>
+      </>
     );
   }
 
@@ -509,6 +518,11 @@ export function SnakeGame() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-800 to-green-950 p-4 flex flex-col items-center justify-center gap-6">
+      {/* Fullscreen button */}
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenButton />
+      </div>
+
       {/* Header */}
       <header className="text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Snake</h1>

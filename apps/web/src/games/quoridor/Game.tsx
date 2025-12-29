@@ -162,8 +162,8 @@ export function QuoridorGame() {
       <div
         key={`hgroove-${row}-${col}`}
         className={`
-          ${store.wallMode ? "cursor-pointer hover:bg-amber-600" : ""}
-          transition-all duration-150
+          ${store.wallMode ? "cursor-pointer hover:bg-amber-600 active:bg-amber-500" : ""}
+          transition-all duration-150 touch-manipulation
         `}
         style={{
           backgroundColor: hasWall || hasWallLeft
@@ -171,11 +171,13 @@ export function QuoridorGame() {
             : isPreview
             ? COLORS.WALL_PREVIEW
             : COLORS.GROOVE,
-          height: "8px",
+          minHeight: "12px",
         }}
         onClick={() => handleGrooveClick(row, col, "horizontal")}
+        onTouchStart={() => store.wallMode && handleGrooveHover(row, col, "horizontal")}
         onMouseEnter={() => handleGrooveHover(row, col, "horizontal")}
         onMouseLeave={() => store.setWallPreview(null)}
+        onTouchEnd={() => store.setWallPreview(null)}
       />
     );
   };
@@ -197,8 +199,8 @@ export function QuoridorGame() {
       <div
         key={`vgroove-${row}-${col}`}
         className={`
-          ${store.wallMode ? "cursor-pointer hover:bg-amber-600" : ""}
-          transition-all duration-150
+          ${store.wallMode ? "cursor-pointer hover:bg-amber-600 active:bg-amber-500" : ""}
+          transition-all duration-150 touch-manipulation
         `}
         style={{
           backgroundColor: hasWall || hasWallAbove
@@ -206,11 +208,13 @@ export function QuoridorGame() {
             : isPreview
             ? COLORS.WALL_PREVIEW
             : COLORS.GROOVE,
-          width: "8px",
+          minWidth: "12px",
         }}
         onClick={() => handleGrooveClick(row, col, "vertical")}
+        onTouchStart={() => store.wallMode && handleGrooveHover(row, col, "vertical")}
         onMouseEnter={() => handleGrooveHover(row, col, "vertical")}
         onMouseLeave={() => store.setWallPreview(null)}
+        onTouchEnd={() => store.setWallPreview(null)}
       />
     );
   };
@@ -221,8 +225,8 @@ export function QuoridorGame() {
         key={`intersection-${row}-${col}`}
         style={{
           backgroundColor: COLORS.GROOVE,
-          width: "8px",
-          height: "8px",
+          minWidth: "12px",
+          minHeight: "12px",
         }}
       />
     );
@@ -367,10 +371,10 @@ export function QuoridorGame() {
         )}
 
         {/* Game mode selector */}
-        <div className="flex gap-2 justify-center">
+        <div className="flex gap-2 justify-center flex-wrap">
           <button
             onClick={() => store.setGameMode("local")}
-            className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            className={`px-5 py-3 rounded-lg font-bold transition-colors touch-manipulation ${
               store.gameMode === "local"
                 ? "bg-green-500 text-white"
                 : "bg-gray-600 hover:bg-gray-500 text-white"
@@ -380,7 +384,7 @@ export function QuoridorGame() {
           </button>
           <button
             onClick={() => store.setGameMode("ai")}
-            className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            className={`px-5 py-3 rounded-lg font-bold transition-colors touch-manipulation ${
               store.gameMode === "ai"
                 ? "bg-green-500 text-white"
                 : "bg-gray-600 hover:bg-gray-500 text-white"
@@ -392,12 +396,12 @@ export function QuoridorGame() {
 
         {/* Difficulty selector (only for AI mode) */}
         {store.gameMode === "ai" && (
-          <div className="flex gap-2 justify-center">
+          <div className="flex gap-2 justify-center flex-wrap">
             {(["easy", "medium", "hard"] as Difficulty[]).map((d) => (
               <button
                 key={d}
                 onClick={() => store.setDifficulty(d)}
-                className={`px-4 py-2 rounded-lg font-bold text-white transition-colors ${
+                className={`px-5 py-3 rounded-lg font-bold text-white transition-colors touch-manipulation ${
                   store.difficulty === d
                     ? d === "easy"
                       ? "bg-green-500"
