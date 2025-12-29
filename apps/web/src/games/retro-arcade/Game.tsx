@@ -179,11 +179,17 @@ function EmulatorView({
   romUrl,
   romName,
   system,
+  gameId,
+  saveSaveState,
+  loadSaveState,
   onExit,
 }: {
   romUrl: string;
   romName: string;
   system: SystemType;
+  gameId: string;
+  saveSaveState: (gameId: string, slot: string, data: string) => void;
+  loadSaveState: (gameId: string, slot: string) => string | undefined;
   onExit: () => void;
 }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -191,14 +197,60 @@ function EmulatorView({
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
+      // Only accept messages from same origin
+      if (event.origin !== window.location.origin) return;
+
       if (event.data.type === "ready") {
         setIsReady(true);
+
+        // Auto-load save state if one exists
+        const savedState = loadSaveState(gameId, "autoSave");
+        if (savedState && iframeRef.current?.contentWindow) {
+          try {
+            // Convert base64 back to Uint8Array
+            const binary = Uint8Array.from(atob(savedState), (c) => c.charCodeAt(0));
+            iframeRef.current.contentWindow.postMessage(
+              { type: "loadState", data: binary },
+              window.location.origin
+            );
+          } catch (e) {
+            console.error("Failed to load save state:", e);
+          }
+        }
+      }
+
+      // Handle save state from emulator
+      if (event.data.type === "saveState" && event.data.data) {
+        try {
+          // Convert binary data to base64 for storage
+          const uint8Array = new Uint8Array(event.data.data);
+          const base64 = btoa(String.fromCharCode(...uint8Array));
+          saveSaveState(gameId, "autoSave", base64);
+        } catch (e) {
+          console.error("Failed to save state:", e);
+        }
+      }
+
+      // Handle load state request from emulator
+      if (event.data.type === "requestLoadState") {
+        const savedState = loadSaveState(gameId, "autoSave");
+        if (savedState && iframeRef.current?.contentWindow) {
+          try {
+            const binary = Uint8Array.from(atob(savedState), (c) => c.charCodeAt(0));
+            iframeRef.current.contentWindow.postMessage(
+              { type: "loadState", data: binary },
+              window.location.origin
+            );
+          } catch (e) {
+            console.error("Failed to send load state:", e);
+          }
+        }
       }
     };
 
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, []);
+  }, [gameId, saveSaveState, loadSaveState]);
 
   // Build the emulator URL with params
   const emulatorUrl = `/emulator/index.html?core=${encodeURIComponent(SYSTEMS[system].ejsCore)}&rom=${encodeURIComponent(romUrl)}&name=${encodeURIComponent(romName)}`;
@@ -283,11 +335,16 @@ export function RetroArcadeGame() {
 
   // If playing, show emulator
   if (store.isPlaying && store.currentRomUrl && store.currentSystem) {
+    // Generate a consistent gameId for save states
+    const gameId = `${store.currentSystem}-${store.currentRomName || "unknown"}`;
     return (
       <EmulatorView
         romUrl={store.currentRomUrl}
         romName={store.currentRomName || "Game"}
         system={store.currentSystem}
+        gameId={gameId}
+        saveSaveState={store.saveSaveState}
+        loadSaveState={store.loadSaveState}
         onExit={handleExit}
       />
     );
