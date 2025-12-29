@@ -7,7 +7,8 @@ import {
   type ValidAppId,
   type AppProgressData,
 } from "@hank-neil/db/schema";
-import { mergeProgress, extractTimestamp } from "@/lib/progress-merge";
+import { mergeProgress } from "@/lib/progress-merge";
+import { validateProgress } from "@/lib/progress-schemas";
 
 type RouteContext = {
   params: Promise<{ appId: string }>;
@@ -105,10 +106,24 @@ export async function POST(request: Request, context: RouteContext) {
       merge?: boolean;
     };
 
-    // Validate data
+    // Basic type check
     if (!data || typeof data !== "object") {
       return NextResponse.json(
         { error: "Invalid progress data" },
+        { status: 400 }
+      );
+    }
+
+    // SECURITY: Validate progress data against game-specific schema
+    // This prevents users from POSTing arbitrary data like {"coins": 999999999}
+    const validation = validateProgress(appId as ValidAppId, data);
+    if (!validation.success) {
+      console.warn(
+        `Invalid progress data for ${appId} from user ${session.user.id}:`,
+        validation.error
+      );
+      return NextResponse.json(
+        { error: validation.error },
         { status: 400 }
       );
     }
@@ -127,12 +142,17 @@ export async function POST(request: Request, context: RouteContext) {
     let conflicts: string[] = [];
 
     // If merging and existing data, perform merge
+    // SECURITY: Server timestamp ALWAYS wins - we don't trust any client timestamps
+    // This prevents exploits where users embed future timestamps in their data
     if (merge && existing) {
-      const serverTimestamp = extractTimestamp(existing.data as AppProgressData);
+      const serverTimestamp = existing.updatedAt.getTime();
+      // Use current time as "local" timestamp - effectively makes this a
+      // "last write wins" from server's perspective
+      const nowTimestamp = Date.now();
       const mergeResult = mergeProgress(
         data,
         existing.data as AppProgressData,
-        localTimestamp || null,
+        nowTimestamp, // Current server time, not client-provided
         serverTimestamp
       );
       finalData = mergeResult.data;

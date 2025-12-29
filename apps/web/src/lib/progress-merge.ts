@@ -78,62 +78,6 @@ export function mergeProgress(
 }
 
 /**
- * Deep merge for game progress (when needed)
- *
- * Takes the "best" of each field:
- * - Numeric fields: take higher value (coins, xp, etc)
- * - Boolean unlocks: OR together (unlocked stays unlocked)
- * - Arrays: union (keep all collected items)
- * - Timestamps: take more recent
- *
- * WARNING: Can create exploits if not careful!
- * Only use for non-currency fields.
- */
-export function deepMergeProgress(
-  local: AppProgressData,
-  server: AppProgressData
-): AppProgressData {
-  const result: AppProgressData = { ...server };
-
-  for (const key of Object.keys(local)) {
-    const localVal = local[key];
-    const serverVal = server[key];
-
-    // If server doesn't have this key, use local
-    if (serverVal === undefined) {
-      result[key] = localVal;
-      continue;
-    }
-
-    // Both have values - merge based on type
-    if (typeof localVal === "number" && typeof serverVal === "number") {
-      // Take higher value (XP, best times, etc)
-      result[key] = Math.max(localVal, serverVal);
-    } else if (typeof localVal === "boolean" && typeof serverVal === "boolean") {
-      // OR together - unlocked stays unlocked
-      result[key] = localVal || serverVal;
-    } else if (Array.isArray(localVal) && Array.isArray(serverVal)) {
-      // Union arrays (unique items)
-      result[key] = [...new Set([...serverVal, ...localVal])];
-    } else if (
-      typeof localVal === "object" &&
-      localVal !== null &&
-      typeof serverVal === "object" &&
-      serverVal !== null
-    ) {
-      // Recursively merge objects
-      result[key] = deepMergeProgress(
-        localVal as AppProgressData,
-        serverVal as AppProgressData
-      );
-    }
-    // Otherwise keep server value (already in result)
-  }
-
-  return result;
-}
-
-/**
  * Extract timestamp from progress data blob
  *
  * Games should store updatedAt in their state for merge resolution
