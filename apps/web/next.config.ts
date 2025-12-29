@@ -48,7 +48,7 @@ const nextConfig: NextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.emulatorjs.org https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.emulatorjs.org; img-src 'self' data: https: blob:; font-src 'self' data: https://cdn.emulatorjs.org; connect-src 'self' https: blob:; media-src 'self' blob:; worker-src 'self' blob:; frame-ancestors 'self';",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://cdn.emulatorjs.org https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.emulatorjs.org; img-src 'self' data: https: blob:; font-src 'self' data: https://cdn.emulatorjs.org; connect-src 'self' https: blob:; media-src 'self' blob:; worker-src 'self' blob:; frame-ancestors 'self';",
           },
         ],
       },
