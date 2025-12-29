@@ -53,12 +53,10 @@ const snakeSchema = z.object({
   gamesPlayed: z.number().min(0).max(MAX_COUNT),
   totalFoodEaten: z.number().min(0).max(MAX_COUNT),
   longestSnake: z.number().min(0).max(1000),
-  unlockedThemes: z.array(boundedString).max(100),
-  selectedTheme: boundedString.optional(),
   soundEnabled: z.boolean().optional(),
   wraparoundWalls: z.boolean().optional(),
   controlMode: boundedString.optional(),
-  speed: z.number().min(1).max(10).optional(),
+  speed: z.enum(["slow", "medium", "fast"]).optional(),
   lastModified: timestampSchema,
 }).strict();
 
