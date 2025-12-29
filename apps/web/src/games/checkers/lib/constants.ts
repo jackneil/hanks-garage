@@ -17,6 +17,68 @@ export type Move = {
 
 export type Difficulty = "easy" | "medium" | "hard";
 export type GameStatus = "playing" | "red-wins" | "black-wins" | "draw";
+export type GameVariant = "american" | "casual" | "brazilian" | "suicide";
+export type GameMode = "vs-ai" | "vs-friend";
+
+export type RuleSet = {
+  variant: GameVariant;
+  displayName: string;
+  description: string;
+  forcedCaptures: boolean;
+  backwardCapture: boolean;
+  flyingKings: boolean;
+  majorityRule: boolean;
+  invertedWinCondition: boolean;
+};
+
+export const RULE_SETS: Record<GameVariant, RuleSet> = {
+  american: {
+    variant: "american",
+    displayName: "American",
+    description: "Classic rules with forced jumps",
+    forcedCaptures: true,
+    backwardCapture: false,
+    flyingKings: false,
+    majorityRule: false,
+    invertedWinCondition: false,
+  },
+  casual: {
+    variant: "casual",
+    displayName: "Casual",
+    description: "Jumps are optional - great for beginners",
+    forcedCaptures: false,
+    backwardCapture: false,
+    flyingKings: false,
+    majorityRule: false,
+    invertedWinCondition: false,
+  },
+  brazilian: {
+    variant: "brazilian",
+    displayName: "Brazilian",
+    description: "Flying kings, backward capture, must take max jumps",
+    forcedCaptures: true,
+    backwardCapture: true,
+    flyingKings: true,
+    majorityRule: true,
+    invertedWinCondition: false,
+  },
+  suicide: {
+    variant: "suicide",
+    displayName: "Suicide",
+    description: "First to lose all pieces wins!",
+    forcedCaptures: true,
+    backwardCapture: false,
+    flyingKings: false,
+    majorityRule: false,
+    invertedWinCondition: true,
+  },
+};
+
+export const ALL_DIRECTIONS: [number, number][] = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
+
+export function getDefaultRuleSet(): RuleSet {
+  return RULE_SETS.american;
+}
 
 export const BOARD_SIZE = 8;
 export const PIECES_PER_SIDE = 12;
