@@ -144,6 +144,36 @@ export const GAME_METADATA: Record<ValidAppId, GameMetadata> = {
     color: "pink",
     description: "Draw and create art",
   },
+  hextris: {
+    name: "Hextris",
+    icon: "⬡",
+    color: "purple",
+    description: "Hexagonal puzzle game",
+  },
+  asteroids: {
+    name: "Asteroids",
+    icon: "🌑",
+    color: "slate",
+    description: "Blast space rocks!",
+  },
+  "drum-machine": {
+    name: "Drum Machine",
+    icon: "🥁",
+    color: "orange",
+    description: "Make beats and music",
+  },
+  "virtual-pet": {
+    name: "Virtual Pet",
+    icon: "🐣",
+    color: "yellow",
+    description: "Care for your pet!",
+  },
+  bomberman: {
+    name: "Bomberman",
+    icon: "💣",
+    color: "amber",
+    description: "Blow up your enemies!",
+  },
 };
 
 /**
