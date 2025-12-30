@@ -129,8 +129,11 @@ export function JokeGenerator() {
       setConfetti(true);
       setTimeout(() => setConfetti(false), 800);
     }
-    // Auto-advance to next joke after a short delay
-    setTimeout(() => getNewJoke(), 1200);
+    // Show loading feedback quickly, then fetch new joke
+    setTimeout(() => {
+      store.setLoading(true);
+      getNewJoke();
+    }, 500);
   };
 
   // Category change - pass category directly to avoid race condition
