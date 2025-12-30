@@ -300,8 +300,7 @@ export function QuoridorGame() {
 
       {/* Board */}
       <div
-        className="bg-amber-900 p-2 rounded-lg shadow-2xl"
-        style={{ maxWidth: "min(90vw, 500px)" }}
+        className="bg-amber-900 p-2 md:p-3 rounded-lg shadow-2xl w-full max-w-[90vw] md:max-w-[min(80vh,700px)]"
       >
         <div
           className="grid gap-0"

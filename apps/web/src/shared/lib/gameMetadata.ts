@@ -114,6 +114,36 @@ export const GAME_METADATA: Record<ValidAppId, GameMetadata> = {
     color: "violet",
     description: "Classic console games",
   },
+  "blitz-bomber": {
+    name: "Blitz Bomber",
+    icon: "💣",
+    color: "red",
+    description: "Bomb your way to victory!",
+  },
+  "dino-runner": {
+    name: "Dino Runner",
+    icon: "🦖",
+    color: "emerald",
+    description: "Run, jump, avoid obstacles!",
+  },
+  breakout: {
+    name: "Breakout",
+    icon: "🧱",
+    color: "cyan",
+    description: "Break all the bricks!",
+  },
+  "space-invaders": {
+    name: "Space Invaders",
+    icon: "👾",
+    color: "indigo",
+    description: "Defend Earth from aliens!",
+  },
+  "drawing-app": {
+    name: "Drawing App",
+    icon: "🎨",
+    color: "pink",
+    description: "Draw and create art",
+  },
 };
 
 /**
