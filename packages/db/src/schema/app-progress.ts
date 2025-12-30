@@ -74,6 +74,16 @@ export const VALID_APP_IDS = [
   "quoridor",
   "platformer",
   "retro-arcade",
+  "blitz-bomber",
+  "dino-runner",
+  "breakout",
+  "space-invaders",
+  "drawing-app",
+  "hextris",
+  "asteroids",
+  "drum-machine",
+  "virtual-pet",
+  "bomberman",
 ] as const;
 
 export type ValidAppId = (typeof VALID_APP_IDS)[number];
