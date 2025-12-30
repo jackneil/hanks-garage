@@ -5,6 +5,7 @@ import { useJokeStore } from "./lib/store";
 import {
   JOKE_CATEGORIES,
   getRandomJoke,
+  fetchDadJoke,
   type JokeCategory,
   type Joke,
 } from "./lib/constants";
@@ -35,16 +36,33 @@ export function JokeGenerator() {
     debounceMs: 2000,
   });
 
-  // Get a new joke
-  const getNewJoke = useCallback(() => {
+  // Get a new joke - accepts optional category override to fix race condition
+  const getNewJoke = useCallback(async (categoryOverride?: JokeCategory) => {
     store.setLoading(true);
-    // Simulate a tiny delay for effect
-    setTimeout(() => {
-      const newJoke = getRandomJoke(store.lastCategory);
+    const category = categoryOverride ?? store.lastCategory;
+
+    try {
+      let newJoke: Joke;
+
+      if (category === "dad-jokes") {
+        // Fetch from icanhazdadjoke.com API
+        newJoke = await fetchDadJoke();
+      } else {
+        // Get from static collection, avoiding seen jokes
+        newJoke = getRandomJoke(category, store.getSeenJokeIds());
+      }
+
+      // Mark this joke as seen
+      store.markJokeSeen(newJoke.id);
       store.setCurrentJoke(newJoke);
       store.incrementViewed();
+    } catch {
+      // Fallback on error
+      const fallbackJoke = getRandomJoke("all", []);
+      store.setCurrentJoke(fallbackJoke);
+    } finally {
       store.setLoading(false);
-    }, 300);
+    }
   }, [store]);
 
   // Initial joke on mount
@@ -103,7 +121,7 @@ export function JokeGenerator() {
     }
   };
 
-  // Rate joke
+  // Rate joke - auto-advances to next joke after rating
   const handleRate = (rating: "funny" | "not-funny") => {
     if (!store.currentJoke) return;
     store.rateJoke(store.currentJoke.id, rating);
@@ -111,12 +129,14 @@ export function JokeGenerator() {
       setConfetti(true);
       setTimeout(() => setConfetti(false), 800);
     }
+    // Auto-advance to next joke after a short delay
+    setTimeout(() => getNewJoke(), 1200);
   };
 
-  // Category change
+  // Category change - pass category directly to avoid race condition
   const handleCategoryChange = (category: JokeCategory) => {
     store.setCategory(category);
-    getNewJoke();
+    getNewJoke(category);  // Pass category directly instead of relying on store state
   };
 
   const currentRating = store.currentJoke
@@ -253,7 +273,7 @@ export function JokeGenerator() {
       {/* Big "Tell Me A Joke" Button */}
       <div className="mt-6 flex justify-center">
         <button
-          onClick={getNewJoke}
+          onClick={() => getNewJoke()}
           disabled={store.isLoading}
           className="btn btn-lg h-16 min-w-64 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xl font-bold rounded-full border-none hover:scale-105 active:scale-95 transition-transform shadow-2xl disabled:opacity-50"
         >

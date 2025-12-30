@@ -29,6 +29,7 @@ export interface JokeGeneratorProgress {
   [key: string]: unknown;
   favorites: SavedJoke[];
   ratings: JokeRating[];
+  seenJokeIds: string[];  // Track seen jokes to avoid repeats
   lastCategory: JokeCategory;
   jokesViewed: number;
   jokesCopied: number;
@@ -73,6 +74,11 @@ interface JokeStoreActions {
   incrementShared: () => void;
   setCopiedId: (id: string | null) => void;
 
+  // Seen jokes tracking
+  markJokeSeen: (jokeId: string) => void;
+  getSeenJokeIds: () => string[];
+  resetSeenJokes: () => void;
+
   // Sync helpers
   getProgress: () => JokeGeneratorProgress;
   setProgress: (data: JokeGeneratorProgress) => void;
@@ -83,6 +89,7 @@ const STORAGE_KEY = "joke-generator-progress";
 const defaultProgress: JokeGeneratorProgress = {
   favorites: [],
   ratings: [],
+  seenJokeIds: [],
   lastCategory: "all",
   jokesViewed: 0,
   jokesCopied: 0,
@@ -190,12 +197,29 @@ export const useJokeStore = create<JokeStoreState & JokeStoreActions>()(
 
       setCopiedId: (id) => set({ copiedId: id }),
 
+      // Seen jokes tracking
+      markJokeSeen: (jokeId) => {
+        set((state) => {
+          if (state.seenJokeIds.includes(jokeId)) return state;
+          return {
+            seenJokeIds: [...state.seenJokeIds, jokeId],
+          };
+        });
+      },
+
+      getSeenJokeIds: () => get().seenJokeIds,
+
+      resetSeenJokes: () => {
+        set({ seenJokeIds: [] });
+      },
+
       // Sync helpers
       getProgress: (): JokeGeneratorProgress => {
         const state = get();
         return {
           favorites: state.favorites,
           ratings: state.ratings,
+          seenJokeIds: state.seenJokeIds,
           lastCategory: state.lastCategory,
           jokesViewed: state.jokesViewed,
           jokesCopied: state.jokesCopied,
@@ -208,6 +232,7 @@ export const useJokeStore = create<JokeStoreState & JokeStoreActions>()(
         set({
           favorites: data.favorites ?? [],
           ratings: data.ratings ?? [],
+          seenJokeIds: data.seenJokeIds ?? [],
           lastCategory: data.lastCategory ?? "all",
           jokesViewed: data.jokesViewed ?? 0,
           jokesCopied: data.jokesCopied ?? 0,
@@ -222,6 +247,7 @@ export const useJokeStore = create<JokeStoreState & JokeStoreActions>()(
       partialize: (state) => ({
         favorites: state.favorites,
         ratings: state.ratings,
+        seenJokeIds: state.seenJokeIds,
         lastCategory: state.lastCategory,
         jokesViewed: state.jokesViewed,
         jokesCopied: state.jokesCopied,
