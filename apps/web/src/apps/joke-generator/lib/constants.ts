@@ -587,6 +587,57 @@ export function getRandomJoke(
 }
 
 /**
+ * Split a single-line joke into setup and punchline parts
+ * Handles common joke formats:
+ * - Question format: "What do you call X? Y!" -> setup: "What do you call X?", punchline: "Y!"
+ * - Statement format: "I did X. It was Y!" -> setup: "I did X.", punchline: "It was Y!"
+ */
+function splitJokeIntoParts(joke: string): { setup: string; punchline: string } {
+  const trimmed = joke.trim();
+
+  // Pattern 1: Question-based jokes (most common for dad jokes)
+  // "What do you call a fish without eyes? A fsh!"
+  // "Why did the chicken cross the road? To get to the other side!"
+  const questionMatch = trimmed.match(/^(.+\?)\s*(.+)$/);
+  if (questionMatch && questionMatch[2].length > 0) {
+    return {
+      setup: questionMatch[1].trim(),
+      punchline: questionMatch[2].trim(),
+    };
+  }
+
+  // Pattern 2: Multi-sentence jokes - split on last sentence
+  // "I'm reading a book about anti-gravity. It's impossible to put down!"
+  // Find the last period/exclamation that isn't at the very end
+  const sentences = trimmed.split(/(?<=[.!])\s+/);
+  if (sentences.length >= 2) {
+    // Take all but last sentence as setup, last sentence as punchline
+    const punchline = sentences.pop()!;
+    const setup = sentences.join(" ");
+    if (setup.length > 0 && punchline.length > 0) {
+      return { setup, punchline };
+    }
+  }
+
+  // Pattern 3: Jokes with em-dash or colon
+  // "My wife told me to stop impersonating a flamingo — I had to put my foot down."
+  const dashMatch = trimmed.match(/^(.+?)\s*[—–-]\s*(.+)$/);
+  if (dashMatch && dashMatch[1].length > 10 && dashMatch[2].length > 5) {
+    return {
+      setup: dashMatch[1].trim(),
+      punchline: dashMatch[2].trim(),
+    };
+  }
+
+  // Fallback: Can't split, return whole joke as setup
+  // The UI will handle this by not showing the reveal button
+  return {
+    setup: trimmed,
+    punchline: "",
+  };
+}
+
+/**
  * Fetch a dad joke from icanhazdadjoke.com API
  */
 export async function fetchDadJoke(): Promise<Joke> {
@@ -595,19 +646,23 @@ export async function fetchDadJoke(): Promise<Joke> {
       headers: { Accept: "application/json" },
     });
     const data = await res.json();
+
+    // Split the single-line joke into setup and punchline
+    const { setup, punchline } = splitJokeIntoParts(data.joke);
+
     return {
       id: `dad-${data.id}`,
       category: "dad-jokes" as Exclude<JokeCategory, "all">,
-      setup: data.joke,
-      punchline: "", // Dad jokes are single-line
+      setup,
+      punchline,
     };
   } catch {
     // Fallback if API fails
     return {
       id: "dad-fallback",
       category: "dad-jokes" as Exclude<JokeCategory, "all">,
-      setup: "Why don't scientists trust atoms? Because they make up everything!",
-      punchline: "",
+      setup: "Why don't scientists trust atoms?",
+      punchline: "Because they make up everything!",
     };
   }
 }

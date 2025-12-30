@@ -209,30 +209,39 @@ export function JokeGenerator() {
                 {store.currentJoke.setup}
               </p>
 
-              {/* Punchline - hidden until revealed */}
-              <div
-                className={`transition-all duration-500 ease-out ${
-                  store.showPunchline
-                    ? "opacity-100 translate-y-0 max-h-40"
-                    : "opacity-0 translate-y-4 max-h-0 overflow-hidden"
-                }`}
-              >
-                <p className="text-xl md:text-2xl font-bold text-purple-600 text-center leading-relaxed">
-                  {store.currentJoke.punchline}
-                </p>
-                <div className="text-4xl text-center mt-2">
-                  &#x1F389;
+              {/* Punchline - hidden until revealed (only if joke has a punchline) */}
+              {store.currentJoke.punchline && (
+                <div
+                  className={`transition-all duration-500 ease-out ${
+                    store.showPunchline
+                      ? "opacity-100 translate-y-0 max-h-40"
+                      : "opacity-0 translate-y-4 max-h-0 overflow-hidden"
+                  }`}
+                >
+                  <p className="text-xl md:text-2xl font-bold text-purple-600 text-center leading-relaxed">
+                    {store.currentJoke.punchline}
+                  </p>
+                  <div className="text-4xl text-center mt-2">
+                    &#x1F389;
+                  </div>
                 </div>
-              </div>
+              )}
 
-              {/* Reveal Button */}
-              {!store.showPunchline && (
+              {/* Reveal Button - only show if joke has a punchline to reveal */}
+              {!store.showPunchline && store.currentJoke.punchline && (
                 <button
                   onClick={() => store.revealPunchline()}
                   className="btn btn-lg w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full border-none hover:scale-105 transition-transform shadow-lg mt-4"
                 >
                   &#x1F440; Show Punchline!
                 </button>
+              )}
+
+              {/* Single-line jokes (no punchline) - show celebration immediately */}
+              {!store.currentJoke.punchline && (
+                <div className="text-4xl text-center mt-2">
+                  &#x1F389;
+                </div>
               )}
             </>
           ) : (
@@ -243,8 +252,8 @@ export function JokeGenerator() {
           )}
         </div>
 
-        {/* Rating Buttons (shown after punchline) */}
-        {store.showPunchline && store.currentJoke && (
+        {/* Rating Buttons (shown after punchline revealed, or immediately for single-line jokes) */}
+        {store.currentJoke && (store.showPunchline || !store.currentJoke.punchline) && (
           <div className="flex gap-4 mt-6 animate-fadeIn">
             <button
               onClick={() => handleRate("funny")}
