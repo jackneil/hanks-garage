@@ -12,7 +12,16 @@
       "Bash(pnpm test:*)",
       "Bash(pnpm build:*)",
       "Bash(dir:*)",
-      "Bash(pnpm install)"
+      "Bash(pnpm install)",
+      "Bash(git push:*)",
+      "Bash(ls:*)",
+      "Bash(for dir in \"C:\\\\Github\\\\hank-neil\\\\apps\\\\web\\\\src\\\\games\"/*)",
+      "Bash(do if [ ! -f \"$dir/lib/store.ts\" ])",
+      "Bash(then basename \"$dir\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(test:*)",
+      "Bash(git push)"
     ]
   }
 }
