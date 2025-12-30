@@ -246,17 +246,32 @@ function EmulatorView({
           }
         }
       }
+
+      // Handle exit from EmulatorJS controls
+      if (event.data.type === "emulator-exit") {
+        onExit();
+      }
     };
 
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, [gameId, saveSaveState, loadSaveState]);
+  }, [gameId, saveSaveState, loadSaveState, onExit]);
 
   // Build the emulator URL with params
   const emulatorUrl = `/emulator/index.html?core=${encodeURIComponent(SYSTEMS[system].ejsCore)}&rom=${encodeURIComponent(romUrl)}&name=${encodeURIComponent(romName)}`;
 
   return (
     <div className="fixed inset-0 bg-black flex flex-col z-50">
+      {/* Floating back button - always visible, even in fullscreen */}
+      <button
+        onClick={onExit}
+        className="fixed top-4 left-4 z-[9999] px-4 py-2 bg-black/80 hover:bg-red-600
+                   text-white rounded-lg flex items-center gap-2 text-sm font-bold
+                   shadow-lg backdrop-blur-sm transition-all active:scale-95 border border-white/20"
+      >
+        ← Back to Games
+      </button>
+
       {/* Header bar */}
       <div className="bg-gray-900 p-2 flex items-center justify-between shrink-0">
         <button
