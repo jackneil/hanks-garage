@@ -140,6 +140,67 @@ packages/
 
 ---
 
+## MANDATORY: Progress Validation Schemas
+
+**Every game/app that syncs progress to the server MUST have a Zod validation schema.**
+
+### Why?
+- Prevents users from exploiting the API by sending fake data like `{"coins": 999999999}`
+- Catches schema mismatches early (before they spam Railway logs)
+- Validates all fields have reasonable bounds
+
+### Where Schemas Live
+`apps/web/src/lib/progress-schemas.ts`
+
+### When Building a New Game/App
+
+1. **Define your progress type** in `lib/store.ts`:
+   ```typescript
+   export type MyGameProgress = {
+     highScore: number;
+     gamesPlayed: number;
+     settings: { soundEnabled: boolean };
+     lastModified: number;
+   };
+   ```
+
+2. **Add a matching Zod schema** in `progress-schemas.ts`:
+   ```typescript
+   const myGameSchema = z.object({
+     highScore: z.number().min(0).max(MAX_CURRENCY),
+     gamesPlayed: z.number().min(0).max(MAX_COUNT),
+     settings: z.object({
+       soundEnabled: z.boolean(),
+     }),
+     lastModified: timestampSchema,
+   }).strict();
+   ```
+
+3. **Register it** in `PROGRESS_SCHEMAS`:
+   ```typescript
+   export const PROGRESS_SCHEMAS = {
+     // ... existing schemas
+     "my-game": myGameSchema,
+   };
+   ```
+
+### Schema Rules
+- Always use `.strict()` to reject unknown fields
+- Use `MAX_CURRENCY` (1 trillion) for currencies/scores
+- Use `MAX_COUNT` (1 million) for counts
+- Use `boundedString` for strings (max 255 chars)
+- Use `timestampSchema` for lastModified
+- Use `boundedRecord()` for objects with dynamic keys
+
+### If You Skip This
+The API will reject all progress saves with:
+```
+Invalid progress data for my-game: No validation schema for app: my-game
+```
+And Railway logs will be spammed with errors. Don't be that guy.
+
+---
+
 ## Monster Truck Game Details
 
 ### Controls

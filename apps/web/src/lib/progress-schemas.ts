@@ -405,6 +405,251 @@ const toyFinderSchema = z.object({
 }).strict();
 
 // ============================================================================
+// Space Invaders
+// ============================================================================
+const spaceInvadersSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  wavesCompleted: z.number().min(0).max(MAX_COUNT),
+  highestWave: z.number().min(0).max(MAX_COUNT),
+  totalAliensKilled: z.number().min(0).max(MAX_COUNT),
+  mysteryShipsHit: z.number().min(0).max(MAX_COUNT),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  settings: z.object({
+    soundEnabled: z.boolean(),
+    difficulty: z.enum(["4yo", "8yo", "12yo", "24yo", "99yo"]),
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Trivia Quiz
+// ============================================================================
+const triviaSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  totalCorrect: z.number().min(0).max(MAX_COUNT),
+  totalAnswered: z.number().min(0).max(MAX_COUNT),
+  longestStreak: z.number().min(0).max(MAX_COUNT),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  settings: z.object({
+    soundEnabled: z.boolean(),
+    difficulty: z.enum(["4yo", "8yo", "12yo", "24yo", "99yo"]),
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Wordle
+// ============================================================================
+const wordleSchema = z.object({
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  gamesWon: z.number().min(0).max(MAX_COUNT),
+  currentStreak: z.number().min(0).max(MAX_COUNT),
+  maxStreak: z.number().min(0).max(MAX_COUNT),
+  guessDistribution: z.array(z.number().min(0).max(MAX_COUNT)).max(10),
+  settings: z.object({
+    soundEnabled: z.boolean(),
+    difficulty: z.enum(["4yo", "8yo", "12yo", "24yo", "99yo"]),
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Math Attack
+// ============================================================================
+const mathAttackSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  totalCorrect: z.number().min(0).max(MAX_COUNT),
+  totalAnswered: z.number().min(0).max(MAX_COUNT),
+  longestCombo: z.number().min(0).max(MAX_COUNT),
+  problemsSolved: z.object({
+    "+": z.number().min(0).max(MAX_COUNT),
+    "-": z.number().min(0).max(MAX_COUNT),
+    "×": z.number().min(0).max(MAX_COUNT),
+    "÷": z.number().min(0).max(MAX_COUNT),
+  }),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  settings: z.object({
+    soundEnabled: z.boolean(),
+    difficulty: z.enum(["4yo", "8yo", "12yo", "24yo", "99yo"]),
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Breakout
+// ============================================================================
+const breakoutSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  levelsCompleted: z.number().min(0).max(MAX_COUNT),
+  highestLevel: z.number().min(0).max(MAX_COUNT),
+  totalBricksDestroyed: z.number().min(0).max(MAX_COUNT),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  powerUpsCollected: z.number().min(0).max(MAX_COUNT),
+  soundEnabled: z.boolean(),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Hextris
+// ============================================================================
+const hextrisSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  totalBlocksMatched: z.number().min(0).max(MAX_COUNT),
+  longestChain: z.number().min(0).max(MAX_COUNT),
+  soundEnabled: z.boolean(),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Asteroids
+// ============================================================================
+const asteroidsSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  highestWave: z.number().min(0).max(MAX_COUNT),
+  totalAsteroidsDestroyed: z.number().min(0).max(MAX_COUNT),
+  totalUfosDestroyed: z.number().min(0).max(MAX_COUNT),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  soundEnabled: z.boolean(),
+  difficulty: z.enum(["easy", "normal", "hard"]),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Bomberman
+// ============================================================================
+const bombermanSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  highestLevel: z.number().min(0).max(MAX_COUNT),
+  levelsCompleted: z.number().min(0).max(MAX_COUNT),
+  totalEnemiesDefeated: z.number().min(0).max(MAX_COUNT),
+  totalBlocksDestroyed: z.number().min(0).max(MAX_COUNT),
+  powerUpsCollected: z.number().min(0).max(MAX_COUNT),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  settings: z.object({
+    soundEnabled: z.boolean(),
+    difficulty: z.enum(["easy", "normal", "hard"]),
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Dino Runner
+// ============================================================================
+const dinoRunnerSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  totalDistance: z.number().min(0).max(MAX_CURRENCY),
+  longestRun: z.number().min(0).max(MAX_CURRENCY),
+  milestonesReached: z.number().min(0).max(MAX_COUNT),
+  soundEnabled: z.boolean(),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Blitz Bomber
+// ============================================================================
+const blitzBomberSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  highestLevel: z.number().min(0).max(MAX_COUNT),
+  levelsCompleted: z.number().min(0).max(MAX_COUNT),
+  totalBuildingsDestroyed: z.number().min(0).max(MAX_COUNT),
+  totalBombsDropped: z.number().min(0).max(MAX_COUNT),
+  successfulLandings: z.number().min(0).max(MAX_COUNT),
+  crashes: z.number().min(0).max(MAX_COUNT),
+  gamesPlayed: z.number().min(0).max(MAX_COUNT),
+  settings: z.object({
+    soundEnabled: z.boolean(),
+    difficulty: z.enum(["easy", "normal", "hard"]),
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Drawing App
+// ============================================================================
+const drawingAppSchema = z.object({
+  settings: z.object({
+    defaultColor: boundedString,
+    defaultSize: z.number().min(1).max(100),
+    defaultTool: z.enum(["brush", "pencil", "eraser", "fill", "line", "rectangle", "circle"]),
+    soundEnabled: z.boolean(),
+    showGrid: z.boolean(),
+  }),
+  stats: z.object({
+    artworksCreated: z.number().min(0).max(MAX_COUNT),
+    totalDrawTime: z.number().min(0).max(MAX_CURRENCY),
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Drum Machine
+// ============================================================================
+const savedBeatSchema = z.object({
+  id: boundedString,
+  name: boundedString,
+  kitId: boundedString,
+  bpm: z.number().min(40).max(300),
+  pattern: boundedRecord(z.array(z.boolean()).max(64)),
+  createdAt: boundedString,
+});
+
+const drumMachineSchema = z.object({
+  savedBeats: z.array(savedBeatSchema).max(100),
+  favoriteKitId: boundedString,
+  settings: z.object({
+    defaultBpm: z.number().min(40).max(300),
+    defaultKitId: boundedString,
+    soundEnabled: z.boolean(),
+    volume: z.number().min(0).max(1),
+  }),
+  stats: z.object({
+    beatsCreated: z.number().min(0).max(MAX_COUNT),
+    totalPlayTime: z.number().min(0).max(MAX_CURRENCY),
+    padsHit: z.number().min(0).max(MAX_CURRENCY),
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
+// Virtual Pet
+// ============================================================================
+const virtualPetSchema = z.object({
+  pet: z.object({
+    name: boundedString,
+    speciesId: boundedString,
+    hunger: z.number().min(0).max(100),
+    happiness: z.number().min(0).max(100),
+    energy: z.number().min(0).max(100),
+    cleanliness: z.number().min(0).max(100),
+    sleeping: z.boolean(),
+    bornAt: boundedString,
+    lastChecked: boundedString,
+  }),
+  coins: z.number().min(0).max(MAX_CURRENCY),
+  inventory: z.array(z.object({
+    itemId: boundedString,
+    quantity: z.number().min(0).max(MAX_COUNT),
+  })).max(500),
+  unlockedSpecies: z.array(boundedString).max(100),
+  equippedCosmetics: z.array(boundedString).max(100),
+  stats: z.object({
+    daysCaredFor: z.number().min(0).max(MAX_COUNT),
+    totalFeedings: z.number().min(0).max(MAX_COUNT),
+    totalPlaySessions: z.number().min(0).max(MAX_COUNT),
+    longestStreak: z.number().min(0).max(MAX_COUNT),
+    currentStreak: z.number().min(0).max(MAX_COUNT),
+    lastPlayDate: boundedString,
+  }),
+  settings: z.object({
+    soundEnabled: z.boolean(),
+    petName: boundedString,
+  }),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
 // Schema Registry
 // ============================================================================
 
@@ -426,6 +671,19 @@ export const PROGRESS_SCHEMAS: Partial<Record<ValidAppId, z.ZodSchema>> = {
   weather: weatherSchema,
   "joke-generator": jokeGeneratorSchema,
   "toy-finder": toyFinderSchema,
+  "space-invaders": spaceInvadersSchema,
+  breakout: breakoutSchema,
+  hextris: hextrisSchema,
+  asteroids: asteroidsSchema,
+  bomberman: bombermanSchema,
+  "dino-runner": dinoRunnerSchema,
+  "blitz-bomber": blitzBomberSchema,
+  "drawing-app": drawingAppSchema,
+  "drum-machine": drumMachineSchema,
+  "virtual-pet": virtualPetSchema,
+  trivia: triviaSchema,
+  wordle: wordleSchema,
+  "math-attack": mathAttackSchema,
 };
 
 /**

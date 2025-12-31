@@ -21,7 +21,8 @@
       "Bash(fi)",
       "Bash(done)",
       "Bash(test:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(git add:*)"
     ]
   }
 }

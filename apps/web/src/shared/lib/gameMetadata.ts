@@ -174,6 +174,24 @@ export const GAME_METADATA: Record<ValidAppId, GameMetadata> = {
     color: "amber",
     description: "Blow up your enemies!",
   },
+  trivia: {
+    name: "Trivia Quiz",
+    icon: "🧠",
+    color: "purple",
+    description: "Test your knowledge!",
+  },
+  wordle: {
+    name: "Wordle",
+    icon: "📝",
+    color: "green",
+    description: "Guess the word!",
+  },
+  "math-attack": {
+    name: "Math Attack",
+    icon: "🔢",
+    color: "indigo",
+    description: "Solve math problems!",
+  },
 };
 
 /**
