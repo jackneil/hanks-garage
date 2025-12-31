@@ -665,9 +665,13 @@ export function SpaceInvadersGame() {
         // Update game state
         update(delta);
 
-        // Play march sound based on alien movement
+        // Play march sound based on alien movement (scaled by difficulty)
         const aliveAliens = aliens.filter((a) => a.alive).length;
-        const marchInterval = Math.max(100, 800 - (55 - aliveAliens) * 12);
+        const totalAliens = aliens.length || 55;
+        const percentKilled = (totalAliens - aliveAliens) / totalAliens;
+        const baseInterval = 800 - percentKilled * 700; // 800ms at start, 100ms at end
+        const diffSettings = DIFFICULTY_SETTINGS[progress.settings.difficulty];
+        const marchInterval = Math.max(100, baseInterval / diffSettings.enemySpeedMultiplier);
         if (time - lastMarchRef.current >= marchInterval && aliveAliens > 0) {
           soundManager.playMarch(marchStepRef.current);
           marchStepRef.current = (marchStepRef.current + 1) % 4;
