@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { GameShell } from "@/shared/components";
 
 const Weather = dynamic(
   () => import("@/apps/weather"),
@@ -20,5 +21,9 @@ const Weather = dynamic(
 );
 
 export default function WeatherPage() {
-  return <Weather />;
+  return (
+    <GameShell gameName="Weather" canPause={false}>
+      <Weather />
+    </GameShell>
+  );
 }

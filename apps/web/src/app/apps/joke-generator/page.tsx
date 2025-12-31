@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { GameShell } from "@/shared/components";
 
 const JokeGenerator = dynamic(
   () => import("@/apps/joke-generator"),
@@ -20,5 +21,9 @@ const JokeGenerator = dynamic(
 );
 
 export default function JokeGeneratorPage() {
-  return <JokeGenerator />;
+  return (
+    <GameShell gameName="Jokes" canPause={false}>
+      <JokeGenerator />
+    </GameShell>
+  );
 }

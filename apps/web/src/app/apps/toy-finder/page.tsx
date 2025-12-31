@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { GameShell } from "@/shared/components";
 
 const ToyFinder = dynamic(
   () => import("@/apps/toy-finder"),
@@ -20,5 +21,9 @@ const ToyFinder = dynamic(
 );
 
 export default function ToyFinderPage() {
-  return <ToyFinder />;
+  return (
+    <GameShell gameName="Toy Finder" canPause={false}>
+      <ToyFinder />
+    </GameShell>
+  );
 }
