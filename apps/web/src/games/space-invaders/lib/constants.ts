@@ -217,13 +217,46 @@ export type Explosion = {
 };
 
 // ============================================
-// Difficulty Scaling
+// Difficulty Settings (Easy/Normal/Hard)
 // ============================================
-export function getWaveDifficulty(wave: number) {
+export const DIFFICULTY_SETTINGS = {
+  easy: {
+    enemySpeedMultiplier: 0.6,        // 40% slower enemies
+    bulletSpeedMultiplier: 1.5,        // 50% faster player bullets
+    enemyDescentMultiplier: 0.5,       // 50% less descent (10px instead of 20)
+    enemyShootChanceMultiplier: 0.4,   // 60% less enemy shooting
+    waveScalingMultiplier: 0.6,        // Waves get harder more slowly
+  },
+  normal: {
+    enemySpeedMultiplier: 1.0,
+    bulletSpeedMultiplier: 1.0,
+    enemyDescentMultiplier: 1.0,
+    enemyShootChanceMultiplier: 1.0,
+    waveScalingMultiplier: 1.0,
+  },
+  hard: {
+    enemySpeedMultiplier: 1.3,         // 30% faster enemies
+    bulletSpeedMultiplier: 0.9,        // 10% slower player bullets
+    enemyDescentMultiplier: 1.25,      // 25% more descent
+    enemyShootChanceMultiplier: 1.5,   // 50% more enemy shooting
+    waveScalingMultiplier: 1.3,        // Waves ramp up faster
+  },
+} as const;
+
+export type Difficulty = keyof typeof DIFFICULTY_SETTINGS;
+
+export function getDifficultySettings(difficulty: Difficulty) {
+  return DIFFICULTY_SETTINGS[difficulty];
+}
+
+// ============================================
+// Wave Difficulty Scaling
+// ============================================
+export function getWaveDifficulty(wave: number, waveScalingMultiplier: number = 1) {
   return {
-    alienSpeedMultiplier: 1 + (wave - 1) * 0.15, // 15% faster each wave
-    alienShootMultiplier: 1 + (wave - 1) * 0.1, // 10% more shooting each wave
-    startingRow: Math.min(wave - 1, 3), // Aliens start lower each wave (max 3 rows down)
+    alienSpeedMultiplier: 1 + (wave - 1) * 0.15 * waveScalingMultiplier,
+    alienShootMultiplier: 1 + (wave - 1) * 0.1 * waveScalingMultiplier,
+    startingRow: Math.min(Math.floor((wave - 1) * waveScalingMultiplier), 3),
   };
 }
 

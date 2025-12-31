@@ -22,6 +22,7 @@ import {
   createShieldBlocks,
   getWaveDifficulty,
   getAlienSpeedForCount,
+  getDifficultySettings,
 } from "./constants";
 
 // ============================================
@@ -324,13 +325,16 @@ export const useSpaceInvadersStore = create<SpaceInvadersState>()(
         let aliensKilledThisFrame = 0;
         let mysteryHitThisFrame = 0;
 
+        // Get difficulty settings
+        const diffSettings = getDifficultySettings(state.progress.settings.difficulty);
+
         // ============================================
         // Update player bullets
         // ============================================
         newPlayerBullets = newPlayerBullets
           .map((bullet) => ({
             ...bullet,
-            y: bullet.y - BULLET.SPEED,
+            y: bullet.y - BULLET.SPEED * diffSettings.bulletSpeedMultiplier,
           }))
           .filter((bullet) => bullet.y > -BULLET.HEIGHT);
 
@@ -349,9 +353,9 @@ export const useSpaceInvadersStore = create<SpaceInvadersState>()(
         // ============================================
         const aliveAliens = newAliens.filter((a) => a.alive);
         const totalAliens = ALIEN.ROWS * ALIEN.COLS;
-        const difficulty = getWaveDifficulty(state.wave);
+        const waveDifficulty = getWaveDifficulty(state.wave, diffSettings.waveScalingMultiplier);
         const baseSpeed =
-          ALIEN.BASE_MOVE_SPEED * difficulty.alienSpeedMultiplier;
+          ALIEN.BASE_MOVE_SPEED * waveDifficulty.alienSpeedMultiplier * diffSettings.enemySpeedMultiplier;
         const currentSpeed = getAlienSpeedForCount(
           aliveAliens.length,
           totalAliens,
@@ -381,7 +385,7 @@ export const useSpaceInvadersStore = create<SpaceInvadersState>()(
             return {
               ...alien,
               x: shouldDrop ? alien.x : alien.x + state.alienDirection * currentSpeed * 5,
-              y: shouldDrop ? alien.y + ALIEN.DROP_AMOUNT : alien.y,
+              y: shouldDrop ? alien.y + ALIEN.DROP_AMOUNT * diffSettings.enemyDescentMultiplier : alien.y,
               animationFrame: alien.animationFrame === 0 ? 1 : 0,
             };
           });
@@ -413,7 +417,7 @@ export const useSpaceInvadersStore = create<SpaceInvadersState>()(
 
           // Random chance for each bottom alien to shoot
           const shootChance =
-            ALIEN.SHOOT_CHANCE * difficulty.alienShootMultiplier;
+            ALIEN.SHOOT_CHANCE * waveDifficulty.alienShootMultiplier * diffSettings.enemyShootChanceMultiplier;
           for (const alien of bottomAliens) {
             if (Math.random() < shootChance) {
               newAlienBullets.push({

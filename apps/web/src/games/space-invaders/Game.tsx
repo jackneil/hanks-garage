@@ -229,6 +229,11 @@ export function SpaceInvadersGame() {
   const marchStepRef = useRef<number>(0);
   const [scale, setScale] = useState(1);
 
+  // Auto-fire support
+  const fireHeldRef = useRef(false);
+  const lastAutoFireRef = useRef<number>(0);
+  const AUTO_FIRE_COOLDOWN = 150; // ms between auto-fire shots
+
   const store = useSpaceInvadersStore();
   const {
     gameState,
@@ -645,6 +650,16 @@ export function SpaceInvadersGame() {
           movePlayer(1);
         }
 
+        // Auto-fire when fire key is held
+        if (fireHeldRef.current) {
+          const now = Date.now();
+          if (now - lastAutoFireRef.current >= AUTO_FIRE_COOLDOWN) {
+            shoot();
+            soundManager.playShoot();
+            lastAutoFireRef.current = now;
+          }
+        }
+
         // Update game state
         update(delta);
 
@@ -700,11 +715,16 @@ export function SpaceInvadersGame() {
     const handleKeyDown = (e: KeyboardEvent) => {
       keysRef.current.add(e.code);
 
-      if (e.code === "Space") {
+      if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") {
         e.preventDefault();
         if (gameState === "playing") {
-          handleShoot();
-        } else {
+          // Start auto-fire and fire immediately on first press
+          if (!fireHeldRef.current) {
+            fireHeldRef.current = true;
+            handleShoot();
+            lastAutoFireRef.current = Date.now();
+          }
+        } else if (e.code === "Space") {
           handleInput();
         }
       }
@@ -717,17 +737,16 @@ export function SpaceInvadersGame() {
           resumeGame();
         }
       }
-
-      if (e.code === "KeyW" || e.code === "ArrowUp") {
-        e.preventDefault();
-        if (gameState === "playing") {
-          handleShoot();
-        }
-      }
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
       keysRef.current.delete(e.code);
+
+      // Stop auto-fire when fire key is released
+      if (e.code === "Space" || e.code === "KeyW" || e.code === "ArrowUp") {
+        fireHeldRef.current = false;
+        lastAutoFireRef.current = 0;
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -744,8 +763,10 @@ export function SpaceInvadersGame() {
   const MobileControls = () => {
     const [leftPressed, setLeftPressed] = useState(false);
     const [rightPressed, setRightPressed] = useState(false);
+    const [firePressed, setFirePressed] = useState(false);
     const leftIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const rightIntervalRef = useRef<NodeJS.Timeout | null>(null);
+    const fireIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const startMoveLeft = useCallback(() => {
       if (gameState !== "playing") return;
@@ -777,10 +798,28 @@ export function SpaceInvadersGame() {
       }
     }, []);
 
+    const startFire = useCallback(() => {
+      if (gameState !== "playing") return;
+      setFirePressed(true);
+      handleShoot(); // Fire immediately
+      fireIntervalRef.current = setInterval(() => {
+        handleShoot();
+      }, 150); // Auto-fire every 150ms
+    }, []);
+
+    const stopFire = useCallback(() => {
+      setFirePressed(false);
+      if (fireIntervalRef.current) {
+        clearInterval(fireIntervalRef.current);
+        fireIntervalRef.current = null;
+      }
+    }, []);
+
     useEffect(() => {
       return () => {
         if (leftIntervalRef.current) clearInterval(leftIntervalRef.current);
         if (rightIntervalRef.current) clearInterval(rightIntervalRef.current);
+        if (fireIntervalRef.current) clearInterval(fireIntervalRef.current);
       };
     }, []);
 
@@ -813,12 +852,24 @@ export function SpaceInvadersGame() {
 
         {/* Fire button */}
         <button
-          className="w-24 h-24 rounded-full bg-red-600 hover:bg-red-500 active:bg-red-700 active:scale-95 flex items-center justify-center text-white text-xl font-bold touch-manipulation transition-all shadow-lg"
+          className={`w-24 h-24 rounded-full flex items-center justify-center text-white text-xl font-bold touch-manipulation transition-all shadow-lg ${
+            firePressed ? "bg-red-700 scale-95" : "bg-red-600 hover:bg-red-500"
+          }`}
           onTouchStart={(e) => {
             e.preventDefault();
-            handleShoot();
+            startFire();
           }}
-          onClick={handleShoot}
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            stopFire();
+          }}
+          onTouchCancel={(e) => {
+            e.preventDefault();
+            stopFire();
+          }}
+          onMouseDown={startFire}
+          onMouseUp={stopFire}
+          onMouseLeave={stopFire}
           aria-label="Fire"
         >
           FIRE
