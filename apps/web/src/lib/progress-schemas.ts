@@ -131,6 +131,11 @@ const checkersSchema = z.object({
   mediumLosses: z.number().min(0).max(MAX_COUNT),
   hardWins: z.number().min(0).max(MAX_COUNT),
   hardLosses: z.number().min(0).max(MAX_COUNT),
+  twoPlayerGamesPlayed: z.number().min(0).max(MAX_COUNT),
+  twoPlayerRedWins: z.number().min(0).max(MAX_COUNT),
+  twoPlayerBlackWins: z.number().min(0).max(MAX_COUNT),
+  variant: z.enum(["american", "casual", "brazilian", "suicide"]),
+  gameMode: z.enum(["vs-ai", "vs-friend"]),
   difficulty: boundedString,
   lastModified: timestampSchema,
 }).strict();
