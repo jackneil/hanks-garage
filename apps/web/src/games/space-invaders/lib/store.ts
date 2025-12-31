@@ -8,6 +8,7 @@ import {
   type MysteryShip,
   type ShieldBlock,
   type Explosion,
+  type Difficulty,
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
   PLAYER,
@@ -28,6 +29,7 @@ import {
 // ============================================
 // Progress Data (Synced to Server)
 // ============================================
+
 export type SpaceInvadersProgress = {
   highScore: number;
   wavesCompleted: number;
@@ -37,7 +39,7 @@ export type SpaceInvadersProgress = {
   gamesPlayed: number;
   settings: {
     soundEnabled: boolean;
-    difficulty: "easy" | "normal" | "hard";
+    difficulty: Difficulty;
   };
   lastModified: number;
 };
@@ -51,7 +53,7 @@ const defaultProgress: SpaceInvadersProgress = {
   gamesPlayed: 0,
   settings: {
     soundEnabled: true,
-    difficulty: "normal",
+    difficulty: "8yo",  // Hank's age!
   },
   lastModified: Date.now(),
 };
@@ -112,24 +114,25 @@ type SpaceInvadersState = {
   getProgress: () => SpaceInvadersProgress;
   setProgress: (data: SpaceInvadersProgress) => void;
   setSoundEnabled: (enabled: boolean) => void;
-  setDifficulty: (difficulty: "easy" | "normal" | "hard") => void;
+  setDifficulty: (difficulty: Difficulty) => void;
 };
 
 // ============================================
 // Helper Functions
 // ============================================
-function createAliens(wave: number): Alien[] {
+function createAliens(wave: number, alienRows: number, waveScalingMultiplier: number): Alien[] {
   const aliens: Alien[] = [];
-  const difficulty = getWaveDifficulty(wave);
+  const waveDifficulty = getWaveDifficulty(wave, waveScalingMultiplier);
   let id = 0;
 
-  for (let row = 0; row < ALIEN.ROWS; row++) {
+  // Use alienRows from difficulty settings instead of ALIEN.ROWS
+  for (let row = 0; row < alienRows; row++) {
     for (let col = 0; col < ALIEN.COLS; col++) {
       aliens.push({
         id: id++,
         type: getAlienTypeForRow(row),
         x: ALIEN.START_X + col * ALIEN.SPACING_X,
-        y: ALIEN.START_Y + row * ALIEN.SPACING_Y + difficulty.startingRow * 20,
+        y: ALIEN.START_Y + row * ALIEN.SPACING_Y + waveDifficulty.startingRow * 20,
         alive: true,
         animationFrame: 0,
       });
@@ -194,13 +197,14 @@ export const useSpaceInvadersStore = create<SpaceInvadersState>()(
       // ============================================
       startGame: () => {
         const state = get();
+        const diffSettings = getDifficultySettings(state.progress.settings.difficulty);
         set({
           gameState: "playing",
           score: 0,
           lives: INITIAL_LIVES,
           wave: 1,
           playerX: CANVAS_WIDTH / 2 - PLAYER.WIDTH / 2,
-          aliens: createAliens(1),
+          aliens: createAliens(1, diffSettings.alienRows, diffSettings.waveScalingMultiplier),
           alienDirection: 1,
           alienMoveTimer: Date.now(),
           alienAnimationFrame: 0,
@@ -282,11 +286,12 @@ export const useSpaceInvadersStore = create<SpaceInvadersState>()(
       nextWave: () => {
         const state = get();
         const newWave = state.wave + 1;
+        const diffSettings = getDifficultySettings(state.progress.settings.difficulty);
 
         set({
           gameState: "playing",
           wave: newWave,
-          aliens: createAliens(newWave),
+          aliens: createAliens(newWave, diffSettings.alienRows, diffSettings.waveScalingMultiplier),
           alienDirection: 1,
           alienMoveTimer: Date.now(),
           playerBullets: [],
@@ -776,7 +781,7 @@ export const useSpaceInvadersStore = create<SpaceInvadersState>()(
         }));
       },
 
-      setDifficulty: (difficulty: "easy" | "normal" | "hard") => {
+      setDifficulty: (difficulty: Difficulty) => {
         set((state) => ({
           progress: {
             ...state.progress,

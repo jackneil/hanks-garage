@@ -217,29 +217,68 @@ export type Explosion = {
 };
 
 // ============================================
-// Difficulty Settings (Easy/Normal/Hard)
+// Age-Based Difficulty Settings
 // ============================================
 export const DIFFICULTY_SETTINGS = {
-  easy: {
-    enemySpeedMultiplier: 0.6,        // 40% slower enemies
-    bulletSpeedMultiplier: 1.5,        // 50% faster player bullets
-    enemyDescentMultiplier: 0.5,       // 50% less descent (10px instead of 20)
-    enemyShootChanceMultiplier: 0.4,   // 60% less enemy shooting
-    waveScalingMultiplier: 0.6,        // Waves get harder more slowly
+  "4yo": {
+    alienRows: 2,                       // Only 2 rows for toddlers
+    enemySpeedMultiplier: 0.3,          // Very slow
+    bulletSpeedMultiplier: 2.0,         // Super fast bullets
+    enemyDescentMultiplier: 0.3,        // Barely descend
+    enemyShootChanceMultiplier: 0.1,    // Almost no shooting
+    waveScalingMultiplier: 0.3,         // Waves barely get harder
+    sizeMultiplier: 1.0,
+    label: "4 years old",
+    emoji: "👶",
+    color: "bg-blue-400",
   },
-  normal: {
-    enemySpeedMultiplier: 1.0,
-    bulletSpeedMultiplier: 1.0,
-    enemyDescentMultiplier: 1.0,
-    enemyShootChanceMultiplier: 1.0,
-    waveScalingMultiplier: 1.0,
+  "8yo": {
+    alienRows: 3,                       // 3 rows for Hank's age
+    enemySpeedMultiplier: 0.6,          // Slow
+    bulletSpeedMultiplier: 1.5,         // Fast bullets
+    enemyDescentMultiplier: 0.5,        // Slow descent
+    enemyShootChanceMultiplier: 0.4,    // Light shooting
+    waveScalingMultiplier: 0.6,         // Gentle wave progression
+    sizeMultiplier: 1.0,
+    label: "8 years old",
+    emoji: "🧒",
+    color: "bg-green-500",
   },
-  hard: {
-    enemySpeedMultiplier: 1.3,         // 30% faster enemies
-    bulletSpeedMultiplier: 0.9,        // 10% slower player bullets
-    enemyDescentMultiplier: 1.25,      // 25% more descent
-    enemyShootChanceMultiplier: 1.5,   // 50% more enemy shooting
-    waveScalingMultiplier: 1.3,        // Waves ramp up faster
+  "12yo": {
+    alienRows: 5,                       // Full 5 rows
+    enemySpeedMultiplier: 1.0,          // Normal speed
+    bulletSpeedMultiplier: 1.0,         // Normal bullets
+    enemyDescentMultiplier: 1.0,        // Normal descent
+    enemyShootChanceMultiplier: 1.0,    // Normal shooting
+    waveScalingMultiplier: 1.0,         // Normal progression
+    sizeMultiplier: 1.0,
+    label: "12 years old",
+    emoji: "👦",
+    color: "bg-yellow-500",
+  },
+  "24yo": {
+    alienRows: 5,                       // Full 5 rows
+    enemySpeedMultiplier: 1.3,          // Fast enemies
+    bulletSpeedMultiplier: 0.9,         // Slightly slower bullets
+    enemyDescentMultiplier: 1.25,       // Aggressive descent
+    enemyShootChanceMultiplier: 1.5,    // Heavy shooting
+    waveScalingMultiplier: 1.3,         // Hard wave progression
+    sizeMultiplier: 1.0,
+    label: "24 years old",
+    emoji: "🧑",
+    color: "bg-orange-500",
+  },
+  "99yo": {
+    alienRows: 2,                       // Only 2 rows for grandpa
+    enemySpeedMultiplier: 0.25,         // Super slow (old people are slow)
+    bulletSpeedMultiplier: 2.0,         // Fast bullets (help the elderly)
+    enemyDescentMultiplier: 0.2,        // Almost no descent
+    enemyShootChanceMultiplier: 0.05,   // 5% shooting (practically none)
+    waveScalingMultiplier: 0.2,         // Waves barely change
+    sizeMultiplier: 1.5,                // 50% BIGGER everything (bad eyesight!)
+    label: "99 years old",
+    emoji: "👴",
+    color: "bg-purple-500",
   },
 } as const;
 

@@ -16,8 +16,10 @@ import {
   SHIELD,
   COLORS,
   UI,
+  DIFFICULTY_SETTINGS,
   type Alien,
   type AlienType,
+  type Difficulty,
 } from "./lib/constants";
 
 // ============================================
@@ -945,21 +947,24 @@ export function SpaceInvadersGame() {
             {/* Difficulty (only shown when not playing) */}
             {gameState === "ready" && (
               <div>
-                <label className="text-white font-bold mb-2 block">Difficulty</label>
-                <div className="flex gap-2">
-                  {(["easy", "normal", "hard"] as const).map((diff) => (
-                    <button
-                      key={diff}
-                      onClick={() => setDifficulty(diff)}
-                      className={`flex-1 py-2 px-4 rounded-lg font-bold capitalize transition-all ${
-                        progress.settings.difficulty === diff
-                          ? "bg-green-600 text-white"
-                          : "bg-gray-600 text-gray-300 hover:bg-gray-500"
-                      }`}
-                    >
-                      {diff}
-                    </button>
-                  ))}
+                <label className="text-white font-bold mb-2 block">Age/Difficulty</label>
+                <div className="flex flex-wrap gap-2">
+                  {(Object.keys(DIFFICULTY_SETTINGS) as Difficulty[]).map((diff) => {
+                    const settings = DIFFICULTY_SETTINGS[diff];
+                    return (
+                      <button
+                        key={diff}
+                        onClick={() => setDifficulty(diff)}
+                        className={`px-3 py-2 rounded-lg font-bold transition-all ${
+                          progress.settings.difficulty === diff
+                            ? `${settings.color} text-white`
+                            : "bg-gray-600 text-gray-300 hover:bg-gray-500"
+                        }`}
+                      >
+                        {settings.emoji} {diff}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -1048,6 +1053,41 @@ export function SpaceInvadersGame() {
         />
       </div>
 
+      {/* Age-based difficulty selector - visible on start screen */}
+      {gameState === "ready" && (
+        <div className="w-full max-w-lg mx-auto mt-4 px-4">
+          <div className="text-center mb-3 text-white font-bold text-lg">How old are you?</div>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {(Object.keys(DIFFICULTY_SETTINGS) as Difficulty[]).map((diff) => {
+              const settings = DIFFICULTY_SETTINGS[diff];
+              const isSelected = progress.settings.difficulty === diff;
+              return (
+                <button
+                  key={diff}
+                  onClick={() => store.setDifficulty(diff)}
+                  className={`px-4 py-3 rounded-xl font-bold text-base transition-all flex flex-col items-center min-w-[70px] ${
+                    isSelected
+                      ? `${settings.color} text-white scale-110 ring-2 ring-white shadow-lg`
+                      : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  }`}
+                >
+                  <span className="text-2xl">{settings.emoji}</span>
+                  <span>{diff}</span>
+                </button>
+              );
+            })}
+          </div>
+          {progress.settings.difficulty === "99yo" && (
+            <div className="text-center mt-2 text-purple-300 text-sm">
+              Grandpa mode: Big aliens, slow & easy!
+            </div>
+          )}
+          <div className="text-center mt-3 text-green-400 text-lg font-bold animate-pulse">
+            Tap the game to START!
+          </div>
+        </div>
+      )}
+
       {/* Mobile Controls */}
       <div className="md:hidden w-full">
         <MobileControls />
@@ -1055,7 +1095,7 @@ export function SpaceInvadersGame() {
 
       {/* Desktop keyboard hint */}
       <div className="hidden md:block text-gray-500 text-sm text-center mt-2">
-        A/D or Arrows to move | SPACE or W to shoot | P to pause
+        A/D or Arrows to move | SPACE or W to shoot (hold to auto-fire) | P to pause
       </div>
 
       {/* Pause button for mobile */}
