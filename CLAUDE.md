@@ -201,6 +201,177 @@ And Railway logs will be spammed with errors. Don't be that guy.
 
 ---
 
+## MANDATORY: Game/App Metadata
+
+**Every game/app MUST have a `metadata.ts` file for automatic discovery on the home page.**
+
+### Why?
+- The home page dynamically discovers games by scanning for `metadata.ts` files
+- Without it, your game won't appear on the home page grid
+- It defines the card display (emoji, name, category)
+
+### File Location
+`src/games/<name>/metadata.ts` or `src/apps/<name>/metadata.ts`
+
+### Required Fields
+```typescript
+import type { GameMetadata } from "@/shared/lib/game-registry";
+
+export const metadata: GameMetadata = {
+  id: "my-game",              // URL slug (matches folder name)
+  name: "My Game",            // Display name
+  emoji: "🎮",                // Card icon
+  category: "arcade",         // Where it appears on home page
+  description: "Short desc",  // Optional tooltip
+  hidden: false,              // Set true to hide from home page
+};
+```
+
+### Valid Categories
+- `"racing"` - Racing & Driving
+- `"board"` - Board Games
+- `"arcade"` - Arcade Classics
+- `"action"` - Action Games
+- `"puzzle"` - Puzzle Games
+- `"retro"` - Retro Gaming
+- `"apps"` - Fun Apps
+
+---
+
+## MANDATORY: Store Pattern (Zustand)
+
+**Every game/app with progress tracking MUST follow this store pattern.**
+
+### File Location
+`src/games/<name>/lib/store.ts`
+
+### Required Elements
+
+1. **Progress Type** - What gets saved to the server:
+   ```typescript
+   export type MyGameProgress = {
+     highScore: number;
+     gamesPlayed: number;
+     // ... your fields
+     lastModified: number;  // ALWAYS include this
+   };
+   ```
+
+2. **getProgress/setProgress Functions** - Required for cloud sync:
+   ```typescript
+   const useMyGameStore = create<State & Actions>()(
+     persist(
+       (set, get) => ({
+         progress: defaultProgress,
+
+         // REQUIRED for cloud sync
+         getProgress: () => get().progress,
+         setProgress: (data: MyGameProgress) => set({ progress: data }),
+
+         // ... your game logic
+       }),
+       {
+         name: "my-game-state",
+         partialize: (state) => ({ progress: state.progress }),
+       }
+     )
+   );
+   ```
+
+3. **Always update lastModified** when progress changes:
+   ```typescript
+   set({
+     progress: {
+       ...state.progress,
+       score: newScore,
+       lastModified: Date.now(),  // ALWAYS update this
+     },
+   });
+   ```
+
+---
+
+## MANDATORY: Index Exports
+
+**Every game/app MUST have an `index.ts` that exports the main component and store.**
+
+### File Location
+`src/games/<name>/index.ts`
+
+### Template
+```typescript
+// <GameName> Game - Main exports
+// Self-contained game module
+
+export { MyGame, default } from "./Game";
+export { useMyGameStore } from "./lib/store";
+export type { MyGameProgress } from "./lib/store";
+```
+
+---
+
+## New Game/App Checklist
+
+When building a new game or app, you MUST create these files:
+
+1. **`metadata.ts`** - For home page discovery
+2. **`lib/store.ts`** - With Progress type, getProgress, setProgress
+3. **`index.ts`** - Main exports
+4. **`Game.tsx`** - Main component (use `"use client"`)
+5. **Progress schema** - In `apps/web/src/lib/progress-schemas.ts`
+6. **Route page** - In `app/games/<name>/page.tsx` (thin wrapper)
+
+### Verification
+After creating a new game, check:
+- [ ] Does it appear on the home page?
+- [ ] Does progress save to localStorage?
+- [ ] Are there no schema errors in Railway logs?
+- [ ] Does the profile page show proper stats for this game?
+
+---
+
+## MANDATORY: Profile Page Stats Display
+
+**Every game/app MUST have a case in the game stat extractor to display stats on the profile page.**
+
+### Why?
+- Without an entry, the profile page shows generic or no stats for your game
+- Users expect to see their progress details (wins, high scores, records)
+- Generic fallback only shows highScore - missing rich stats like accuracy, streaks, etc.
+
+### Where It Lives
+`apps/web/src/apps/profile/lib/gameStatExtractor.ts`
+
+### When Building a New Game/App
+
+Add a case to the `extractGameStats` switch statement:
+
+```typescript
+case "my-game":
+  return {
+    ...baseInfo,
+    primaryStat: data.highScore
+      ? { label: "High Score", value: formatNumber(data.highScore as number) }
+      : null,
+    secondaryStats: [
+      data.gamesPlayed && { label: "Games", value: String(data.gamesPlayed) },
+      data.totalXYZ && { label: "XYZ", value: String(data.totalXYZ) },
+    ].filter(Boolean) as { label: string; value: string }[],
+  };
+```
+
+### Guidelines
+1. **primaryStat** - The main stat displayed prominently (high score, wins, level)
+2. **secondaryStats** - Up to 3 supporting stats (games played, accuracy, streaks)
+3. **Use correct field names** - Check your store's Progress type for exact field names
+4. **Show meaningful stats** - Win/loss records, accuracy percentages, best streaks
+5. **Don't use `data.wins`** - Most stores use `gamesWon`, not `wins`
+
+### If You Skip This
+The profile page will fall through to the default case and only show a generic "High Score" or nothing at all. Your users will be sad.
+
+---
+
 ## Monster Truck Game Details
 
 ### Controls

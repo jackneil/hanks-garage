@@ -27,6 +27,9 @@ const GAMES_WITH_DETAIL_VIEW = [
   "hill-climb",
   "oregon-trail",
   "cookie-clicker",
+  "chess",
+  "checkers",
+  "quoridor",
 ];
 
 export function extractGameStats(
@@ -128,22 +131,27 @@ export function extractGameStats(
         ].filter(Boolean) as { label: string; value: string }[],
       };
 
-    case "memory-match":
+    case "memory-match": {
+      const bestTimes = data.bestTimes as Record<string, number> | undefined;
+      const validTimes = bestTimes ? Object.values(bestTimes).filter((t) => t > 0) : [];
+      const bestTime = validTimes.length > 0 ? Math.min(...validTimes) : null;
       return {
         ...baseInfo,
-        primaryStat: data.bestTime
-          ? { label: "Best Time", value: formatTime(data.bestTime as number) }
+        primaryStat: bestTime
+          ? { label: "Best Time", value: formatTime(bestTime) }
           : null,
         secondaryStats: [
-          data.gamesCompleted && { label: "Completed", value: String(data.gamesCompleted) },
+          data.gamesPlayed && { label: "Games", value: String(data.gamesPlayed) },
+          data.gamesWon && { label: "Wins", value: String(data.gamesWon) },
         ].filter(Boolean) as { label: string; value: string }[],
       };
+    }
 
     case "hill-climb":
       return {
         ...baseInfo,
-        primaryStat: data.totalCoins
-          ? { label: "Total Coins", value: formatNumber(data.totalCoins as number) }
+        primaryStat: data.totalCoinsEarned
+          ? { label: "Total Coins", value: formatNumber(data.totalCoinsEarned as number) }
           : null,
         secondaryStats: [
           data.bestDistance && { label: "Best Distance", value: `${formatNumber(data.bestDistance as number)}m` },
@@ -168,28 +176,241 @@ export function extractGameStats(
         secondaryStats: [],
       };
 
-    case "checkers":
     case "chess":
-    case "quoridor":
       return {
         ...baseInfo,
-        primaryStat: data.wins
-          ? { label: "Wins", value: String(data.wins) }
+        primaryStat: data.gamesWon
+          ? { label: "Wins", value: String(data.gamesWon) }
           : data.gamesPlayed
             ? { label: "Games", value: String(data.gamesPlayed) }
             : null,
+        secondaryStats: [
+          data.gamesLost !== undefined && {
+            label: "Record",
+            value: `${data.gamesWon || 0}W-${data.gamesLost || 0}L-${data.gamesDrawn || 0}D`,
+          },
+          data.totalCheckmates && { label: "Checkmates", value: String(data.totalCheckmates) },
+          data.bestWinStreak && { label: "Best Streak", value: String(data.bestWinStreak) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "checkers":
+      return {
+        ...baseInfo,
+        primaryStat: data.gamesWon
+          ? { label: "Wins", value: String(data.gamesWon) }
+          : data.gamesPlayed
+            ? { label: "Games", value: String(data.gamesPlayed) }
+            : null,
+        secondaryStats: [
+          data.gamesLost !== undefined && {
+            label: "Record",
+            value: `${data.gamesWon || 0}W-${data.gamesLost || 0}L`,
+          },
+          data.totalPiecesCaptured && { label: "Captured", value: String(data.totalPiecesCaptured) },
+          data.totalKingsEarned && { label: "Kings", value: String(data.totalKingsEarned) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "quoridor":
+      return {
+        ...baseInfo,
+        primaryStat: data.gamesWon
+          ? { label: "Wins", value: String(data.gamesWon) }
+          : data.gamesPlayed
+            ? { label: "Games", value: String(data.gamesPlayed) }
+            : null,
+        secondaryStats: [
+          data.gamesLost !== undefined && {
+            label: "Record",
+            value: `${data.gamesWon || 0}W-${data.gamesLost || 0}L`,
+          },
+          data.totalWallsPlaced && { label: "Walls", value: String(data.totalWallsPlaced) },
+          data.fastestWin && { label: "Fastest", value: `${data.fastestWin} moves` },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "platformer": {
+      const levels = data.levels as Record<string, { completed: boolean }> | undefined;
+      const completedCount = levels
+        ? Object.values(levels).filter((l) => l.completed).length
+        : 0;
+      return {
+        ...baseInfo,
+        primaryStat: completedCount > 0
+          ? { label: "Levels", value: String(completedCount) }
+          : null,
+        secondaryStats: [
+          data.totalCoins && { label: "Coins", value: formatNumber(data.totalCoins as number) },
+          data.totalStars && { label: "Stars", value: String(data.totalStars) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+    }
+
+    // --- Missing games added below ---
+
+    case "wordle": {
+      const winPct = data.gamesPlayed && data.gamesWon !== undefined
+        ? Math.round((Number(data.gamesWon) / Number(data.gamesPlayed)) * 100)
+        : 0;
+      return {
+        ...baseInfo,
+        primaryStat: data.gamesWon
+          ? { label: "Wins", value: String(data.gamesWon) }
+          : null,
+        secondaryStats: [
+          data.gamesPlayed && { label: "Win %", value: `${winPct}%` },
+          data.maxStreak && { label: "Max Streak", value: String(data.maxStreak) },
+          data.currentStreak && { label: "Current", value: String(data.currentStreak) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+    }
+
+    case "space-invaders":
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.highestWave && { label: "Best Wave", value: String(data.highestWave) },
+          data.totalAliensKilled && { label: "Aliens", value: formatNumber(data.totalAliensKilled as number) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "asteroids":
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.highestWave && { label: "Best Wave", value: String(data.highestWave) },
+          data.totalAsteroidsDestroyed && { label: "Asteroids", value: formatNumber(data.totalAsteroidsDestroyed as number) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "breakout":
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.highestLevel && { label: "Best Level", value: String(data.highestLevel) },
+          data.totalBricksDestroyed && { label: "Bricks", value: formatNumber(data.totalBricksDestroyed as number) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "hextris":
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.gamesPlayed && { label: "Games", value: String(data.gamesPlayed) },
+          data.longestChain && { label: "Best Chain", value: String(data.longestChain) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "dino-runner":
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.gamesPlayed && { label: "Games", value: String(data.gamesPlayed) },
+          data.totalDistance && { label: "Distance", value: formatNumber(data.totalDistance as number) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "math-attack": {
+      const accuracy = data.totalAnswered && data.totalCorrect !== undefined
+        ? Math.round((Number(data.totalCorrect) / Number(data.totalAnswered)) * 100)
+        : 0;
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.totalAnswered && { label: "Accuracy", value: `${accuracy}%` },
+          data.longestCombo && { label: "Best Combo", value: String(data.longestCombo) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+    }
+
+    case "trivia": {
+      const triviaAccuracy = data.totalAnswered && data.totalCorrect !== undefined
+        ? Math.round((Number(data.totalCorrect) / Number(data.totalAnswered)) * 100)
+        : 0;
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.gamesPlayed && { label: "Games", value: String(data.gamesPlayed) },
+          data.totalAnswered && { label: "Accuracy", value: `${triviaAccuracy}%` },
+          data.longestStreak && { label: "Best Streak", value: String(data.longestStreak) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+    }
+
+    case "blitz-bomber":
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.highestLevel && { label: "Best Level", value: String(data.highestLevel) },
+          data.successfulLandings && { label: "Landings", value: String(data.successfulLandings) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "bomberman":
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.highestLevel && { label: "Best Level", value: String(data.highestLevel) },
+          data.totalEnemiesDefeated && { label: "Enemies", value: formatNumber(data.totalEnemiesDefeated as number) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
+    case "virtual-pet": {
+      const pet = data.pet as { name?: string; happiness?: number } | undefined;
+      const stats = data.stats as { daysCaredFor?: number } | undefined;
+      return {
+        ...baseInfo,
+        primaryStat: stats?.daysCaredFor !== undefined
+          ? { label: "Days Cared For", value: String(stats.daysCaredFor) }
+          : null,
+        secondaryStats: [
+          pet?.name && { label: "Pet", value: String(pet.name) },
+          pet?.happiness !== undefined && { label: "Happiness", value: `${pet.happiness}%` },
+          data.coins !== undefined && { label: "Coins", value: formatNumber(data.coins as number) },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+    }
+
+    case "drawing-app":
+      return {
+        ...baseInfo,
+        primaryStat: null,
         secondaryStats: [],
       };
 
-    case "platformer":
+    case "drum-machine":
       return {
         ...baseInfo,
-        primaryStat: data.levelsCompleted
-          ? { label: "Levels", value: String(data.levelsCompleted) }
-          : null,
-        secondaryStats: [
-          data.coins && { label: "Coins", value: formatNumber(data.coins as number) },
-        ].filter(Boolean) as { label: string; value: string }[],
+        primaryStat: null,
+        secondaryStats: [],
       };
 
     // Apps (not games, but might have progress)
