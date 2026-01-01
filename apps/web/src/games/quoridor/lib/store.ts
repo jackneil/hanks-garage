@@ -316,8 +316,11 @@ export const useQuoridorStore = create<GameState & GameActions>()(
               currentState.walls
             );
 
-            for (const wall of validWalls.slice(0, 20)) {
-              // Limit search
+            // Shuffle walls for variety, check more of them
+            const shuffledWalls = [...validWalls].sort(
+              () => Math.random() - 0.5
+            );
+            for (const wall of shuffledWalls.slice(0, 40)) {
               const newWalls = [...currentState.walls, wall];
               const newPlayerDist = getShortestPathLength(
                 currentState.positions[1],
@@ -325,19 +328,24 @@ export const useQuoridorStore = create<GameState & GameActions>()(
                 newWalls
               );
 
-              // If wall significantly slows down player
-              if (newPlayerDist > currentPlayerDist + 1) {
+              // Accept any wall that slows player down
+              if (newPlayerDist > currentPlayerDist) {
                 bestWall = wall;
                 break;
               }
             }
           }
 
-          // Decide: move or place wall
-          const shouldPlaceWall =
-            bestWall &&
-            currentState.difficulty === "hard" &&
-            Math.random() > 0.5;
+          // Decide: move or place wall based on difficulty
+          let shouldPlaceWall = false;
+          if (bestWall) {
+            if (currentState.difficulty === "hard") {
+              shouldPlaceWall = Math.random() > 0.3; // 70% chance on hard
+            } else if (currentState.difficulty === "medium") {
+              shouldPlaceWall = Math.random() > 0.6; // 40% chance on medium
+            }
+            // Easy: never places walls (shouldPlaceWall stays false)
+          }
 
           if (shouldPlaceWall && bestWall) {
             // Place wall
