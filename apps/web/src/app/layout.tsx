@@ -19,7 +19,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Hank's Garage",
+  title: "Hank's Hits",
   description: "Games, trucks, and awesome stuff!",
   manifest: "/manifest.json",
   icons: {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Hank's Garage",
+    title: "Hank's Hits",
   },
 };
 
