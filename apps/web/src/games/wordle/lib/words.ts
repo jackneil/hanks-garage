@@ -1,5 +1,8 @@
 // Word lists for different difficulty levels
-// All words are common, kid-friendly vocabulary
+// TARGET WORDS: Curated, kid-friendly vocabulary (used for puzzle solutions)
+// VALIDATION: Uses Scrabble dictionary (see dictionary.ts) for guess validation
+
+import { getDictionary } from "./dictionary";
 
 export const WORDS_3 = [
   "cat", "dog", "sun", "hat", "run", "big", "red", "bed", "cup", "map",
@@ -86,6 +89,7 @@ export function getRandomWord(length: number): string {
 }
 
 export function isValidWord(word: string, length: number): boolean {
-  const words = getWordList(length);
-  return words.includes(word.toLowerCase());
+  // Use Scrabble dictionary for validation (much more comprehensive)
+  const dictionary = getDictionary(length);
+  return dictionary.has(word.toLowerCase());
 }

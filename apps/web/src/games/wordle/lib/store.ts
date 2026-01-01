@@ -27,6 +27,7 @@ interface WordleState extends WordleProgress {
   currentRow: number;
   invalidGuess: boolean;
   revealedHint: number | null; // Index of revealed letter
+  showTutorial: boolean;
 
   // Actions
   startGame: () => void;
@@ -37,6 +38,8 @@ interface WordleState extends WordleProgress {
   reset: () => void;
   setDifficulty: (difficulty: Difficulty) => void;
   setSoundEnabled: (enabled: boolean) => void;
+  openTutorial: () => void;
+  closeTutorial: () => void;
 
   // Sync helpers
   getProgress: () => WordleProgress;
@@ -70,6 +73,7 @@ export const useWordleStore = create<WordleState>()(
       currentRow: 0,
       invalidGuess: false,
       revealedHint: null,
+      showTutorial: false,
 
       startGame: () => {
         const { settings } = get();
@@ -211,6 +215,9 @@ export const useWordleStore = create<WordleState>()(
           settings: { ...state.settings, soundEnabled: enabled },
           lastModified: Date.now(),
         })),
+
+      openTutorial: () => set({ showTutorial: true }),
+      closeTutorial: () => set({ showTutorial: false }),
 
       getProgress: () => {
         const state = get();

@@ -5,6 +5,7 @@ import { useWordleStore, type WordleProgress } from "./lib/store";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import { FullscreenButton } from "@/shared/components/FullscreenButton";
 import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
+import { TutorialModal } from "./components/TutorialModal";
 import {
   DIFFICULTY_SETTINGS,
   getDifficultySettings,
@@ -37,6 +38,7 @@ export function WordleGame() {
     useHint,
     reset,
     setDifficulty,
+    openTutorial,
   } = store;
 
   // Auth sync
@@ -119,6 +121,7 @@ export function WordleGame() {
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white">
       <IOSInstallPrompt />
       <FullscreenButton />
+      <TutorialModal />
 
       <div className="container mx-auto px-4 py-6 max-w-lg flex flex-col items-center">
         {/* Ready Screen */}
@@ -184,13 +187,21 @@ export function WordleGame() {
               )}
             </div>
 
-            {/* Start Button */}
-            <button
-              onClick={startGame}
-              className="btn btn-primary btn-lg text-xl px-12 py-4 rounded-full shadow-lg hover:scale-105 transition-transform"
-            >
-              🎮 Start Game!
-            </button>
+            {/* Buttons */}
+            <div className="flex flex-col items-center gap-3">
+              <button
+                onClick={startGame}
+                className="btn btn-primary btn-lg text-xl px-12 py-4 rounded-full shadow-lg hover:scale-105 transition-transform"
+              >
+                🎮 Start Game!
+              </button>
+              <button
+                onClick={openTutorial}
+                className="btn btn-ghost btn-sm text-slate-400 hover:text-white"
+              >
+                ❓ How to Play
+              </button>
+            </div>
           </div>
         )}
 
