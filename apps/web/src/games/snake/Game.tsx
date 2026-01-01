@@ -431,13 +431,20 @@ export function SnakeGame() {
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
 
   // Sync with auth system
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "snake",
     localStorageKey: "snake-game-state",
     getState: () => store.getProgress(),
     setState: (data: SnakeProgress) => store.setProgress(data),
     debounceMs: 2000,
   });
+
+  // Force save immediately on game over
+  useEffect(() => {
+    if (status === "game-over") {
+      forceSync();
+    }
+  }, [status, forceSync]);
 
   // Keyboard controls
   useEffect(() => {

@@ -309,13 +309,20 @@ export function MemoryMatchGame() {
   const [isClient, setIsClient] = useState(false);
 
   // Auth sync
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "memory-match",
     localStorageKey: "memory-match-progress",
     getState: () => store.getProgress(),
     setState: (data) => store.setProgress(data),
     debounceMs: 2000,
   });
+
+  // Force save immediately on win
+  useEffect(() => {
+    if (store.isWon) {
+      forceSync();
+    }
+  }, [store.isWon, forceSync]);
 
   // Client-side hydration
   useEffect(() => {

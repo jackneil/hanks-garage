@@ -40,13 +40,20 @@ export function Trivia() {
   } = store;
 
   // Auth sync
-  useAuthSync({
+  const { forceSync } = useAuthSync({
     appId: "trivia",
     localStorageKey: "trivia-progress",
     getState: () => store.getProgress() as unknown as Record<string, unknown>,
     setState: (data) => store.setProgress(data as unknown as TriviaProgress),
     debounceMs: 2000,
   });
+
+  // Force save immediately on game end
+  useEffect(() => {
+    if (gameState === "finished") {
+      forceSync();
+    }
+  }, [gameState, forceSync]);
 
   // Game state
   const [questions, setQuestions] = useState<PreparedQuestion[]>([]);

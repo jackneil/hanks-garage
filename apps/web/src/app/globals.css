@@ -100,3 +100,14 @@ html, body {
   transition: transform 0.2s ease;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
 }
+
+/* Shake animation for invalid wall placement in Quoridor */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out;
+}

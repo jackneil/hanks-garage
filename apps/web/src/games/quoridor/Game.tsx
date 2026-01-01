@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuoridorStore } from "./lib/store";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import { FullscreenButton } from "@/shared/components/FullscreenButton";
@@ -13,8 +13,11 @@ import {
   type GameMode,
   BOARD_SIZE,
   COLORS,
+  SHADOWS,
+  Z_INDEX,
+  PLAYER1_GOAL_ROW,
+  PLAYER2_GOAL_ROW,
   positionsEqual,
-  getPlayerColor,
 } from "./lib/constants";
 import { isValidWallPlacement } from "./lib/quoridorLogic";
 
@@ -22,14 +25,55 @@ export function QuoridorGame() {
   const store = useQuoridorStore();
   const [showStats, setShowStats] = useState(false);
 
+  // Onboarding modal - show for first-time players
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem("quoridor-onboarding-seen");
+  });
+
+  // Invalid wall placement feedback
+  const [invalidFlash, setInvalidFlash] = useState<{
+    row: number;
+    col: number;
+    orientation: WallOrientation;
+  } | null>(null);
+  const invalidTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (invalidTimeoutRef.current) clearTimeout(invalidTimeoutRef.current);
+    };
+  }, []);
+
+  const dismissOnboarding = () => {
+    localStorage.setItem("quoridor-onboarding-seen", "true");
+    setShowOnboarding(false);
+  };
+
+  const handleInvalidPlacement = (row: number, col: number, orientation: WallOrientation) => {
+    if (invalidTimeoutRef.current) {
+      clearTimeout(invalidTimeoutRef.current);
+    }
+    setInvalidFlash({ row, col, orientation });
+    invalidTimeoutRef.current = setTimeout(() => setInvalidFlash(null), 400);
+  };
+
   // Sync with auth system
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "quoridor",
     localStorageKey: "quoridor-progress",
     getState: () => store.getProgress(),
     setState: (data) => store.setProgress(data),
     debounceMs: 2000,
   });
+
+  // Force save immediately on game end
+  useEffect(() => {
+    if (store.status === "player1-wins" || store.status === "player2-wins") {
+      forceSync();
+    }
+  }, [store.status, forceSync]);
 
   const handleSquareClick = (row: number, col: number) => {
     const pos: Position = { row, col };
@@ -72,6 +116,8 @@ export function QuoridorGame() {
     const wall: Wall = { row, col, orientation };
     if (isValidWallPlacement(store.getLogicState(), wall, store.currentPlayer)) {
       store.placeWall(wall);
+    } else {
+      handleInvalidPlacement(row, col, orientation);
     }
   };
 
@@ -100,47 +146,71 @@ export function QuoridorGame() {
       positionsEqual(store.positions[store.currentPlayer], pos) &&
       store.status === "playing";
 
+    // Goal row indicators
+    const isPlayer1Goal = row === PLAYER1_GOAL_ROW; // Top row - P1 destination
+    const isPlayer2Goal = row === PLAYER2_GOAL_ROW; // Bottom row - P2 destination
+
     return (
       <div
         key={`square-${row}-${col}`}
         className={`
-          relative flex items-center justify-center
-          transition-all duration-150
-          ${isValidMove ? "cursor-pointer ring-4 ring-green-400 ring-inset" : ""}
+          relative flex items-center justify-center rounded-sm
+          transition-[background-color,box-shadow] duration-150
+          ${isValidMove ? "cursor-pointer" : ""}
           ${isCurrentPlayerPawn && !store.isAIThinking ? "cursor-pointer" : ""}
         `}
         style={{
           backgroundColor: COLORS.BOARD_LIGHT,
+          boxShadow: SHADOWS.SQUARE_RAISED,
           aspectRatio: "1",
+          zIndex: Z_INDEX.SQUARES,
+          // Goal row indicators - subtle colored border
+          borderTop: isPlayer1Goal ? `3px solid ${COLORS.PLAYER1}` : undefined,
+          borderBottom: isPlayer2Goal ? `3px solid ${COLORS.PLAYER2}` : undefined,
         }}
         onClick={() => handleSquareClick(row, col)}
       >
         {/* Valid move indicator */}
         {isValidMove && !isPlayer1 && !isPlayer2 && (
-          <div className="absolute w-1/3 h-1/3 rounded-full bg-green-500 opacity-60 animate-pulse" />
-        )}
-
-        {/* Player 1 pawn */}
-        {isPlayer1 && (
           <div
-            className={`
-              w-3/4 h-3/4 rounded-full shadow-lg
-              ${store.selectedPawn && store.currentPlayer === 1 ? "ring-4 ring-yellow-400" : ""}
-              transition-all duration-200
-            `}
-            style={{ backgroundColor: COLORS.PLAYER1 }}
+            className="absolute w-1/3 h-1/3 rounded-full animate-pulse"
+            style={{
+              backgroundColor: COLORS.VALID_MOVE,
+              opacity: 0.7,
+              zIndex: Z_INDEX.VALID_MOVES,
+            }}
           />
         )}
 
-        {/* Player 2 pawn */}
+        {/* Player 1 pawn - 3D gradient */}
+        {isPlayer1 && (
+          <div
+            className={`
+              w-3/4 h-3/4 rounded-full
+              ${store.selectedPawn && store.currentPlayer === 1 ? "ring-4 ring-yellow-400" : ""}
+              transition-[transform,box-shadow] duration-200
+            `}
+            style={{
+              background: `radial-gradient(circle at 30% 30%, ${COLORS.PLAYER1_LIGHT}, ${COLORS.PLAYER1})`,
+              boxShadow: SHADOWS.PAWN,
+              zIndex: Z_INDEX.PAWNS,
+            }}
+          />
+        )}
+
+        {/* Player 2 pawn - 3D gradient */}
         {isPlayer2 && (
           <div
             className={`
-              w-3/4 h-3/4 rounded-full shadow-lg
+              w-3/4 h-3/4 rounded-full
               ${store.selectedPawn && store.currentPlayer === 2 ? "ring-4 ring-yellow-400" : ""}
-              transition-all duration-200
+              transition-[transform,box-shadow] duration-200
             `}
-            style={{ backgroundColor: COLORS.PLAYER2 }}
+            style={{
+              background: `radial-gradient(circle at 30% 30%, ${COLORS.PLAYER2_LIGHT}, ${COLORS.PLAYER2})`,
+              boxShadow: SHADOWS.PAWN,
+              zIndex: Z_INDEX.PAWNS,
+            }}
           />
         )}
       </div>
@@ -160,27 +230,68 @@ export function QuoridorGame() {
       store.wallPreview?.row === row &&
       (store.wallPreview?.col === col || store.wallPreview?.col === col - 1);
 
+    // Check if this groove is being flash-invalid
+    const isInvalid =
+      invalidFlash?.orientation === "horizontal" &&
+      invalidFlash?.row === row &&
+      (invalidFlash?.col === col || invalidFlash?.col === col - 1);
+
+    const hasAnyWall = hasWall || hasWallLeft;
+
     return (
       <div
         key={`hgroove-${row}-${col}`}
-        className={`
-          ${store.wallMode ? "cursor-pointer hover:bg-amber-600 active:bg-amber-500" : ""}
-          transition-all duration-150 touch-manipulation
-        `}
-        style={{
-          backgroundColor: hasWall || hasWallLeft
-            ? COLORS.WALL
-            : isPreview
-            ? COLORS.WALL_PREVIEW
-            : COLORS.GROOVE,
-          minHeight: "12px",
-        }}
-        onClick={() => handleGrooveClick(row, col, "horizontal")}
-        onTouchStart={() => store.wallMode && handleGrooveHover(row, col, "horizontal")}
-        onMouseEnter={() => handleGrooveHover(row, col, "horizontal")}
-        onMouseLeave={() => store.setWallPreview(null)}
-        onTouchEnd={() => store.setWallPreview(null)}
-      />
+        className="relative"
+        style={{ zIndex: Z_INDEX.GROOVES }}
+      >
+        {/* Visual groove */}
+        <div
+          className={`
+            w-full h-full
+            ${isInvalid ? "animate-shake" : ""}
+            transition-[background-color,box-shadow] duration-150
+          `}
+          style={{
+            backgroundColor: isInvalid
+              ? COLORS.WALL_INVALID
+              : hasAnyWall
+              ? COLORS.WALL
+              : isPreview
+              ? COLORS.WALL_PREVIEW
+              : COLORS.GROOVE,
+            boxShadow: hasAnyWall ? SHADOWS.WALL_RAISED : SHADOWS.GROOVE_SUNKEN,
+            minHeight: "10px",
+            zIndex: hasAnyWall ? Z_INDEX.WALLS : Z_INDEX.GROOVES,
+          }}
+        />
+
+        {/* Expanded touch target - invisible hitbox */}
+        {store.wallMode && (
+          <div
+            className="absolute cursor-pointer"
+            style={{
+              top: "-6px",
+              bottom: "-6px",
+              left: "0",
+              right: "0",
+              zIndex: Z_INDEX.TOUCH_TARGETS,
+            }}
+            onClick={() => handleGrooveClick(row, col, "horizontal")}
+            onTouchStart={() => handleGrooveHover(row, col, "horizontal")}
+            onMouseEnter={() => handleGrooveHover(row, col, "horizontal")}
+            onMouseLeave={() => store.setWallPreview(null)}
+            onTouchEnd={() => store.setWallPreview(null)}
+          />
+        )}
+
+        {/* Non-wall-mode click handler on visual groove */}
+        {!store.wallMode && (
+          <div
+            className="absolute inset-0"
+            onClick={() => handleGrooveClick(row, col, "horizontal")}
+          />
+        )}
+      </div>
     );
   };
 
@@ -197,27 +308,68 @@ export function QuoridorGame() {
       store.wallPreview?.col === col &&
       (store.wallPreview?.row === row || store.wallPreview?.row === row - 1);
 
+    // Check if this groove is being flash-invalid
+    const isInvalid =
+      invalidFlash?.orientation === "vertical" &&
+      invalidFlash?.col === col &&
+      (invalidFlash?.row === row || invalidFlash?.row === row - 1);
+
+    const hasAnyWall = hasWall || hasWallAbove;
+
     return (
       <div
         key={`vgroove-${row}-${col}`}
-        className={`
-          ${store.wallMode ? "cursor-pointer hover:bg-amber-600 active:bg-amber-500" : ""}
-          transition-all duration-150 touch-manipulation
-        `}
-        style={{
-          backgroundColor: hasWall || hasWallAbove
-            ? COLORS.WALL
-            : isPreview
-            ? COLORS.WALL_PREVIEW
-            : COLORS.GROOVE,
-          minWidth: "12px",
-        }}
-        onClick={() => handleGrooveClick(row, col, "vertical")}
-        onTouchStart={() => store.wallMode && handleGrooveHover(row, col, "vertical")}
-        onMouseEnter={() => handleGrooveHover(row, col, "vertical")}
-        onMouseLeave={() => store.setWallPreview(null)}
-        onTouchEnd={() => store.setWallPreview(null)}
-      />
+        className="relative"
+        style={{ zIndex: Z_INDEX.GROOVES }}
+      >
+        {/* Visual groove */}
+        <div
+          className={`
+            w-full h-full
+            ${isInvalid ? "animate-shake" : ""}
+            transition-[background-color,box-shadow] duration-150
+          `}
+          style={{
+            backgroundColor: isInvalid
+              ? COLORS.WALL_INVALID
+              : hasAnyWall
+              ? COLORS.WALL
+              : isPreview
+              ? COLORS.WALL_PREVIEW
+              : COLORS.GROOVE,
+            boxShadow: hasAnyWall ? SHADOWS.WALL_RAISED : SHADOWS.GROOVE_SUNKEN,
+            minWidth: "10px",
+            zIndex: hasAnyWall ? Z_INDEX.WALLS : Z_INDEX.GROOVES,
+          }}
+        />
+
+        {/* Expanded touch target - invisible hitbox */}
+        {store.wallMode && (
+          <div
+            className="absolute cursor-pointer"
+            style={{
+              top: "0",
+              bottom: "0",
+              left: "-6px",
+              right: "-6px",
+              zIndex: Z_INDEX.TOUCH_TARGETS,
+            }}
+            onClick={() => handleGrooveClick(row, col, "vertical")}
+            onTouchStart={() => handleGrooveHover(row, col, "vertical")}
+            onMouseEnter={() => handleGrooveHover(row, col, "vertical")}
+            onMouseLeave={() => store.setWallPreview(null)}
+            onTouchEnd={() => store.setWallPreview(null)}
+          />
+        )}
+
+        {/* Non-wall-mode click handler on visual groove */}
+        {!store.wallMode && (
+          <div
+            className="absolute inset-0"
+            onClick={() => handleGrooveClick(row, col, "vertical")}
+          />
+        )}
+      </div>
     );
   };
 
@@ -260,8 +412,10 @@ export function QuoridorGame() {
             : isPreview
             ? COLORS.WALL_PREVIEW
             : COLORS.GROOVE,
-          minWidth: "12px",
-          minHeight: "12px",
+          boxShadow: hasWall ? SHADOWS.WALL_RAISED : SHADOWS.GROOVE_SUNKEN,
+          minWidth: "10px",
+          minHeight: "10px",
+          zIndex: hasWall ? Z_INDEX.WALLS : Z_INDEX.GROOVES,
         }}
       />
     );
@@ -334,12 +488,14 @@ export function QuoridorGame() {
       {/* Board */}
       <div
         className="bg-amber-900 p-2 md:p-3 rounded-lg shadow-2xl w-full max-w-[90vw] md:max-w-[min(80vh,700px)]"
+        style={{ zIndex: Z_INDEX.BOARD_BG }}
       >
         <div
           className="grid gap-0"
           style={{
             gridTemplateColumns: `repeat(${BOARD_SIZE * 2 - 1}, 1fr)`,
             gridTemplateRows: `repeat(${BOARD_SIZE * 2 - 1}, 1fr)`,
+            willChange: "transform",
           }}
         >
           {/* Render board from top (row 8) to bottom (row 0) */}
@@ -529,6 +685,69 @@ export function QuoridorGame() {
             : syncStatus === "synced"
             ? "Saved"
             : ""}
+        </div>
+      )}
+
+      {/* Onboarding modal for first-time players */}
+      {showOnboarding && (
+        <div
+          className="fixed inset-0 bg-black/60 flex items-center justify-center p-4"
+          style={{ zIndex: Z_INDEX.MODALS }}
+        >
+          <div className="bg-white rounded-xl p-6 max-w-md text-center shadow-2xl">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">
+              How to Play Quoridor
+            </h2>
+
+            <div className="space-y-3 text-left text-gray-700">
+              <p>
+                <span className="text-xl mr-2">🎯</span>
+                <strong>Goal:</strong> Get your pawn to the opposite side of the board first!
+              </p>
+              <p>
+                <span className="text-xl mr-2">👆</span>
+                <strong>Move:</strong> Tap your pawn, then tap a green dot to move one square
+              </p>
+              <p>
+                <span className="text-xl mr-2">🧱</span>
+                <strong>Walls:</strong> Place red walls in the dark grooves to block your opponent
+              </p>
+              <p>
+                <span className="text-xl mr-2">⚠️</span>
+                <strong>Rule:</strong> You can&apos;t completely trap anyone - there must always be a path!
+              </p>
+            </div>
+
+            <div className="mt-4 pt-4 border-t border-gray-200 text-sm text-gray-500">
+              <p className="flex items-center justify-center gap-2">
+                <span
+                  className="w-4 h-4 rounded-full inline-block"
+                  style={{ backgroundColor: COLORS.PLAYER1 }}
+                />
+                Blue reaches the{" "}
+                <span className="font-bold" style={{ color: COLORS.PLAYER1 }}>
+                  top
+                </span>
+              </p>
+              <p className="flex items-center justify-center gap-2">
+                <span
+                  className="w-4 h-4 rounded-full inline-block"
+                  style={{ backgroundColor: COLORS.PLAYER2 }}
+                />
+                Orange reaches the{" "}
+                <span className="font-bold" style={{ color: COLORS.PLAYER2 }}>
+                  bottom
+                </span>
+              </p>
+            </div>
+
+            <button
+              onClick={dismissOnboarding}
+              className="mt-6 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors text-lg"
+            >
+              Got it, let&apos;s play!
+            </button>
+          </div>
         </div>
       )}
     </div>

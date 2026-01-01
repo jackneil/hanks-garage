@@ -37,13 +37,20 @@ export function MathAttackGame() {
   } = store;
 
   // Auth sync
-  useAuthSync({
+  const { forceSync } = useAuthSync({
     appId: "math-attack",
     localStorageKey: "math-attack-progress",
     getState: () => store.getProgress() as unknown as Record<string, unknown>,
     setState: (data) => store.setProgress(data as unknown as MathAttackProgress),
     debounceMs: 2000,
   });
+
+  // Force save immediately when game ends
+  useEffect(() => {
+    if (gameState === "gameOver") {
+      forceSync();
+    }
+  }, [gameState, forceSync]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const problemsRef = useRef<Problem[]>([]);
@@ -183,7 +190,10 @@ export function MathAttackGame() {
 
       // Draw problems as bubbles
       for (const problem of problemsRef.current) {
-        const size = diffSettings.bubbleSize;
+        const baseSize = diffSettings.bubbleSize;
+        const textLen = problem.text.length;
+        // Scale bubble up for longer text (e.g., "99 + 99 = 198")
+        const size = textLen > 11 ? baseSize * 1.4 : textLen > 7 ? baseSize * 1.2 : baseSize;
 
         // Bubble
         ctx.beginPath();
@@ -194,9 +204,11 @@ export function MathAttackGame() {
         ctx.lineWidth = 3;
         ctx.stroke();
 
-        // Text
+        // Text - scale font to fit inside bubble
+        const maxFontSize = size / 3;
+        const scaledFontSize = Math.min(maxFontSize, (size * 0.8) / (textLen * 0.5));
         ctx.fillStyle = "white";
-        ctx.font = `bold ${size / 3}px sans-serif`;
+        ctx.font = `bold ${Math.max(12, scaledFontSize)}px sans-serif`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(problem.text, problem.x, problem.y);

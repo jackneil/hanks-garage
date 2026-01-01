@@ -263,13 +263,20 @@ export function SpaceInvadersGame() {
   } = store;
 
   // Sync with auth system
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "space-invaders",
     localStorageKey: "space-invaders-progress",
     getState: () => store.getProgress(),
     setState: (data: SpaceInvadersProgress) => store.setProgress(data),
     debounceMs: 3000,
   });
+
+  // Force save immediately on game over
+  useEffect(() => {
+    if (gameState === "gameOver") {
+      forceSync();
+    }
+  }, [gameState, forceSync]);
 
   // Update sound manager
   useEffect(() => {

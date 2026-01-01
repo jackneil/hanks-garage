@@ -246,13 +246,20 @@ export function AsteroidsGame() {
   const render = useCanvasRenderer(canvasRef);
 
   // Auth sync
-  useAuthSync({
+  const { forceSync } = useAuthSync({
     appId: "asteroids",
     localStorageKey: "asteroids-game-state",
     getState: store.getProgress,
     setState: store.setProgress,
     debounceMs: 3000,
   });
+
+  // Force save immediately on game over
+  useEffect(() => {
+    if (store.status === "gameOver") {
+      forceSync();
+    }
+  }, [store.status, forceSync]);
 
   // Game loop
   useEffect(() => {

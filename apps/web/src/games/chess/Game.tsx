@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Square } from "chess.js";
 import { useChessStore } from "./lib/store";
@@ -19,13 +19,20 @@ export function ChessGame() {
   const [showStats, setShowStats] = useState(false);
 
   // Sync with auth system
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "chess",
     localStorageKey: "hank-chess-state",
     getState: () => store.getProgress(),
     setState: (data) => store.setProgress(data),
     debounceMs: 2000,
   });
+
+  // Force save immediately on game end
+  useEffect(() => {
+    if (["checkmate", "stalemate", "draw", "resigned"].includes(store.status)) {
+      forceSync();
+    }
+  }, [store.status, forceSync]);
 
   // Board orientation based on player color
   const boardOrientation = store.playerColor === "white" ? "white" : "black";

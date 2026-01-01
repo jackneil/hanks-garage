@@ -320,19 +320,27 @@ function useSwipeControls(containerRef: React.RefObject<HTMLDivElement | null>) 
 export function Game2048() {
   const containerRef = useRef<HTMLDivElement>(null);
   const store = use2048Store();
+  const { status } = store;
 
   // Set up controls
   useKeyboardControls();
   useSwipeControls(containerRef);
 
   // Sync with auth system
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "2048",
     localStorageKey: "2048-game-state",
     getState: () => store.getProgress(),
     setState: (data) => store.setProgress(data),
     debounceMs: 2000,
   });
+
+  // Force save immediately on game end (won or game-over)
+  useEffect(() => {
+    if (status === "won" || status === "game-over") {
+      forceSync();
+    }
+  }, [status, forceSync]);
 
   return (
     <div className="min-h-screen bg-[#faf8ef] p-4 flex flex-col items-center justify-center">

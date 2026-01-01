@@ -44,18 +44,42 @@ export const PLAYER2_START: Position = { row: 8, col: 4 }; // Top center
 export const PLAYER1_GOAL_ROW = 8; // Player 1 needs to reach row 8
 export const PLAYER2_GOAL_ROW = 0; // Player 2 needs to reach row 0
 
-// Colors for UI
+// Z-index layering for proper stacking
+export const Z_INDEX = {
+  BOARD_BG: 0,
+  GROOVES: 1,
+  SQUARES: 2,
+  TOUCH_TARGETS: 3,
+  WALLS: 4,
+  BLOCKED_INDICATORS: 5,
+  PAWNS: 6,
+  VALID_MOVES: 7,
+  MODALS: 100,
+} as const;
+
+// Colors for UI - Raised 3D board style
 export const COLORS = {
-  BOARD_LIGHT: "#d4a574",
+  BOARD_LIGHT: "#e0b896", // Lighter warm wood for raised squares
   BOARD_DARK: "#8b5a2b",
-  GROOVE: "#5c3a21",
+  GROOVE: "#1a0f0a", // Near-black for sunken grooves
   PLAYER1: "#3b82f6", // Blue
+  PLAYER1_LIGHT: "#60a5fa", // Lighter blue for gradient
   PLAYER2: "#f97316", // Orange
-  WALL: "#dc2626", // Bright red - clearly visible against brown grooves
-  WALL_PREVIEW: "rgba(220, 38, 38, 0.5)",
-  WALL_INVALID: "rgba(239, 68, 68, 0.5)",
+  PLAYER2_LIGHT: "#fb923c", // Lighter orange for gradient
+  WALL: "#dc2626", // Bright red - high visibility
+  WALL_PREVIEW: "rgba(220, 38, 38, 0.6)",
+  WALL_INVALID: "rgba(239, 68, 68, 0.4)",
+  BLOCKED_EDGE: "rgba(220, 38, 38, 0.8)", // For blocked edge indicators
   VALID_MOVE: "#22c55e",
   SELECTED: "#fbbf24",
+} as const;
+
+// Box shadows for 3D effects
+export const SHADOWS = {
+  SQUARE_RAISED: "0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+  GROOVE_SUNKEN: "inset 0 2px 4px rgba(0,0,0,0.5)",
+  WALL_RAISED: "0 1px 3px rgba(0,0,0,0.4)",
+  PAWN: "0 3px 6px rgba(0,0,0,0.4)",
 } as const;
 
 // UI sizes

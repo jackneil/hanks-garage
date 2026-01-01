@@ -225,13 +225,20 @@ export function HextrisGame() {
   const render = useCanvasRenderer(canvasRef);
 
   // Auth sync
-  useAuthSync({
+  const { forceSync } = useAuthSync({
     appId: "hextris",
     localStorageKey: "hextris-game-state",
     getState: store.getProgress,
     setState: store.setProgress,
     debounceMs: 3000,
   });
+
+  // Force save immediately on game over
+  useEffect(() => {
+    if (store.status === "game-over") {
+      forceSync();
+    }
+  }, [store.status, forceSync]);
 
   // Game loop
   useEffect(() => {

@@ -47,13 +47,20 @@ export function BlitzBomberGame() {
   } = store;
 
   // Sync with auth system
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "blitz-bomber",
     localStorageKey: "blitz-bomber-progress",
     getState: () => store.getProgress(),
     setState: (data: BlitzBomberProgress) => store.setProgress(data),
     debounceMs: 3000,
   });
+
+  // Force save immediately on game end
+  useEffect(() => {
+    if (gameState === "crashed" || gameState === "landed") {
+      forceSync();
+    }
+  }, [gameState, forceSync]);
 
   // Responsive scaling
   useEffect(() => {

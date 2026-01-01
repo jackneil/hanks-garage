@@ -29,13 +29,20 @@ export function BombermanGame() {
   const [showControls, setShowControls] = useState(true);
 
   // Auth sync
-  useAuthSync({
+  const { forceSync } = useAuthSync({
     appId: "bomberman",
     localStorageKey: "bomberman-state",
     getState: store.getProgress,
     setState: store.setProgress,
     debounceMs: 3000,
   });
+
+  // Force save immediately on game end
+  useEffect(() => {
+    if (store.gameState === "won" || store.gameState === "lost") {
+      forceSync();
+    }
+  }, [store.gameState, forceSync]);
 
   // Keyboard controls
   useEffect(() => {

@@ -93,7 +93,7 @@ export function HillClimbGame() {
   const store = useHillClimbStore();
 
   // Cloud sync for authenticated users
-  useAuthSync<HillClimbProgress>({
+  const { forceSync } = useAuthSync<HillClimbProgress>({
     appId: "hill-climb",
     localStorageKey: "hill-climb-storage",
     getState: () => store.getProgress(),
@@ -123,6 +123,13 @@ export function HillClimbGame() {
     updateDistance,
     getVehicleStats,
   } = store;
+
+  // Force save immediately on game over
+  useEffect(() => {
+    if (isGameOver) {
+      forceSync();
+    }
+  }, [isGameOver, forceSync]);
 
   // Local state
   const [speed, setSpeed] = useState(0);

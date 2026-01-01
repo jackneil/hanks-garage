@@ -40,13 +40,20 @@ export function WordleGame() {
   } = store;
 
   // Auth sync
-  useAuthSync({
+  const { forceSync } = useAuthSync({
     appId: "wordle",
     localStorageKey: "wordle-progress",
     getState: () => store.getProgress() as unknown as Record<string, unknown>,
     setState: (data) => store.setProgress(data as unknown as WordleProgress),
     debounceMs: 2000,
   });
+
+  // Force save immediately on game end (won or lost)
+  useEffect(() => {
+    if (gameState === "won" || gameState === "lost") {
+      forceSync();
+    }
+  }, [gameState, forceSync]);
 
   const diffSettings = getDifficultySettings(settings.difficulty);
   const maxGuesses = diffSettings.maxGuesses;

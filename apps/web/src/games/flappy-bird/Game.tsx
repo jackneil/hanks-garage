@@ -39,13 +39,20 @@ export function FlappyBirdGame() {
   } = store;
 
   // Sync with auth system
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "flappy-bird",
     localStorageKey: "flappy-bird-progress",
     getState: () => store.getProgress(),
     setState: (data) => store.setProgress(data),
     debounceMs: 3000,
   });
+
+  // Force save immediately on game over
+  useEffect(() => {
+    if (gameState === "gameOver") {
+      forceSync();
+    }
+  }, [gameState, forceSync]);
 
   // Responsive scaling
   useEffect(() => {

@@ -30,7 +30,7 @@ export function EndlessRunnerGame() {
   const store = useEndlessRunnerStore();
 
   // Cloud sync for authenticated users
-  useAuthSync<EndlessRunnerProgress>({
+  const { forceSync } = useAuthSync<EndlessRunnerProgress>({
     appId: "endless-runner",
     localStorageKey: "endless-runner-storage",
     getState: () => store.getProgress(),
@@ -56,6 +56,13 @@ export function EndlessRunnerGame() {
     update,
     reset,
   } = store;
+
+  // Force save immediately on game over
+  useEffect(() => {
+    if (gameState === "gameOver") {
+      forceSync();
+    }
+  }, [gameState, forceSync]);
 
   // Responsive scaling
   useEffect(() => {

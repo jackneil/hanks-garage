@@ -489,13 +489,20 @@ export function BreakoutGame() {
   const { status, progress } = store;
 
   // Sync with auth system
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "breakout",
     localStorageKey: "breakout-game-state",
     getState: () => store.getProgress(),
     setState: (data: BreakoutProgress) => store.setProgress(data),
     debounceMs: 2000,
   });
+
+  // Force save immediately on game over or level complete
+  useEffect(() => {
+    if (status === "game-over" || status === "level-complete") {
+      forceSync();
+    }
+  }, [status, forceSync]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-purple-900 to-indigo-950 p-4 flex flex-col items-center justify-center gap-4">

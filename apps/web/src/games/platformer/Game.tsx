@@ -29,13 +29,20 @@ export function PlatformerGame() {
   const store = usePlatformerStore();
 
   // Cloud sync for authenticated users
-  useAuthSync<PlatformerProgress>({
+  const { forceSync } = useAuthSync<PlatformerProgress>({
     appId: "platformer",
     localStorageKey: "hank-platformer-progress",
     getState: () => store.getProgress(),
     setState: (data) => store.setProgress(data),
     debounceMs: 3000,
   });
+
+  // Force save immediately on game over or level complete
+  useEffect(() => {
+    if (store.gameState === "gameOver" || store.gameState === "levelComplete") {
+      forceSync();
+    }
+  }, [store.gameState, forceSync]);
 
   const {
     gameState,

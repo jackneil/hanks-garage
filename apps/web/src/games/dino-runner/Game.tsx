@@ -375,13 +375,20 @@ export function DinoRunnerGame() {
   } = store;
 
   // Auth sync
-  const { isAuthenticated, syncStatus } = useAuthSync({
+  const { isAuthenticated, syncStatus, forceSync } = useAuthSync({
     appId: "dino-runner",
     localStorageKey: "dino-runner-progress",
     getState: () => store.getProgress(),
     setState: (data: DinoRunnerProgress) => store.setProgress(data),
     debounceMs: 3000,
   });
+
+  // Force save immediately on game over
+  useEffect(() => {
+    if (gameState === "game-over") {
+      forceSync();
+    }
+  }, [gameState, forceSync]);
 
   // Check if new high score
   const isNewHighScore = gameState === "game-over" && Math.floor(score) >= progress.highScore && progress.highScore > 0;

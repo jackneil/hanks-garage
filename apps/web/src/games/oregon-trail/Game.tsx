@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import { useOregonTrailStore, type OregonTrailSyncData } from "./lib/store";
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import { FullscreenButton } from "@/shared/components/FullscreenButton";
@@ -16,13 +17,20 @@ export default function OregonTrailGame() {
   const { gamePhase } = store;
 
   // Cloud sync for authenticated users
-  useAuthSync<OregonTrailSyncData>({
+  const { forceSync } = useAuthSync<OregonTrailSyncData>({
     appId: "oregon-trail",
     localStorageKey: "oregon-trail-storage",
     getState: () => store.getProgress(),
     setState: (data) => store.setProgress(data),
     debounceMs: 5000,
   });
+
+  // Force save immediately on game end
+  useEffect(() => {
+    if (gamePhase === "victory" || gamePhase === "game_over") {
+      forceSync();
+    }
+  }, [gamePhase, forceSync]);
 
   const renderPhase = () => {
     switch (gamePhase) {
