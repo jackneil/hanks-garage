@@ -43,7 +43,7 @@ const game2048Schema = z.object({
   gamesPlayed: z.number().min(0).max(MAX_COUNT),
   gamesWon: z.number().min(0).max(MAX_COUNT),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Snake
@@ -58,7 +58,7 @@ const snakeSchema = z.object({
   controlMode: boundedString.optional(),
   speed: z.enum(["slow", "medium", "fast"]).optional(),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Flappy Bird
@@ -74,7 +74,7 @@ const flappyBirdSchema = z.object({
     platinum: z.number().min(0).max(MAX_COUNT),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Cookie Clicker
@@ -89,7 +89,7 @@ const cookieClickerSchema = z.object({
   soundEnabled: z.boolean().optional(),
   lastTick: timestampSchema,
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Memory Match
@@ -111,7 +111,7 @@ const memoryMatchSchema = z.object({
   unlockedThemes: z.array(boundedString).max(100),
   difficulty: boundedString,
   theme: boundedString,
-}).strict();
+});
 
 // ============================================================================
 // Checkers
@@ -138,7 +138,7 @@ const checkersSchema = z.object({
   gameMode: z.enum(["vs-ai", "vs-friend"]),
   difficulty: boundedString,
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Chess
@@ -162,7 +162,7 @@ const chessSchema = z.object({
   gameMode: boundedString,
   playerColor: z.enum(["white", "black"]),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Quoridor
@@ -179,7 +179,7 @@ const quoridorSchema = z.object({
   difficulty: boundedString,
   gameMode: boundedString,
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Oregon Trail
@@ -237,7 +237,7 @@ const oregonTrailSchema = z.object({
   riversCrossed: z.number().min(0).max(100),
   eventsEncountered: z.number().min(0).max(MAX_COUNT),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Monster Truck
@@ -289,7 +289,7 @@ const monsterTruckSchema = z.object({
   soundEnabled: z.boolean(),
   musicEnabled: z.boolean(),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Hill Climb
@@ -314,7 +314,7 @@ const hillClimbSchema = z.object({
   musicEnabled: z.boolean().optional(),
   leanSensitivity: z.number().min(0.1).max(5).optional(),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Endless Runner
@@ -328,7 +328,7 @@ const endlessRunnerSchema = z.object({
   unlockedCharacters: z.array(boundedString).max(100),
   selectedCharacter: boundedString,
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Platformer
@@ -347,7 +347,7 @@ const platformerSchema = z.object({
   totalJumps: z.number().min(0).max(MAX_CURRENCY),
   lastPlayedLevel: boundedString.nullable(),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Retro Arcade
@@ -385,7 +385,7 @@ const retroArcadeSchema = z.object({
     showTouchControls: z.boolean(),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Apps (non-games)
@@ -395,19 +395,19 @@ const weatherSchema = z.object({
   lastLocation: boundedString.optional(),
   temperatureUnit: z.enum(["celsius", "fahrenheit"]).optional(),
   lastModified: timestampSchema,
-}).strict();
+});
 
 const jokeGeneratorSchema = z.object({
   favoriteJokes: z.array(z.string().max(2000)).max(500), // Jokes can be longer
   jokesViewed: z.number().min(0).max(MAX_COUNT),
   lastModified: timestampSchema,
-}).strict();
+});
 
 const toyFinderSchema = z.object({
   wishlist: z.array(boundedString).max(500),
   viewedToys: z.array(boundedString).max(1000),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Space Invaders
@@ -424,7 +424,7 @@ const spaceInvadersSchema = z.object({
     difficulty: z.enum(["4yo", "8yo", "12yo", "24yo", "99yo"]),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Trivia Quiz
@@ -440,7 +440,7 @@ const triviaSchema = z.object({
     difficulty: z.enum(["4yo", "8yo", "12yo", "24yo", "99yo"]),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Wordle
@@ -456,7 +456,7 @@ const wordleSchema = z.object({
     difficulty: z.enum(["4yo", "8yo", "12yo", "24yo", "99yo"]),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Math Attack
@@ -478,7 +478,7 @@ const mathAttackSchema = z.object({
     difficulty: z.enum(["4yo", "8yo", "12yo", "24yo", "99yo"]),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Breakout
@@ -492,7 +492,7 @@ const breakoutSchema = z.object({
   powerUpsCollected: z.number().min(0).max(MAX_COUNT),
   soundEnabled: z.boolean(),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Hextris
@@ -504,7 +504,7 @@ const hextrisSchema = z.object({
   longestChain: z.number().min(0).max(MAX_COUNT),
   soundEnabled: z.boolean(),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Asteroids
@@ -518,7 +518,7 @@ const asteroidsSchema = z.object({
   soundEnabled: z.boolean(),
   difficulty: z.enum(["easy", "normal", "hard"]),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Bomberman
@@ -536,7 +536,7 @@ const bombermanSchema = z.object({
     difficulty: z.enum(["easy", "normal", "hard"]),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Dino Runner
@@ -549,7 +549,7 @@ const dinoRunnerSchema = z.object({
   milestonesReached: z.number().min(0).max(MAX_COUNT),
   soundEnabled: z.boolean(),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Blitz Bomber
@@ -568,7 +568,7 @@ const blitzBomberSchema = z.object({
     difficulty: z.enum(["easy", "normal", "hard"]),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Drawing App
@@ -586,7 +586,7 @@ const drawingAppSchema = z.object({
     totalDrawTime: z.number().min(0).max(MAX_CURRENCY),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Drum Machine
@@ -615,7 +615,7 @@ const drumMachineSchema = z.object({
     padsHit: z.number().min(0).max(MAX_CURRENCY),
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Virtual Pet
@@ -652,7 +652,7 @@ const virtualPetSchema = z.object({
     petName: boundedString,
   }),
   lastModified: timestampSchema,
-}).strict();
+});
 
 // ============================================================================
 // Schema Registry

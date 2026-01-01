@@ -157,7 +157,7 @@ export const useMathAttackStore = create<MathAttackState>()(
         };
       },
 
-      setProgress: (data) => set(data),
+      setProgress: (data) => set((state) => ({ ...state, ...data })),
     }),
     {
       name: "math-attack-progress",

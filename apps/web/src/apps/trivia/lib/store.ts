@@ -129,7 +129,7 @@ export const useTriviaStore = create<TriviaState>()(
         };
       },
 
-      setProgress: (data) => set(data),
+      setProgress: (data) => set((state) => ({ ...state, ...data })),
     }),
     {
       name: "trivia-progress",

@@ -225,7 +225,7 @@ export const useWordleStore = create<WordleState>()(
         };
       },
 
-      setProgress: (data) => set(data),
+      setProgress: (data) => set((state) => ({ ...state, ...data })),
     }),
     {
       name: "wordle-progress",

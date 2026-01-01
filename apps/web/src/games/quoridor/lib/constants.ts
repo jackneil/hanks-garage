@@ -51,8 +51,8 @@ export const COLORS = {
   GROOVE: "#5c3a21",
   PLAYER1: "#3b82f6", // Blue
   PLAYER2: "#f97316", // Orange
-  WALL: "#78350f", // Dark brown
-  WALL_PREVIEW: "rgba(120, 53, 15, 0.5)",
+  WALL: "#dc2626", // Bright red - clearly visible against brown grooves
+  WALL_PREVIEW: "rgba(220, 38, 38, 0.5)",
   WALL_INVALID: "rgba(239, 68, 68, 0.5)",
   VALID_MOVE: "#22c55e",
   SELECTED: "#fbbf24",

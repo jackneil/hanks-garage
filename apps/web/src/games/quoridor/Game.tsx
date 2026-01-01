@@ -324,7 +324,7 @@ export function QuoridorGame() {
                   return renderSquare(boardRow, boardCol);
                 } else if (!isSquareRow && isSquareCol) {
                   // Horizontal groove (between rows)
-                  return renderHorizontalGroove(boardRow + 1, boardCol);
+                  return renderHorizontalGroove(boardRow, boardCol);
                 } else if (isSquareRow && !isSquareCol) {
                   // Vertical groove (between columns)
                   return renderVerticalGroove(boardRow, boardCol + 1);

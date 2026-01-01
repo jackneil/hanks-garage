@@ -109,6 +109,76 @@ export function useAuthSync<T extends AppProgressData>({
   );
 
   /**
+   * Wait for Zustand persist hydration from localStorage
+   * This prevents uploading empty state if hydration hasn't completed yet
+   */
+  const waitForHydration = useCallback(async (): Promise<T> => {
+    // Check if localStorage has data for this key
+    const stored = localStorage.getItem(localStorageKey);
+    if (!stored) {
+      // No localStorage data, no need to wait
+      return getState();
+    }
+
+    // Parse localStorage to get expected state
+    let expectedState: T | null = null;
+    try {
+      const parsed = JSON.parse(stored);
+      // Zustand persist stores data under "state" key
+      expectedState = parsed.state || parsed;
+    } catch {
+      // If parse fails, just return current state
+      return getState();
+    }
+
+    // Wait for Zustand to hydrate by comparing current state to localStorage
+    // Give it up to 500ms (typically happens in <50ms)
+    const maxWait = 500;
+    const checkInterval = 25;
+    let waited = 0;
+
+    while (waited < maxWait) {
+      const state = getState();
+
+      // Check for indicators of real gameplay data (not defaults)
+      // These fields are common across most games and only increase with play
+      const hasPlayData =
+        (state as Record<string, unknown>).gamesPlayed !== undefined &&
+        (state as Record<string, unknown>).gamesPlayed !== 0;
+      const hasHighScore =
+        (state as Record<string, unknown>).highScore !== undefined &&
+        (state as Record<string, unknown>).highScore !== 0;
+      const hasLastModified =
+        (state as Record<string, unknown>).lastModified !== undefined;
+
+      // If state has any gameplay indicators, we're hydrated
+      if (hasPlayData || hasHighScore || hasLastModified) {
+        return state;
+      }
+
+      // Also check if current state matches what's in localStorage (hydration complete)
+      if (expectedState) {
+        const expectedGamesPlayed = (expectedState as Record<string, unknown>)
+          .gamesPlayed;
+        const currentGamesPlayed = (state as Record<string, unknown>)
+          .gamesPlayed;
+        if (
+          expectedGamesPlayed !== undefined &&
+          expectedGamesPlayed === currentGamesPlayed
+        ) {
+          return state;
+        }
+      }
+
+      await new Promise((r) => setTimeout(r, checkInterval));
+      waited += checkInterval;
+    }
+
+    // Return whatever we have after waiting
+    return getState();
+  }, [localStorageKey, getState]);
+
+  /**
    * Initial sync on login - merge localStorage with server
    */
   const performInitialSync = useCallback(async () => {
@@ -116,8 +186,8 @@ export function useAuthSync<T extends AppProgressData>({
 
     setSyncStatus("syncing");
 
-    // Get local state
-    const localState = getState();
+    // Wait for Zustand to hydrate from localStorage first
+    const localState = await waitForHydration();
 
     // Fetch server state
     const serverResult = await fetchFromServer();
@@ -172,7 +242,7 @@ export function useAuthSync<T extends AppProgressData>({
         onSyncComplete?.("server");
       }
     }
-  }, [getState, setState, fetchFromServer, saveToServer, onSyncComplete]);
+  }, [waitForHydration, setState, fetchFromServer, saveToServer, onSyncComplete]);
 
   /**
    * Debounced save - called on state changes
@@ -247,14 +317,53 @@ export function useAuthSync<T extends AppProgressData>({
     };
   }, [isAuthenticated, getState, debouncedSave]);
 
-  // Cleanup on unmount
+  // Force-save pending changes on unmount or page leave
   useEffect(() => {
+    // Handler for beforeunload (tab close/navigate away)
+    const handleBeforeUnload = () => {
+      if (!isAuthenticated || !saveTimeoutRef.current) return;
+
+      // Use sendBeacon for reliable save on page unload
+      const data = getState();
+      const payload = JSON.stringify({
+        data,
+        localTimestamp: Date.now(),
+        merge: false,
+      });
+
+      // Must use Blob with Content-Type or API's request.json() fails
+      const blob = new Blob([payload], { type: "application/json" });
+      navigator.sendBeacon(`/api/progress/${appId}`, blob);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
     return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+
+      // Also flush pending save on component unmount
       if (saveTimeoutRef.current) {
         clearTimeout(saveTimeoutRef.current);
+
+        // Try to save synchronously if we have pending changes
+        if (isAuthenticated) {
+          const data = getState();
+          const dataStr = JSON.stringify(data);
+          if (dataStr !== lastSavedRef.current) {
+            // Use sendBeacon as it's more reliable for cleanup
+            const payload = JSON.stringify({
+              data,
+              localTimestamp: Date.now(),
+              merge: false,
+            });
+            // Must use Blob with Content-Type or API's request.json() fails
+            const blob = new Blob([payload], { type: "application/json" });
+            navigator.sendBeacon(`/api/progress/${appId}`, blob);
+          }
+        }
       }
     };
-  }, []);
+  }, [appId, isAuthenticated, getState]);
 
   return {
     isAuthenticated,
