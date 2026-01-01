@@ -27,9 +27,6 @@ const GAMES_WITH_DETAIL_VIEW = [
   "hill-climb",
   "oregon-trail",
   "cookie-clicker",
-  "chess",
-  "checkers",
-  "quoridor",
 ];
 
 export function extractGameStats(

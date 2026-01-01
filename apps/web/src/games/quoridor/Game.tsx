@@ -222,11 +222,44 @@ export function QuoridorGame() {
   };
 
   const renderIntersection = (row: number, col: number) => {
+    // Check if any wall passes through this intersection
+    // A horizontal wall at (row, col) or (row, col-1) spans through this intersection
+    const hasHorizontalWall = store.walls.some(
+      (w) =>
+        w.orientation === "horizontal" &&
+        w.row === row &&
+        (w.col === col || w.col === col - 1)
+    );
+    // A vertical wall at (row, col) or (row-1, col) spans through this intersection
+    const hasVerticalWall = store.walls.some(
+      (w) =>
+        w.orientation === "vertical" &&
+        w.col === col &&
+        (w.row === row || w.row === row - 1)
+    );
+
+    // Check for wall preview passing through
+    const isPreviewHorizontal =
+      store.wallPreview?.orientation === "horizontal" &&
+      store.wallPreview?.row === row &&
+      (store.wallPreview?.col === col || store.wallPreview?.col === col - 1);
+    const isPreviewVertical =
+      store.wallPreview?.orientation === "vertical" &&
+      store.wallPreview?.col === col &&
+      (store.wallPreview?.row === row || store.wallPreview?.row === row - 1);
+
+    const hasWall = hasHorizontalWall || hasVerticalWall;
+    const isPreview = isPreviewHorizontal || isPreviewVertical;
+
     return (
       <div
         key={`intersection-${row}-${col}`}
         style={{
-          backgroundColor: COLORS.GROOVE,
+          backgroundColor: hasWall
+            ? COLORS.WALL
+            : isPreview
+            ? COLORS.WALL_PREVIEW
+            : COLORS.GROOVE,
           minWidth: "12px",
           minHeight: "12px",
         }}
