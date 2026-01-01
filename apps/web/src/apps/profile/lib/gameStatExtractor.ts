@@ -1,5 +1,5 @@
 import type { ValidAppId } from "@hank-neil/db/schema";
-import { getGameMetadata } from "@/shared/lib/gameMetadata";
+import { getGameMetadata } from "@/shared/lib/gameMetadata.generated";
 
 /**
  * Extracted game display info for profile cards.
@@ -15,6 +15,7 @@ export interface GameDisplayInfo {
   progress?: number; // 0-100 if applicable
   fullData: Record<string, unknown>; // Raw data for detail view
   hasDetailView: boolean; // Whether this game has expandable details
+  isApp: boolean; // True if this is an "app" (lives at /apps/) vs "game" (lives at /games/)
 }
 
 /**
@@ -47,6 +48,7 @@ export function extractGameStats(
     secondaryStats: [],
     fullData: data,
     hasDetailView: GAMES_WITH_DETAIL_VIEW.includes(appId),
+    isApp: metadata.category === "apps",
   };
 
   // Extract stats based on game type

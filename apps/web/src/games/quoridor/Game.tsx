@@ -222,31 +222,31 @@ export function QuoridorGame() {
   };
 
   const renderIntersection = (row: number, col: number) => {
-    // Check if any wall passes through this intersection
-    // A horizontal wall at (row, col) or (row, col-1) spans through this intersection
+    // Check if any wall is CENTERED at this intersection
+    // A horizontal wall at (row, col) has center at (row, col+1), so check col-1
     const hasHorizontalWall = store.walls.some(
       (w) =>
         w.orientation === "horizontal" &&
         w.row === row &&
-        (w.col === col || w.col === col - 1)
+        w.col === col - 1
     );
-    // A vertical wall at (row, col) or (row-1, col) spans through this intersection
+    // A vertical wall at (row, col) has center at (row+1, col), so check row-1
     const hasVerticalWall = store.walls.some(
       (w) =>
         w.orientation === "vertical" &&
         w.col === col &&
-        (w.row === row || w.row === row - 1)
+        w.row === row - 1
     );
 
-    // Check for wall preview passing through
+    // Check for wall preview centered at this intersection
     const isPreviewHorizontal =
       store.wallPreview?.orientation === "horizontal" &&
       store.wallPreview?.row === row &&
-      (store.wallPreview?.col === col || store.wallPreview?.col === col - 1);
+      store.wallPreview?.col === col - 1;
     const isPreviewVertical =
       store.wallPreview?.orientation === "vertical" &&
       store.wallPreview?.col === col &&
-      (store.wallPreview?.row === row || store.wallPreview?.row === row - 1);
+      store.wallPreview?.row === row - 1;
 
     const hasWall = hasHorizontalWall || hasVerticalWall;
     const isPreview = isPreviewHorizontal || isPreviewVertical;
@@ -363,7 +363,7 @@ export function QuoridorGame() {
                   return renderVerticalGroove(boardRow, boardCol + 1);
                 } else {
                   // Intersection
-                  return renderIntersection(boardRow + 1, boardCol + 1);
+                  return renderIntersection(boardRow, boardCol + 1);
                 }
               }
             );

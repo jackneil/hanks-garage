@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import type { GameDisplayInfo } from "../lib/gameStatExtractor";
 import { GameDetailView } from "./game-details";
-import { getGameGradient } from "@/shared/lib/gameMetadata";
+import { getGameGradient } from "@/shared/lib/gameMetadata.generated";
 
 interface GameProgressCardProps {
   game: GameDisplayInfo;
@@ -34,8 +34,8 @@ export function GameProgressCard({ game }: GameProgressCardProps) {
     return date.toLocaleDateString();
   };
 
-  // Determine game URL
-  const gameUrl = `/games/${game.appId}`;
+  // Determine game URL - apps live at /apps/, games at /games/
+  const gameUrl = game.isApp ? `/apps/${game.appId}` : `/games/${game.appId}`;
 
   // Toggle expand without navigating
   const handleExpandClick = (e: React.MouseEvent) => {
