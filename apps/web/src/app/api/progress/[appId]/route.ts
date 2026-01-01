@@ -148,76 +148,64 @@ export async function POST(request: Request, context: RouteContext) {
     }
 
     const userId = session.user.id;
-
-    // Check for existing progress
-    const existing = await db.query.appProgress.findFirst({
-      where: and(
-        eq(appProgress.userId, userId),
-        eq(appProgress.appId, appId)
-      ),
-    });
-
     let finalData: AppProgressData = data;
     let conflicts: string[] = [];
 
-    // If merging and existing data, perform merge
+    // If merging, fetch existing first and merge
     // SECURITY: Server timestamp ALWAYS wins - we don't trust any client timestamps
-    // This prevents exploits where users embed future timestamps in their data
-    if (merge && existing) {
-      const serverTimestamp = existing.updatedAt.getTime();
-      // Use current time as "local" timestamp - effectively makes this a
-      // "last write wins" from server's perspective
-      const nowTimestamp = Date.now();
-      const mergeResult = mergeProgress(
-        data,
-        existing.data as AppProgressData,
-        nowTimestamp, // Current server time, not client-provided
-        serverTimestamp
-      );
-      finalData = mergeResult.data;
-      conflicts = mergeResult.conflicts;
+    if (merge) {
+      const existing = await db.query.appProgress.findFirst({
+        where: and(
+          eq(appProgress.userId, userId),
+          eq(appProgress.appId, appId)
+        ),
+      });
+
+      if (existing) {
+        const serverTimestamp = existing.updatedAt.getTime();
+        const nowTimestamp = Date.now();
+        const mergeResult = mergeProgress(
+          data,
+          existing.data as AppProgressData,
+          nowTimestamp,
+          serverTimestamp
+        );
+        finalData = mergeResult.data;
+        conflicts = mergeResult.conflicts;
+      }
     }
 
     const now = new Date();
+    const progressId = crypto.randomUUID();
 
-    if (existing) {
-      // Update existing progress
-      await db
-        .update(appProgress)
-        .set({
-          data: finalData,
-          lastSyncedAt: now,
-          updatedAt: now,
-        })
-        .where(eq(appProgress.id, existing.id));
-
-      return NextResponse.json({
-        success: true,
-        progressId: existing.id,
-        updatedAt: now.toISOString(),
-        merged: merge && conflicts.length === 0,
-        conflicts,
-      });
-    } else {
-      // Create new progress record
-      const progressId = crypto.randomUUID();
-
-      await db.insert(appProgress).values({
+    // UPSERT: Insert or update atomically - eliminates race condition
+    // This prevents "duplicate key" errors when multiple requests try to create
+    // the same (userId, appId) record simultaneously
+    await db
+      .insert(appProgress)
+      .values({
         id: progressId,
         userId,
         appId,
         data: finalData,
         lastSyncedAt: now,
         updatedAt: now,
+      })
+      .onConflictDoUpdate({
+        target: [appProgress.userId, appProgress.appId],
+        set: {
+          data: finalData,
+          lastSyncedAt: now,
+          updatedAt: now,
+        },
       });
 
-      return NextResponse.json({
-        success: true,
-        progressId,
-        updatedAt: now.toISOString(),
-        created: true,
-      });
-    }
+    return NextResponse.json({
+      success: true,
+      updatedAt: now.toISOString(),
+      merged: merge && conflicts.length === 0,
+      conflicts,
+    });
   } catch (error) {
     console.error("POST /api/progress error:", error);
     return NextResponse.json(
