@@ -51,6 +51,13 @@ export function useAuthSync<T extends AppProgressData>({
   const lastSavedRef = useRef<string>("");
   const initialSyncDoneRef = useRef(false);
 
+  // Store getState/setState in refs to avoid callback instability
+  // (These are inline arrow functions that change every render)
+  const getStateRef = useRef(getState);
+  const setStateRef = useRef(setState);
+  getStateRef.current = getState;
+  setStateRef.current = setState;
+
   /**
    * Fetch progress from server
    */
@@ -117,7 +124,7 @@ export function useAuthSync<T extends AppProgressData>({
     const stored = localStorage.getItem(localStorageKey);
     if (!stored) {
       // No localStorage data, no need to wait
-      return getState();
+      return getStateRef.current();
     }
 
     // Parse localStorage to get expected state
@@ -128,7 +135,7 @@ export function useAuthSync<T extends AppProgressData>({
       expectedState = parsed.state || parsed;
     } catch {
       // If parse fails, just return current state
-      return getState();
+      return getStateRef.current();
     }
 
     // Wait for Zustand to hydrate by comparing current state to localStorage
@@ -138,7 +145,7 @@ export function useAuthSync<T extends AppProgressData>({
     let waited = 0;
 
     while (waited < maxWait) {
-      const state = getState();
+      const state = getStateRef.current();
 
       // Check for indicators of real gameplay data (not defaults)
       // These fields are common across most games and only increase with play
@@ -175,8 +182,8 @@ export function useAuthSync<T extends AppProgressData>({
     }
 
     // Return whatever we have after waiting
-    return getState();
-  }, [localStorageKey, getState]);
+    return getStateRef.current();
+  }, [localStorageKey]);
 
   /**
    * Initial sync on login - merge localStorage with server
@@ -218,7 +225,7 @@ export function useAuthSync<T extends AppProgressData>({
 
     // No local data - use server
     if (!localState || Object.keys(localState).length === 0) {
-      setState(serverData);
+      setStateRef.current(serverData);
       setSyncStatus("synced");
       setLastSynced(
         serverResult.lastSyncedAt
@@ -237,12 +244,12 @@ export function useAuthSync<T extends AppProgressData>({
       // Re-fetch to get merged result
       const merged = await fetchFromServer();
       if (merged?.data) {
-        setState(merged.data as T);
+        setStateRef.current(merged.data as T);
         initialSyncDoneRef.current = true;
         onSyncComplete?.("server");
       }
     }
-  }, [waitForHydration, setState, fetchFromServer, saveToServer, onSyncComplete]);
+  }, [waitForHydration, fetchFromServer, saveToServer, onSyncComplete]);
 
   /**
    * Debounced save - called on state changes
@@ -281,10 +288,10 @@ export function useAuthSync<T extends AppProgressData>({
       saveTimeoutRef.current = null;
     }
 
-    const data = getState();
+    const data = getStateRef.current();
     lastSavedRef.current = JSON.stringify(data);
     await saveToServer(data, false);
-  }, [isAuthenticated, getState, saveToServer]);
+  }, [isAuthenticated, saveToServer]);
 
   // Initial sync when authenticated
   useEffect(() => {
@@ -305,7 +312,7 @@ export function useAuthSync<T extends AppProgressData>({
     // Set up an interval to check for changes
     // (Better approach: subscribe to Zustand store directly in the game)
     const interval = setInterval(() => {
-      const currentState = getState();
+      const currentState = getStateRef.current();
       debouncedSave(currentState);
     }, 1000);
 
@@ -315,7 +322,7 @@ export function useAuthSync<T extends AppProgressData>({
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [isAuthenticated, getState, debouncedSave]);
+  }, [isAuthenticated, debouncedSave]);
 
   // Force-save pending changes on unmount or page leave
   useEffect(() => {
@@ -324,7 +331,7 @@ export function useAuthSync<T extends AppProgressData>({
       if (!isAuthenticated || !saveTimeoutRef.current) return;
 
       // Use sendBeacon for reliable save on page unload
-      const data = getState();
+      const data = getStateRef.current();
       const payload = JSON.stringify({
         data,
         localTimestamp: Date.now(),
@@ -347,7 +354,7 @@ export function useAuthSync<T extends AppProgressData>({
 
         // Try to save synchronously if we have pending changes
         if (isAuthenticated) {
-          const data = getState();
+          const data = getStateRef.current();
           const dataStr = JSON.stringify(data);
           if (dataStr !== lastSavedRef.current) {
             // Use sendBeacon as it's more reliable for cleanup
@@ -363,7 +370,7 @@ export function useAuthSync<T extends AppProgressData>({
         }
       }
     };
-  }, [appId, isAuthenticated, getState]);
+  }, [appId, isAuthenticated]);
 
   return {
     isAuthenticated,
