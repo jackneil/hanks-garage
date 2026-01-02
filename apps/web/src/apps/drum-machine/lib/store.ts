@@ -36,9 +36,11 @@ export type DrumMachineState = {
   currentKitId: string;
   bpm: number;
   pattern: SequencerPattern;
+  patternLength: number; // Dynamic pattern length (default 16)
 
   currentStep: number;
   isPlaying: boolean;
+  isRecording: boolean; // Live loop recording
 
   activePads: Set<string>; // Currently pressed pads (for visual feedback)
 
@@ -57,11 +59,14 @@ type DrumMachineActions = {
   // Sequencer mode
   toggleStep: (soundId: string, step: number) => void;
   clearPattern: () => void;
+  extendPattern: () => void;
+  shrinkPattern: () => void;
 
   // Playback
   startPlayback: () => void;
   stopPlayback: () => void;
   advanceStep: () => void;
+  toggleRecording: () => void;
 
   // Beats
   saveBeat: (name: string) => void;
@@ -97,8 +102,10 @@ function createInitialState(): Partial<DrumMachineState> {
     currentKitId: "hip-hop",
     bpm: DEFAULT_BPM,
     pattern: createEmptyPattern(),
+    patternLength: GRID_STEPS,
     currentStep: 0,
     isPlaying: false,
+    isRecording: false,
     activePads: new Set(),
   };
 }
@@ -108,8 +115,16 @@ let audioContext: AudioContext | null = null;
 
 function getAudioContext(): AudioContext {
   if (!audioContext) {
-    audioContext = new (window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext)();
+    audioContext = new (window.AudioContext ||
+      (window as typeof window & { webkitAudioContext?: typeof AudioContext })
+        .webkitAudioContext)();
   }
+
+  // iOS requires resume on user gesture - this is called from tap handlers
+  if (audioContext.state === "suspended") {
+    audioContext.resume();
+  }
+
   return audioContext;
 }
 
@@ -213,10 +228,11 @@ export const useDrumMachineStore = create<DrumMachineState & DrumMachineActions>
         const kit = DRUM_KITS.find(k => k.id === kitId);
         if (!kit) return;
 
-        // Reset pattern for new kit
+        const state = get();
+        // Reset pattern for new kit but keep pattern length
         const pattern: SequencerPattern = {};
         kit.sounds.forEach(sound => {
-          pattern[sound.id] = new Array(GRID_STEPS).fill(false);
+          pattern[sound.id] = new Array(state.patternLength).fill(false);
         });
 
         set({ currentKitId: kitId, pattern });
@@ -236,8 +252,20 @@ export const useDrumMachineStore = create<DrumMachineState & DrumMachineActions>
         const activePads = new Set(state.activePads);
         activePads.add(soundId);
 
+        // If recording during playback, add hit to pattern at current step
+        let pattern = state.pattern;
+        if (state.isPlaying && state.isRecording) {
+          pattern = { ...state.pattern };
+          if (!pattern[soundId]) {
+            pattern[soundId] = new Array(state.patternLength).fill(false);
+          }
+          pattern[soundId] = [...pattern[soundId]];
+          pattern[soundId][state.currentStep] = true;
+        }
+
         set({
           activePads,
+          pattern,
           progress: {
             ...state.progress,
             stats: {
@@ -260,7 +288,7 @@ export const useDrumMachineStore = create<DrumMachineState & DrumMachineActions>
         const state = get();
         const pattern = { ...state.pattern };
         if (!pattern[soundId]) {
-          pattern[soundId] = new Array(GRID_STEPS).fill(false);
+          pattern[soundId] = new Array(state.patternLength).fill(false);
         }
         pattern[soundId] = [...pattern[soundId]];
         pattern[soundId][step] = !pattern[soundId][step];
@@ -274,9 +302,51 @@ export const useDrumMachineStore = create<DrumMachineState & DrumMachineActions>
 
         const pattern: SequencerPattern = {};
         kit.sounds.forEach(sound => {
-          pattern[sound.id] = new Array(GRID_STEPS).fill(false);
+          pattern[sound.id] = new Array(state.patternLength).fill(false);
         });
         set({ pattern });
+      },
+
+      extendPattern: () => {
+        const state = get();
+        const kit = DRUM_KITS.find(k => k.id === state.currentKitId);
+        if (!kit) return;
+
+        const newLength = state.patternLength + 16;
+        const pattern = { ...state.pattern };
+
+        // Extend each sound's array
+        kit.sounds.forEach(sound => {
+          if (!pattern[sound.id]) {
+            pattern[sound.id] = new Array(newLength).fill(false);
+          } else {
+            pattern[sound.id] = [
+              ...pattern[sound.id],
+              ...new Array(16).fill(false),
+            ];
+          }
+        });
+
+        set({ pattern, patternLength: newLength });
+      },
+
+      shrinkPattern: () => {
+        const state = get();
+        if (state.patternLength <= 16) return; // Can't go below 16
+
+        const newLength = state.patternLength - 16;
+        const pattern = { ...state.pattern };
+
+        // Shrink each sound's array
+        for (const soundId of Object.keys(pattern)) {
+          pattern[soundId] = pattern[soundId].slice(0, newLength);
+        }
+
+        // Reset currentStep if it's beyond new length
+        const currentStep =
+          state.currentStep >= newLength ? 0 : state.currentStep;
+
+        set({ pattern, patternLength: newLength, currentStep });
       },
 
       startPlayback: () => {
@@ -284,14 +354,24 @@ export const useDrumMachineStore = create<DrumMachineState & DrumMachineActions>
       },
 
       stopPlayback: () => {
-        set({ isPlaying: false, currentStep: 0 });
+        set({ isPlaying: false, isRecording: false, currentStep: 0 });
+      },
+
+      toggleRecording: () => {
+        const state = get();
+        // If not playing, start playback when enabling record
+        if (!state.isRecording && !state.isPlaying) {
+          set({ isRecording: true, isPlaying: true, currentStep: 0 });
+        } else {
+          set({ isRecording: !state.isRecording });
+        }
       },
 
       advanceStep: () => {
         const state = get();
         if (!state.isPlaying) return;
 
-        const nextStep = (state.currentStep + 1) % GRID_STEPS;
+        const nextStep = (state.currentStep + 1) % state.patternLength;
 
         // Trigger sounds for this step
         const kit = DRUM_KITS.find(k => k.id === state.currentKitId);
@@ -319,6 +399,7 @@ export const useDrumMachineStore = create<DrumMachineState & DrumMachineActions>
           kitId: state.currentKitId,
           bpm: state.bpm,
           pattern: { ...state.pattern },
+          patternLength: state.patternLength,
           createdAt: new Date().toISOString(),
         };
 
@@ -336,10 +417,19 @@ export const useDrumMachineStore = create<DrumMachineState & DrumMachineActions>
       },
 
       loadBeat: (beat) => {
+        // Calculate pattern length from saved beat or pattern array
+        let patternLength = beat.patternLength;
+        if (!patternLength) {
+          // Backwards compatibility: calculate from pattern array length
+          const firstSoundPattern = Object.values(beat.pattern)[0];
+          patternLength = firstSoundPattern?.length || GRID_STEPS;
+        }
+
         set({
           currentKitId: beat.kitId,
           bpm: beat.bpm,
           pattern: { ...beat.pattern },
+          patternLength,
           isPlaying: false,
           currentStep: 0,
         });

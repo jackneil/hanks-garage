@@ -131,5 +131,6 @@ export interface SavedBeat {
   kitId: string;
   bpm: number;
   pattern: SequencerPattern;
+  patternLength?: number; // Optional for backwards compatibility
   createdAt: string;
 }

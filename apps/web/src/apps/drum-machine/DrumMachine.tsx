@@ -68,6 +68,7 @@ function DrumPad({
 function SequencerGrid() {
   const store = useDrumMachineStore();
   const kit = DRUM_KITS.find(k => k.id === store.currentKitId);
+  const { patternLength } = store;
 
   if (!kit) return null;
 
@@ -76,7 +77,7 @@ function SequencerGrid() {
       <div className="inline-block min-w-full">
         {/* Step numbers */}
         <div className="flex gap-1 mb-2 ml-20">
-          {Array.from({ length: GRID_STEPS }, (_, i) => (
+          {Array.from({ length: patternLength }, (_, i) => (
             <div
               key={i}
               className={`
@@ -95,8 +96,8 @@ function SequencerGrid() {
           <div
             className="h-1 bg-green-500 rounded transition-all duration-75 ml-20"
             style={{
-              width: `${(store.currentStep / GRID_STEPS) * 100}%`,
-              maxWidth: `${GRID_STEPS * 36}px`,
+              width: `${(store.currentStep / patternLength) * 100}%`,
+              maxWidth: `${patternLength * 36}px`,
             }}
           />
         )}
@@ -113,7 +114,7 @@ function SequencerGrid() {
             </div>
 
             {/* Steps */}
-            {Array.from({ length: GRID_STEPS }, (_, step) => {
+            {Array.from({ length: patternLength }, (_, step) => {
               const isActive = store.pattern[sound.id]?.[step] || false;
               const isCurrent = store.currentStep === step && store.isPlaying;
 
@@ -203,6 +204,14 @@ export function DrumMachine() {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger drums when typing in inputs
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
+        return;
+      }
+
       const soundId = keyMap[e.key.toLowerCase()];
       if (soundId) {
         e.preventDefault();
@@ -297,6 +306,32 @@ export function DrumMachine() {
           <span className="text-white w-10">{store.bpm}</span>
         </div>
 
+        {/* Pattern length (only in sequencer mode) */}
+        {store.mode === "sequencer" && (
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => store.shrinkPattern()}
+              disabled={store.patternLength <= 16}
+              className={`w-8 h-8 rounded font-bold ${
+                store.patternLength <= 16
+                  ? "bg-slate-800 text-slate-600 cursor-not-allowed"
+                  : "bg-slate-600 hover:bg-slate-500 text-white"
+              }`}
+            >
+              −
+            </button>
+            <span className="text-white font-bold min-w-[80px] text-center">
+              {store.patternLength} steps
+            </span>
+            <button
+              onClick={() => store.extendPattern()}
+              className="w-8 h-8 bg-slate-600 hover:bg-slate-500 rounded font-bold text-white"
+            >
+              +
+            </button>
+          </div>
+        )}
+
         {/* Mode toggle */}
         <div className="flex bg-slate-700 rounded-lg overflow-hidden">
           <button
@@ -335,14 +370,42 @@ export function DrumMachine() {
           ))}
         </div>
       ) : (
-        // SEQUENCER MODE
-        <div className="w-full max-w-3xl">
+        // SEQUENCER MODE - show pads too when recording
+        <div className="w-full max-w-3xl space-y-6">
           <SequencerGrid />
+
+          {/* Show pads below sequencer for live recording */}
+          <div className="border-t border-slate-700 pt-4">
+            <div className="text-center text-slate-400 text-sm mb-3">
+              {store.isRecording ? "🎯 Tap pads to record!" : "💡 Hit Record to add beats with pads"}
+            </div>
+            <div className="grid grid-cols-4 gap-2 justify-items-center">
+              {kit.sounds.map(sound => (
+                <DrumPad
+                  key={sound.id}
+                  soundId={sound.id}
+                  name={sound.name}
+                  color={sound.color}
+                  isActive={store.activePads.has(sound.id)}
+                  onTrigger={() => store.triggerPad(sound.id)}
+                  onRelease={() => store.releasePad(sound.id)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Recording indicator */}
+      {store.isRecording && (
+        <div className="flex items-center gap-2 text-red-500 font-bold animate-pulse">
+          <span className="w-3 h-3 bg-red-500 rounded-full" />
+          Recording... tap pads to add beats!
         </div>
       )}
 
       {/* Transport controls */}
-      <div className="flex items-center gap-4 mt-6">
+      <div className="flex items-center gap-4 mt-4">
         <button
           onClick={() => store.isPlaying ? store.stopPlayback() : store.startPlayback()}
           className={`
@@ -353,28 +416,43 @@ export function DrumMachine() {
           {store.isPlaying ? "⏹" : "▶"}
         </button>
 
-        {store.mode === "sequencer" && (
-          <>
-            <button
-              onClick={() => store.clearPattern()}
-              className="w-12 h-12 bg-slate-600 hover:bg-slate-500 rounded-full text-white font-bold"
-            >
-              🗑
-            </button>
-            <button
-              onClick={() => setShowSaveModal(true)}
-              className="w-12 h-12 bg-blue-600 hover:bg-blue-500 rounded-full text-white font-bold"
-            >
-              💾
-            </button>
-            <button
-              onClick={() => setShowBeatsModal(true)}
-              className="w-12 h-12 bg-purple-600 hover:bg-purple-500 rounded-full text-white font-bold"
-            >
-              📂
-            </button>
-          </>
-        )}
+        {/* Record button */}
+        <button
+          onClick={() => store.toggleRecording()}
+          className={`
+            w-14 h-14 rounded-full font-bold text-xl text-white
+            transition-all
+            ${store.isRecording
+              ? "bg-red-600 ring-4 ring-red-400 animate-pulse"
+              : "bg-slate-600 hover:bg-red-600"
+            }
+          `}
+          title="Record - tap pads while loop plays"
+        >
+          ⏺
+        </button>
+
+        <button
+          onClick={() => store.clearPattern()}
+          className="w-12 h-12 bg-slate-600 hover:bg-slate-500 rounded-full text-white font-bold"
+          title="Clear pattern"
+        >
+          🗑
+        </button>
+        <button
+          onClick={() => setShowSaveModal(true)}
+          className="w-12 h-12 bg-blue-600 hover:bg-blue-500 rounded-full text-white font-bold"
+          title="Save beat"
+        >
+          💾
+        </button>
+        <button
+          onClick={() => setShowBeatsModal(true)}
+          className="w-12 h-12 bg-purple-600 hover:bg-purple-500 rounded-full text-white font-bold"
+          title="Load beat"
+        >
+          📂
+        </button>
       </div>
 
       {/* Bottom controls */}
@@ -391,7 +469,8 @@ export function DrumMachine() {
 
       {/* Keyboard hints */}
       <div className="mt-4 text-slate-400 text-center text-sm">
-        <p>Keys: 1-4 (top row) | Q-R (bottom row) | Space = Play/Stop</p>
+        <p>Keys: 1-4 / Q-R = Drums | Space = Play/Stop</p>
+        <p className="text-slate-500">Hit ⏺ Record then tap pads to build your beat!</p>
       </div>
 
       {/* Save modal */}
