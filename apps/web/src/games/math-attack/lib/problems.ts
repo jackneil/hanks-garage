@@ -54,9 +54,9 @@ export function generateProblem(
       answer = a - b;
       break;
     case "×":
-      // Keep multiplication simpler
-      a = randInt(1, Math.min(12, range[1]));
-      b = randInt(1, Math.min(12, range[1]));
+      // Cap at 10×10 for standard times tables (not 12×12)
+      a = randInt(1, Math.min(10, range[1]));
+      b = randInt(1, Math.min(10, range[1]));
       answer = a * b;
       break;
     case "÷":

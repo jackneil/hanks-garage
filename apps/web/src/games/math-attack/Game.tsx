@@ -65,6 +65,11 @@ export function MathAttackGame() {
 
   // Start game
   const handleStartGame = () => {
+    // Debug logging to help diagnose difficulty issues
+    console.log("[Math Attack] Starting game with difficulty:", settings.difficulty);
+    console.log("[Math Attack] Operations:", diffSettings.operations);
+    console.log("[Math Attack] Number range:", diffSettings.numberRange);
+
     problemsRef.current = [];
     lastSpawnRef.current = 0;
     setInputValue("");

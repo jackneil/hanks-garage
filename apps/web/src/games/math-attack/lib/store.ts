@@ -157,7 +157,20 @@ export const useMathAttackStore = create<MathAttackState>()(
         };
       },
 
-      setProgress: (data) => set((state) => ({ ...state, ...data })),
+      setProgress: (data) => {
+        const currentState = get();
+        // Don't let cloud sync change difficulty while playing
+        // This prevents a race condition where cloud sync overwrites user's selection
+        if (currentState.gameState === "playing" && data.settings?.difficulty) {
+          set((state) => ({
+            ...state,
+            ...data,
+            settings: { ...data.settings, difficulty: currentState.settings.difficulty },
+          }));
+        } else {
+          set((state) => ({ ...state, ...data }));
+        }
+      },
     }),
     {
       name: "math-attack-progress",
