@@ -1,7 +1,7 @@
 // Retro Arcade - EmulatorJS Configuration and Game List
 
 // Supported console/system types
-export type SystemType = "nes" | "snes" | "gb" | "gba" | "segaMD" | "n64";
+export type SystemType = "nes" | "snes" | "gb" | "gba" | "segaMD" | "n64" | "atari2600";
 
 // System metadata
 export interface SystemInfo {
@@ -76,6 +76,16 @@ export const SYSTEMS: Record<SystemType, SystemInfo> = {
     icon: "🎮",
     extensions: [".n64", ".z64", ".v64", ".zip"],
     ejsCore: "n64",
+  },
+  atari2600: {
+    id: "atari2600",
+    name: "Atari 2600",
+    fullName: "Atari 2600",
+    color: "#8B4513",
+    bgGradient: "from-amber-700 to-orange-900",
+    icon: "🕹️",
+    extensions: [".bin", ".a26", ".zip"],
+    ejsCore: "atari2600",
   },
 };
 
@@ -153,6 +163,15 @@ export const SAMPLE_GAMES: GameInfo[] = [
     system: "n64",
     genre: "Custom",
     description: "Upload your own N64 ROM file to play",
+    isCustom: true,
+  },
+  // Atari 2600 games placeholder
+  {
+    id: "atari2600-custom",
+    name: "Upload Atari 2600 ROM",
+    system: "atari2600",
+    genre: "Custom",
+    description: "Upload your own Atari 2600 ROM file to play",
     isCustom: true,
   },
 ];

@@ -1,21 +1,26 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import {
-  type CatalogGame,
-  type GameGenre,
-  SNES_CATALOG,
-  getRomUrl,
-  searchSnesGames,
-} from "../lib/snes-catalog";
+
+// Generic catalog game interface - works with both SNES and Atari catalogs
+export interface CatalogGame {
+  id: string;
+  displayName: string;
+  filename: string;
+  genre: string;
+  favorite: boolean;
+}
 
 interface GameBrowserProps {
+  catalog: CatalogGame[];
+  getRomUrl: (game: CatalogGame) => string;
+  systemName: string;
   onGameSelect: (game: CatalogGame, romUrl: string) => void;
   onUploadClick: () => void;
 }
 
-// Genre colors for visual variety
-const GENRE_COLORS: Record<GameGenre, string> = {
+// Genre colors for visual variety - covers both SNES and Atari genres
+const GENRE_COLORS: Record<string, string> = {
   rpg: "from-purple-600 to-purple-800",
   platformer: "from-blue-600 to-blue-800",
   action: "from-red-600 to-red-800",
@@ -28,7 +33,7 @@ const GENRE_COLORS: Record<GameGenre, string> = {
   strategy: "from-indigo-600 to-indigo-800",
 };
 
-const GENRE_LABELS: Record<GameGenre, string> = {
+const GENRE_LABELS: Record<string, string> = {
   rpg: "RPG",
   platformer: "Platformer",
   action: "Action",
@@ -40,6 +45,16 @@ const GENRE_LABELS: Record<GameGenre, string> = {
   shooter: "Shooter",
   strategy: "Strategy",
 };
+
+// Get color for a genre, with fallback for unknown genres
+function getGenreColor(genre: string): string {
+  return GENRE_COLORS[genre] || "from-gray-600 to-gray-800";
+}
+
+// Get label for a genre, with fallback
+function getGenreLabel(genre: string): string {
+  return GENRE_LABELS[genre] || genre.charAt(0).toUpperCase() + genre.slice(1);
+}
 
 // Individual game card - big and clickable for kids
 function GameCard({
@@ -56,7 +71,7 @@ function GameCard({
       onClick={onClick}
       disabled={isLoading}
       className={`
-        relative bg-gradient-to-br ${GENRE_COLORS[game.genre]}
+        relative bg-gradient-to-br ${getGenreColor(game.genre)}
         p-4 rounded-xl shadow-lg
         hover:scale-105 active:scale-95
         transition-all duration-150 cursor-pointer
@@ -88,27 +103,40 @@ function GameCard({
 
       {/* Genre badge */}
       <span className="mt-auto pt-1 text-[10px] sm:text-xs text-white/60 capitalize">
-        {GENRE_LABELS[game.genre]}
+        {getGenreLabel(game.genre)}
       </span>
     </button>
   );
 }
 
-export function GameBrowser({ onGameSelect, onUploadClick }: GameBrowserProps) {
+export function GameBrowser({
+  catalog,
+  getRomUrl,
+  systemName,
+  onGameSelect,
+  onUploadClick,
+}: GameBrowserProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedGenre, setSelectedGenre] = useState<GameGenre | "all">("all");
+  const [selectedGenre, setSelectedGenre] = useState<string>("all");
   const [loadingGameId, setLoadingGameId] = useState<string | null>(null);
 
   // Get all unique genres from catalog
   const genres = useMemo(() => {
-    const genreSet = new Set(SNES_CATALOG.map((g) => g.genre));
-    return Array.from(genreSet).sort() as GameGenre[];
-  }, []);
+    const genreSet = new Set(catalog.map((g) => g.genre));
+    return Array.from(genreSet).sort();
+  }, [catalog]);
 
   // Filter games
   const filteredGames = useMemo(() => {
-    let result = searchQuery ? searchSnesGames(searchQuery) : SNES_CATALOG;
+    let result = catalog;
 
+    // Search filter
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase().trim();
+      result = result.filter((g) => g.displayName.toLowerCase().includes(q));
+    }
+
+    // Genre filter
     if (selectedGenre !== "all") {
       result = result.filter((g) => g.genre === selectedGenre);
     }
@@ -119,7 +147,7 @@ export function GameBrowser({ onGameSelect, onUploadClick }: GameBrowserProps) {
       if (!a.favorite && b.favorite) return 1;
       return a.displayName.localeCompare(b.displayName);
     });
-  }, [searchQuery, selectedGenre]);
+  }, [catalog, searchQuery, selectedGenre]);
 
   const handleGameClick = (game: CatalogGame) => {
     setLoadingGameId(game.id);
@@ -136,7 +164,7 @@ export function GameBrowser({ onGameSelect, onUploadClick }: GameBrowserProps) {
       <div className="mb-4 sm:mb-6">
         <input
           type="text"
-          placeholder="Search games..."
+          placeholder={`Search ${systemName} games...`}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="
@@ -164,10 +192,10 @@ export function GameBrowser({ onGameSelect, onUploadClick }: GameBrowserProps) {
               }
             `}
           >
-            All ({SNES_CATALOG.length})
+            All ({catalog.length})
           </button>
           {genres.map((genre) => {
-            const count = SNES_CATALOG.filter((g) => g.genre === genre).length;
+            const count = catalog.filter((g) => g.genre === genre).length;
             return (
               <button
                 key={genre}
@@ -182,7 +210,7 @@ export function GameBrowser({ onGameSelect, onUploadClick }: GameBrowserProps) {
                   }
                 `}
               >
-                {GENRE_LABELS[genre]} ({count})
+                {getGenreLabel(genre)} ({count})
               </button>
             );
           })}
@@ -235,7 +263,7 @@ export function GameBrowser({ onGameSelect, onUploadClick }: GameBrowserProps) {
 
       {/* Game count */}
       <div className="mt-6 text-center text-white/40 text-sm">
-        {filteredGames.length} of {SNES_CATALOG.length} games
+        {filteredGames.length} of {catalog.length} games
       </div>
     </div>
   );

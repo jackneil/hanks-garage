@@ -1,0 +1,5329 @@
+[
+  {
+    "id": "atari2600-2pak-black-challenge-surfing",
+    "displayName": "2Pak Black - Challenge - Surfing",
+    "filename": "2pak_black_challenge_surfing.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-2pak-green-hoppy-alien-force",
+    "displayName": "2Pak Green - Hoppy - Alien Force",
+    "filename": "2pak_green_hoppy_alien_force.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-2pak-yellow-star-warrior-frogger",
+    "displayName": "2Pak Yellow - Star Warrior - Frogger",
+    "filename": "2pak_yellow_star_warrior_frogger.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-3-d-tic-tac-toe",
+    "displayName": "3-D Tic-Tac-Toe",
+    "filename": "3_d_tic_tac_toe.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-32-in-1",
+    "displayName": "32-in-1",
+    "filename": "32_in_1.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-a-misterious-thief",
+    "displayName": "A Misterious Thief",
+    "filename": "a_misterious_thief.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-a-team-the",
+    "displayName": "A-Team, The",
+    "filename": "a_team_the.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-acid-drop",
+    "displayName": "Acid Drop",
+    "filename": "acid_drop.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-activision-decathlon-the",
+    "displayName": "Activision Decathlon, The",
+    "filename": "activision_decathlon_the.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-adventure",
+    "displayName": "Adventure",
+    "filename": "adventure.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-adventures-of-tron",
+    "displayName": "Adventures of TRON",
+    "filename": "adventures_of_tron.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-adventuresongx12",
+    "displayName": "AdventuresOnGX12",
+    "filename": "adventuresongx12.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-air-raid",
+    "displayName": "Air Raid",
+    "filename": "air_raid.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-air-raiders",
+    "displayName": "Air Raiders",
+    "filename": "air_raiders.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-air-sea-battle-air-sea-battle-target-fun",
+    "displayName": "Air-Sea Battle - Air Sea Battle - Target Fun",
+    "filename": "air_sea_battle_air_sea_battle_target_fun.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-airlock",
+    "displayName": "Airlock",
+    "filename": "airlock.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-alien",
+    "displayName": "Alien",
+    "filename": "alien.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-aliens-return",
+    "displayName": "Alien's Return",
+    "filename": "aliens_return.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-alligator-people",
+    "displayName": "Alligator People",
+    "filename": "alligator_people.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-alpha-beam-with-ernie",
+    "displayName": "Alpha Beam with Ernie",
+    "filename": "alpha_beam_with_ernie.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-amidar",
+    "displayName": "Amidar",
+    "filename": "amidar.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-androman-on-the-moon",
+    "displayName": "AndroMan on the Moon",
+    "filename": "androman_on_the_moon.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-angling",
+    "displayName": "Angling",
+    "filename": "angling.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-apples-and-dolls",
+    "displayName": "Apples and Dolls",
+    "filename": "apples_and_dolls.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-aquaventure",
+    "displayName": "Aquaventure",
+    "filename": "aquaventure.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-armor-ambush",
+    "displayName": "Armor Ambush",
+    "filename": "armor_ambush.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-artillery-duel",
+    "displayName": "Artillery Duel",
+    "filename": "artillery_duel.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-assault",
+    "displayName": "Assault",
+    "filename": "assault.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-asterix",
+    "displayName": "Asterix",
+    "filename": "asterix.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-asteroid-fire",
+    "displayName": "Asteroid Fire",
+    "filename": "asteroid_fire.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-asteroids",
+    "displayName": "Asteroids",
+    "filename": "asteroids.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-astroblast",
+    "displayName": "Astroblast",
+    "filename": "astroblast.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-atari-video-cube",
+    "displayName": "Atari Video Cube",
+    "filename": "atari_video_cube.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-atlantis",
+    "displayName": "Atlantis",
+    "filename": "atlantis.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-atlantis-ii",
+    "displayName": "Atlantis II",
+    "filename": "atlantis_ii.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bachelor-party",
+    "displayName": "Bachelor Party",
+    "filename": "bachelor_party.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bachelor",
+    "displayName": "Bachelor",
+    "filename": "bachelor.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bachelorette-party",
+    "displayName": "Bachelorette Party",
+    "filename": "bachelorette_party.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-backfire",
+    "displayName": "backfire",
+    "filename": "backfire.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-backgammon",
+    "displayName": "Backgammon",
+    "filename": "backgammon.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bank-heist",
+    "displayName": "Bank Heist",
+    "filename": "bank_heist.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-barnstorming",
+    "displayName": "Barnstorming",
+    "filename": "barnstorming.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-base-attack",
+    "displayName": "Base Attack",
+    "filename": "base_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-basic-math-math",
+    "displayName": "Basic Math - Math",
+    "filename": "basic_math_math.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-basic-programming",
+    "displayName": "BASIC Programming",
+    "filename": "basic_programming.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-basketball",
+    "displayName": "Basketball",
+    "filename": "basketball.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-battlezone",
+    "displayName": "Battlezone",
+    "filename": "battlezone.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-beamrider",
+    "displayName": "Beamrider",
+    "filename": "beamrider.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-beany-bopper",
+    "displayName": "Beany Bopper",
+    "filename": "beany_bopper.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-beat-em-and-eat-em",
+    "displayName": "Beat 'Em & Eat 'Em",
+    "filename": "beat_em_and_eat_em.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-berenstain-bears",
+    "displayName": "Berenstain Bears",
+    "filename": "berenstain_bears.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bermuda-triangle",
+    "displayName": "Bermuda Triangle",
+    "filename": "bermuda_triangle.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-berzerk",
+    "displayName": "Berzerk",
+    "filename": "berzerk.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-berzerkvoice",
+    "displayName": "berzerkvoice",
+    "filename": "berzerkvoice.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-bi-bi",
+    "displayName": "Bi! Bi!",
+    "filename": "bi_bi.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-big-birds-egg-catch",
+    "displayName": "Big Bird's Egg Catch",
+    "filename": "big_birds_egg_catch.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bionic-breakthrough",
+    "displayName": "Bionic Breakthrough",
+    "filename": "bionic_breakthrough.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-blackjack",
+    "displayName": "Blackjack",
+    "filename": "blackjack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-blackjack-black-jack",
+    "displayName": "Blackjack - Black Jack",
+    "filename": "blackjack_black_jack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bloodyhumanfreeway-ntsc",
+    "displayName": "BloodyHumanFreeway_NTSC",
+    "filename": "bloodyhumanfreeway_ntsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-blueprint",
+    "displayName": "Blueprint",
+    "filename": "blueprint.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bmx-air-master",
+    "displayName": "BMX Air Master",
+    "filename": "bmx_air_master.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bobby-is-going-home-bobby-geht-heim",
+    "displayName": "Bobby Is Going Home - Bobby geht Heim",
+    "filename": "bobby_is_going_home_bobby_geht_heim.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bogey-blaster",
+    "displayName": "Bogey Blaster",
+    "filename": "bogey_blaster.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-boggle",
+    "displayName": "Boggle",
+    "filename": "boggle.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-boing",
+    "displayName": "Boing!",
+    "filename": "boing.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bowling",
+    "displayName": "Bowling",
+    "filename": "bowling.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-boxing",
+    "displayName": "Boxing",
+    "filename": "boxing.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-boxing-la-boxe",
+    "displayName": "Boxing - La Boxe",
+    "filename": "boxing_la_boxe.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-brain-games",
+    "displayName": "Brain Games",
+    "filename": "brain_games.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-breakdown",
+    "displayName": "Breakdown",
+    "filename": "breakdown.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-breakout-breakaway-iv",
+    "displayName": "Breakout - Breakaway IV",
+    "filename": "breakout_breakaway_iv.bin",
+    "genre": "puzzle",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-bridge",
+    "displayName": "Bridge",
+    "filename": "bridge.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-buck-rogers-planet-of-zoom",
+    "displayName": "Buck Rogers - Planet of Zoom",
+    "filename": "buck_rogers_planet_of_zoom.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bugs",
+    "displayName": "Bugs",
+    "filename": "bugs.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bugs-bunny",
+    "displayName": "Bugs Bunny",
+    "filename": "bugs_bunny.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bump-n-jump",
+    "displayName": "Bump 'n' Jump",
+    "filename": "bump_n_jump.bin",
+    "genre": "platformer",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-bumper-bash",
+    "displayName": "Bumper Bash",
+    "filename": "bumper_bash.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-burgertime",
+    "displayName": "BurgerTime",
+    "filename": "burgertime.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-burning-desire",
+    "displayName": "Burning Desire",
+    "filename": "burning_desire.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cabbage-patch-kids-adventures-in-the-park",
+    "displayName": "Cabbage Patch Kids - Adventures in the Park",
+    "filename": "cabbage_patch_kids_adventures_in_the_park.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-cakewalk",
+    "displayName": "Cakewalk",
+    "filename": "cakewalk.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-california-games",
+    "displayName": "California Games",
+    "filename": "california_games.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-canyon-bomber",
+    "displayName": "Canyon Bomber",
+    "filename": "canyon_bomber.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-care-bears",
+    "displayName": "Care Bears",
+    "filename": "care_bears.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-carnival",
+    "displayName": "Carnival",
+    "filename": "carnival.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-casino-poker-plus",
+    "displayName": "Casino - Poker Plus",
+    "filename": "casino_poker_plus.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cat-trax",
+    "displayName": "Cat Trax",
+    "filename": "cat_trax.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cathouse-blues",
+    "displayName": "Cathouse Blues",
+    "filename": "cathouse_blues.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-centipede",
+    "displayName": "Centipede",
+    "filename": "centipede.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-challenge",
+    "displayName": "Challenge",
+    "filename": "challenge.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-challenge-of-nexar-the",
+    "displayName": "Challenge of.... Nexar, The",
+    "filename": "challenge_of_nexar_the.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-championship-soccer-soccer",
+    "displayName": "Championship Soccer - Soccer",
+    "filename": "championship_soccer_soccer.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-chase-the-chuckwagon",
+    "displayName": "Chase the Chuckwagon",
+    "filename": "chase_the_chuckwagon.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-checkers",
+    "displayName": "Checkers",
+    "filename": "checkers.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-china-syndrome",
+    "displayName": "China Syndrome",
+    "filename": "china_syndrome.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-chopper-command",
+    "displayName": "Chopper Command",
+    "filename": "chopper_command.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-chuck-norris-superkicks",
+    "displayName": "Chuck Norris Superkicks",
+    "filename": "chuck_norris_superkicks.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-chuckick",
+    "displayName": "Chuckick",
+    "filename": "chuckick.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-circus-atari-circus",
+    "displayName": "Circus Atari - Circus",
+    "filename": "circus_atari_circus.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-coco-nuts",
+    "displayName": "Coco Nuts",
+    "filename": "coco_nuts.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-codebreaker-code-breaker",
+    "displayName": "Codebreaker - Code Breaker",
+    "filename": "codebreaker_code_breaker.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-coke-wins",
+    "displayName": "Coke Wins",
+    "filename": "coke_wins.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-coln",
+    "displayName": "Coln",
+    "filename": "coln.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-color-bar-generator",
+    "displayName": "Color Bar Generator",
+    "filename": "color_bar_generator.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-colors-demo",
+    "displayName": "Colors Demo",
+    "filename": "colors_demo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-combat-tank-plus",
+    "displayName": "Combat - Tank-Plus",
+    "filename": "combat_tank_plus.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-combat-two",
+    "displayName": "Combat Two",
+    "filename": "combat_two.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-commando",
+    "displayName": "Commando",
+    "filename": "commando.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-commando-raid",
+    "displayName": "Commando Raid",
+    "filename": "commando_raid.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-communist-mutants-from-space",
+    "displayName": "Communist Mutants from Space",
+    "filename": "communist_mutants_from_space.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-compumate",
+    "displayName": "CompuMate",
+    "filename": "compumate.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-condor-attack",
+    "displayName": "Condor Attack",
+    "filename": "condor_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-confrontation",
+    "displayName": "Confrontation",
+    "filename": "confrontation.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-congo-bongo",
+    "displayName": "Congo Bongo",
+    "filename": "congo_bongo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-conquest-of-mars",
+    "displayName": "Conquest of Mars",
+    "filename": "conquest_of_mars.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cookie-monster-munch",
+    "displayName": "Cookie Monster Munch",
+    "filename": "cookie_monster_munch.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-corrida-da-matematica",
+    "displayName": "Corrida da Matematica",
+    "filename": "corrida_da_matematica.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cosmic-ark",
+    "displayName": "Cosmic Ark",
+    "filename": "cosmic_ark.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cosmic-commuter",
+    "displayName": "Cosmic Commuter",
+    "filename": "cosmic_commuter.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cosmic-corridor",
+    "displayName": "Cosmic Corridor",
+    "filename": "cosmic_corridor.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cosmic-creeps",
+    "displayName": "Cosmic Creeps",
+    "filename": "cosmic_creeps.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cosmic-swarm",
+    "displayName": "Cosmic Swarm",
+    "filename": "cosmic_swarm.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cracked",
+    "displayName": "Crack'ed",
+    "filename": "cracked.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-crackpots",
+    "displayName": "Crackpots",
+    "filename": "crackpots.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-crash-dive",
+    "displayName": "Crash Dive",
+    "filename": "crash_dive.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-crazy-climber",
+    "displayName": "Crazy Climber",
+    "filename": "crazy_climber.bin",
+    "genre": "platformer",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-crazyballoon-ntsc",
+    "displayName": "crazyballoon-ntsc",
+    "filename": "crazyballoon_ntsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-crazyvalet",
+    "displayName": "CrazyValet",
+    "filename": "crazyvalet.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-criminal-pursuit",
+    "displayName": "Criminal Pursuit",
+    "filename": "criminal_pursuit.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cross-force",
+    "displayName": "Cross Force",
+    "filename": "cross_force.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-crossbow",
+    "displayName": "Crossbow",
+    "filename": "crossbow.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cruise-missile",
+    "displayName": "Cruise Missile",
+    "filename": "cruise_missile.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-crypts-of-chaos",
+    "displayName": "Crypts of Chaos",
+    "filename": "crypts_of_chaos.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-crystal-castles",
+    "displayName": "Crystal Castles",
+    "filename": "crystal_castles.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cubicolor",
+    "displayName": "Cubicolor",
+    "filename": "cubicolor.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-cubo-magico",
+    "displayName": "Cubo Magico",
+    "filename": "cubo_magico.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-custers-revenge",
+    "displayName": "Custer's Revenge",
+    "filename": "custers_revenge.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-custerev",
+    "displayName": "Custerev",
+    "filename": "custerev.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dancing-plate-dancing-plates-tanzende-teller",
+    "displayName": "Dancing Plate - Dancing Plates - Tanzende Teller",
+    "filename": "dancing_plate_dancing_plates_tanzende_teller.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dark-cavern",
+    "displayName": "Dark Cavern",
+    "filename": "dark_cavern.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dark-chambers",
+    "displayName": "Dark Chambers",
+    "filename": "dark_chambers.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-deadly-duck",
+    "displayName": "Deadly Duck",
+    "filename": "deadly_duck.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-death-trap",
+    "displayName": "Death Trap",
+    "filename": "death_trap.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-decathlon",
+    "displayName": "Decathlon",
+    "filename": "decathlon.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-defender",
+    "displayName": "Defender",
+    "filename": "defender.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-demolition-herby",
+    "displayName": "Demolition Herby",
+    "filename": "demolition_herby.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-demon-attack",
+    "displayName": "Demon Attack",
+    "filename": "demon_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-demons-to-diamonds",
+    "displayName": "Demons to Diamonds",
+    "filename": "demons_to_diamonds.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-desert-falcon",
+    "displayName": "Desert Falcon",
+    "filename": "desert_falcon.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dice-puzzle",
+    "displayName": "Dice Puzzle",
+    "filename": "dice_puzzle.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dig-dug",
+    "displayName": "Dig Dug",
+    "filename": "dig_dug.bin",
+    "genre": "action",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-dishaster",
+    "displayName": "Dishaster",
+    "filename": "dishaster.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dodge-em-dodger-cars",
+    "displayName": "Dodge 'Em - Dodger Cars",
+    "filename": "dodge_em_dodger_cars.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dolphin",
+    "displayName": "Dolphin",
+    "filename": "dolphin.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-donald-ducks-speedboat",
+    "displayName": "Donald Duck's Speedboat",
+    "filename": "donald_ducks_speedboat.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-donkey-kong",
+    "displayName": "Donkey Kong",
+    "filename": "donkey_kong.bin",
+    "genre": "platformer",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-donkey-kong-junior",
+    "displayName": "Donkey Kong Junior",
+    "filename": "donkey_kong_junior.bin",
+    "genre": "platformer",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-double-dragon",
+    "displayName": "Double Dragon",
+    "filename": "double_dragon.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-double-dunk",
+    "displayName": "Double Dunk",
+    "filename": "double_dunk.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dragon-defender",
+    "displayName": "Dragon Defender",
+    "filename": "dragon_defender.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-dragonfire",
+    "displayName": "Dragonfire",
+    "filename": "dragonfire.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dragonstomper",
+    "displayName": "Dragonstomper",
+    "filename": "dragonstomper.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dragster",
+    "displayName": "Dragster",
+    "filename": "dragster.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-drgndfnd",
+    "displayName": "Drgndfnd",
+    "filename": "drgndfnd.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dschungle-boy",
+    "displayName": "Dschungle Boy",
+    "filename": "dschungle_boy.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-duck-shoot",
+    "displayName": "Duck Shoot",
+    "filename": "duck_shoot.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dukes-of-hazzard",
+    "displayName": "Dukes of Hazzard",
+    "filename": "dukes_of_hazzard.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dukes-v2",
+    "displayName": "dukes_v2",
+    "filename": "dukes_v2.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dumbos-flying-circus",
+    "displayName": "Dumbo's Flying Circus",
+    "filename": "dumbos_flying_circus.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-dune",
+    "displayName": "Dune",
+    "filename": "dune.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-et-the-extra-terrestrial",
+    "displayName": "E.T. - The Extra-Terrestrial",
+    "filename": "et_the_extra_terrestrial.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-earth-dies-screaming-the",
+    "displayName": "Earth Dies Screaming, The",
+    "filename": "earth_dies_screaming_the.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-eggomania",
+    "displayName": "Eggomania",
+    "filename": "eggomania.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-elevator-action",
+    "displayName": "Elevator Action",
+    "filename": "elevator_action.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-elis-ladder",
+    "displayName": "Eli's Ladder",
+    "filename": "elis_ladder.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-elk-attack",
+    "displayName": "Elk Attack",
+    "filename": "elk_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-encounter-at-l-5",
+    "displayName": "Encounter at L-5",
+    "filename": "encounter_at_l_5.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-enduro",
+    "displayName": "Enduro",
+    "filename": "enduro.bin",
+    "genre": "racing",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-entity-the",
+    "displayName": "Entity, The",
+    "filename": "entity_the.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-entombed",
+    "displayName": "Entombed",
+    "filename": "entombed.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-escape-from-the-mindmaster",
+    "displayName": "Escape from the Mindmaster",
+    "filename": "escape_from_the_mindmaster.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-espial",
+    "displayName": "Espial",
+    "filename": "espial.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-euchre",
+    "displayName": "Euchre",
+    "filename": "euchre.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-euchrepal",
+    "displayName": "EuchrePAL",
+    "filename": "euchrepal.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ewok-adventure",
+    "displayName": "Ewok Adventure",
+    "filename": "ewok_adventure.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-ewokadvn",
+    "displayName": "Ewokadvn",
+    "filename": "ewokadvn.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-exocet",
+    "displayName": "Exocet",
+    "filename": "exocet.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-f-14-tomcat-flight-simulator",
+    "displayName": "F-14 Tomcat Flight Simulator",
+    "filename": "f_14_tomcat_flight_simulator.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-falldown-ntsc",
+    "displayName": "falldown_ntsc",
+    "filename": "falldown_ntsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fantastic-voyage",
+    "displayName": "Fantastic Voyage",
+    "filename": "fantastic_voyage.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-farmyard-fun",
+    "displayName": "Farmyard Fun",
+    "filename": "farmyard_fun.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fast-eddie",
+    "displayName": "Fast Eddie",
+    "filename": "fast_eddie.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fast-food",
+    "displayName": "Fast Food",
+    "filename": "fast_food.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fatal-run",
+    "displayName": "Fatal Run",
+    "filename": "fatal_run.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fathom",
+    "displayName": "Fathom",
+    "filename": "fathom.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fighterp",
+    "displayName": "Fighterp",
+    "filename": "fighterp.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-final-approach",
+    "displayName": "Final Approach",
+    "filename": "final_approach.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fire-birds",
+    "displayName": "Fire Birds",
+    "filename": "fire_birds.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fire-fighter",
+    "displayName": "Fire Fighter",
+    "filename": "fire_fighter.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fire-fly",
+    "displayName": "Fire Fly",
+    "filename": "fire_fly.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fire-spinner",
+    "displayName": "Fire Spinner",
+    "filename": "fire_spinner.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fireball",
+    "displayName": "Fireball",
+    "filename": "fireball.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fishing-derby",
+    "displayName": "Fishing Derby",
+    "filename": "fishing_derby.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-flag-capture-capture",
+    "displayName": "Flag Capture - Capture",
+    "filename": "flag_capture_capture.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-flapping",
+    "displayName": "FlapPing",
+    "filename": "flapping.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-flash-gordon",
+    "displayName": "Flash Gordon",
+    "filename": "flash_gordon.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-flashgrd",
+    "displayName": "Flashgrd",
+    "filename": "flashgrd.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-football",
+    "displayName": "Football",
+    "filename": "football.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-foozball",
+    "displayName": "Foozball",
+    "filename": "foozball.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-forest",
+    "displayName": "Forest",
+    "filename": "forest.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fotr",
+    "displayName": "fotr",
+    "filename": "fotr.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-frankensteins-monster",
+    "displayName": "Frankenstein's Monster",
+    "filename": "frankensteins_monster.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-freeway",
+    "displayName": "Freeway",
+    "filename": "freeway.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-frisco",
+    "displayName": "Frisco",
+    "filename": "frisco.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-frog-pond",
+    "displayName": "Frog Pond",
+    "filename": "frog_pond.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-frogflys",
+    "displayName": "Frogflys",
+    "filename": "frogflys.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-frogger",
+    "displayName": "Frogger",
+    "filename": "frogger.bin",
+    "genre": "platformer",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-frogger-ii-threeedeep",
+    "displayName": "Frogger II - Threeedeep!",
+    "filename": "frogger_ii_threeedeep.bin",
+    "genre": "platformer",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-frogs-and-flies-frogs-n-flies",
+    "displayName": "Frogs and Flies - Frogs 'n' Flies",
+    "filename": "frogs_and_flies_frogs_n_flies.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-front-line",
+    "displayName": "Front Line",
+    "filename": "front_line.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-frostbite",
+    "displayName": "Frostbite",
+    "filename": "frostbite.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-fun-with-numbers",
+    "displayName": "Fun with Numbers",
+    "filename": "fun_with_numbers.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-funky-fish",
+    "displayName": "Funky Fish",
+    "filename": "funky_fish.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gi-joe-cobra-strike",
+    "displayName": "G.I. Joe - Cobra Strike",
+    "filename": "gi_joe_cobra_strike.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-galaga",
+    "displayName": "Galaga",
+    "filename": "galaga.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-galaxian",
+    "displayName": "Galaxian",
+    "filename": "galaxian.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-game-of-concentration",
+    "displayName": "Game of Concentration",
+    "filename": "game_of_concentration.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gamma-attack",
+    "displayName": "Gamma-Attack",
+    "filename": "gamma_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gangster-alley",
+    "displayName": "Gangster Alley",
+    "filename": "gangster_alley.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-garfield",
+    "displayName": "Garfield",
+    "filename": "garfield.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gas-hog",
+    "displayName": "Gas Hog",
+    "filename": "gas_hog.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gauntlet",
+    "displayName": "Gauntlet",
+    "filename": "gauntlet.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-general-re-treat",
+    "displayName": "General Re-Treat",
+    "filename": "general_re_treat.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ghost-manor",
+    "displayName": "Ghost Manor",
+    "filename": "ghost_manor.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ghostbusters",
+    "displayName": "Ghostbusters",
+    "filename": "ghostbusters.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ghostbusters-ii",
+    "displayName": "Ghostbusters II",
+    "filename": "ghostbusters_ii.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gigolo",
+    "displayName": "Gigolo",
+    "filename": "gigolo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-glacier-patrol",
+    "displayName": "Glacier Patrol",
+    "filename": "glacier_patrol.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-glib-video-word-game",
+    "displayName": "Glib - Video Word Game",
+    "filename": "glib_video_word_game.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-go-go-home-monster",
+    "displayName": "Go Go Home Monster",
+    "filename": "go_go_home_monster.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gofish-ntsc",
+    "displayName": "GoFish_NTSC",
+    "filename": "gofish_ntsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-golf",
+    "displayName": "Golf",
+    "filename": "golf.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gopher",
+    "displayName": "Gopher",
+    "filename": "gopher.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gorf",
+    "displayName": "Gorf",
+    "filename": "gorf.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-grand-prix",
+    "displayName": "Grand Prix",
+    "filename": "grand_prix.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gravitar",
+    "displayName": "Gravitar",
+    "filename": "gravitar.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-great-escape",
+    "displayName": "Great Escape",
+    "filename": "great_escape.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gremlins",
+    "displayName": "Gremlins",
+    "filename": "gremlins.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-grovers-music-maker",
+    "displayName": "Grover's Music Maker",
+    "filename": "grovers_music_maker.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-guardian",
+    "displayName": "Guardian",
+    "filename": "guardian.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gunntsc",
+    "displayName": "GUNNTSC",
+    "filename": "gunntsc.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-gyruss",
+    "displayName": "Gyruss",
+    "filename": "gyruss.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-hero",
+    "displayName": "H.E.R.O.",
+    "filename": "hero.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-halloween",
+    "displayName": "Halloween",
+    "filename": "halloween.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-hangman-spelling",
+    "displayName": "Hangman - Spelling",
+    "filename": "hangman_spelling.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-harbor-escape",
+    "displayName": "Harbor Escape",
+    "filename": "harbor_escape.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-harem",
+    "displayName": "Harem",
+    "filename": "harem.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-haunted-house",
+    "displayName": "Haunted House",
+    "filename": "haunted_house.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-hole-hunter",
+    "displayName": "Hole Hunter",
+    "filename": "hole_hunter.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-holey-moley",
+    "displayName": "Holey Moley",
+    "filename": "holey_moley.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-home-run-baseball",
+    "displayName": "Home Run - Baseball",
+    "filename": "home_run_baseball.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-homerun",
+    "displayName": "Homerun",
+    "filename": "homerun.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-human-cannonball",
+    "displayName": "Human Cannonball",
+    "filename": "human_cannonball.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-human-cannonball-cannon-man",
+    "displayName": "Human Cannonball - Cannon Man",
+    "filename": "human_cannonball_cannon_man.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-hunt-and-score-memory-match",
+    "displayName": "Hunt & Score - Memory Match",
+    "filename": "hunt_and_score_memory_match.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-i-want-my-mommy",
+    "displayName": "I Want My Mommy",
+    "filename": "i_want_my_mommy.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-iq-180",
+    "displayName": "I.Q. 180",
+    "filename": "iq_180.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-iq-memory-teaser",
+    "displayName": "I.Q. Memory Teaser",
+    "filename": "iq_memory_teaser.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ice-hockey-le-hockey-sur-glace",
+    "displayName": "Ice Hockey - Le Hockey Sur Glace",
+    "filename": "ice_hockey_le_hockey_sur_glace.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ikari-warriors",
+    "displayName": "Ikari Warriors",
+    "filename": "ikari_warriors.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-imagic-selector",
+    "displayName": "Imagic Selector",
+    "filename": "imagic_selector.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-immies-and-aggies-immies-and-aggies",
+    "displayName": "Immies & Aggies - Immies and Aggies",
+    "filename": "immies_and_aggies_immies_and_aggies.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-incagold-zellers",
+    "displayName": "IncaGold_Zellers",
+    "filename": "incagold_zellers.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-indy-500-race",
+    "displayName": "Indy 500 - Race",
+    "filename": "indy_500_race.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-infiltrate",
+    "displayName": "Infiltrate",
+    "filename": "infiltrate.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-international-soccer",
+    "displayName": "International Soccer",
+    "filename": "international_soccer.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-inv",
+    "displayName": "INV+",
+    "filename": "inv.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-iq180",
+    "displayName": "Iq180",
+    "filename": "iq180.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ixion",
+    "displayName": "Ixion",
+    "filename": "ixion.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-james-bond-007",
+    "displayName": "James Bond 007",
+    "filename": "james_bond_007.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-jammed",
+    "displayName": "Jammed",
+    "filename": "jammed.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-jawbreaker",
+    "displayName": "Jawbreaker",
+    "filename": "jawbreaker.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-jediaren",
+    "displayName": "Jediaren",
+    "filename": "jediaren.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-journey-escape",
+    "displayName": "Journey Escape",
+    "filename": "journey_escape.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-joust",
+    "displayName": "Joust",
+    "filename": "joust.bin",
+    "genre": "action",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-joustpong",
+    "displayName": "JoustPong",
+    "filename": "joustpong.bin",
+    "genre": "sports",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-jr-pac-man",
+    "displayName": "Jr. Pac-Man",
+    "filename": "jr_pac_man.bin",
+    "genre": "action",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-jungle-fever",
+    "displayName": "Jungle Fever",
+    "filename": "jungle_fever.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-jungle-hunt",
+    "displayName": "Jungle Hunt",
+    "filename": "jungle_hunt.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-kabobber",
+    "displayName": "Kabobber",
+    "filename": "kabobber.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-kaboom",
+    "displayName": "Kaboom!",
+    "filename": "kaboom.bin",
+    "genre": "action",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-kamikaze-saucers",
+    "displayName": "Kamikaze Saucers",
+    "filename": "kamikaze_saucers.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-kamisauc",
+    "displayName": "kamisauc",
+    "filename": "kamisauc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-kangaroo",
+    "displayName": "Kangaroo",
+    "filename": "kangaroo.bin",
+    "genre": "platformer",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-karate",
+    "displayName": "Karate",
+    "filename": "karate.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-keystone-kapers",
+    "displayName": "Keystone Kapers",
+    "filename": "keystone_kapers.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-killer-satellites",
+    "displayName": "Killer Satellites",
+    "filename": "killer_satellites.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-king-kong",
+    "displayName": "King Kong",
+    "filename": "king_kong.bin",
+    "genre": "platformer",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-klax",
+    "displayName": "Klax",
+    "filename": "klax.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-knight-on-the-town",
+    "displayName": "Knight on the Town",
+    "filename": "knight_on_the_town.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-kool-aid-man",
+    "displayName": "Kool-Aid Man",
+    "filename": "kool_aid_man.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-krull",
+    "displayName": "Krull",
+    "filename": "krull.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-kung-fu-master",
+    "displayName": "Kung-Fu Master",
+    "filename": "kung_fu_master.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-kyphus",
+    "displayName": "Kyphus",
+    "filename": "kyphus.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-labyrinth",
+    "displayName": "labyrinth",
+    "filename": "labyrinth.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-lady-in-wading",
+    "displayName": "Lady in Wading",
+    "filename": "lady_in_wading.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-laser-blast",
+    "displayName": "Laser Blast",
+    "filename": "laser_blast.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-laser-gates",
+    "displayName": "Laser Gates",
+    "filename": "laser_gates.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-lasercade",
+    "displayName": "Lasercade",
+    "filename": "lasercade.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-lasrvoly",
+    "displayName": "Lasrvoly",
+    "filename": "lasrvoly.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-lilly-adventure",
+    "displayName": "Lilly Adventure",
+    "filename": "lilly_adventure.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-lochjaw",
+    "displayName": "Lochjaw",
+    "filename": "lochjaw.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-lock-n-chase",
+    "displayName": "Lock 'n' Chase",
+    "filename": "lock_n_chase.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-london-blitz",
+    "displayName": "London Blitz",
+    "filename": "london_blitz.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-looping",
+    "displayName": "Looping",
+    "filename": "looping.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-lord-of-the-rings-the-journey-to-rivendell",
+    "displayName": "Lord of the Rings, The - Journey to Rivendell",
+    "filename": "lord_of_the_rings_the_journey_to_rivendell.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-lost-luggage",
+    "displayName": "Lost Luggage",
+    "filename": "lost_luggage.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mad",
+    "displayName": "M.A.D.",
+    "filename": "mad.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mash",
+    "displayName": "M.A.S.H",
+    "filename": "mash.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-magicard",
+    "displayName": "MagiCard",
+    "filename": "magicard.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-malagai",
+    "displayName": "Malagai",
+    "filename": "malagai.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mangia",
+    "displayName": "Mangia'",
+    "filename": "mangia.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-marauder",
+    "displayName": "Marauder",
+    "filename": "marauder.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-marine-wars",
+    "displayName": "Marine Wars",
+    "filename": "marine_wars.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-marineflieger",
+    "displayName": "Marineflieger",
+    "filename": "marineflieger.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mario-bros",
+    "displayName": "Mario Bros.",
+    "filename": "mario_bros.bin",
+    "genre": "platformer",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-master-builder",
+    "displayName": "Master Builder",
+    "filename": "master_builder.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-math-gran-prix",
+    "displayName": "Math Gran Prix",
+    "filename": "math_gran_prix.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-maze-craze-a-game-of-cops-n-robbers-maze-mania-a-game-of-cops-n-robbers",
+    "displayName": "Maze Craze - A Game of Cops 'n Robbers - Maze Mania - A Game of Cops 'n Robbers",
+    "filename": "maze_craze_a_game_of_cops_n_robbers_maze_mania_a_game_of_cops_n_robbers.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mc-ntsc-7-26-3",
+    "displayName": "mc_ntsc_7_26_3",
+    "filename": "mc_ntsc_7_26_3.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mc-pal-4-28-3",
+    "displayName": "mc_pal_4_28_3",
+    "filename": "mc_pal_4_28_3.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mcdonalds-golden-arches-adventure",
+    "displayName": "McDonald's - Golden Arches Adventure",
+    "filename": "mcdonalds_golden_arches_adventure.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-mcdonalds",
+    "displayName": "McDonalds",
+    "filename": "mcdonalds.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mega-force",
+    "displayName": "Mega Force",
+    "filename": "mega_force.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-megaboy",
+    "displayName": "MegaBoy",
+    "filename": "megaboy.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-megamania-a-space-nightmare",
+    "displayName": "MegaMania - A Space Nightmare",
+    "filename": "megamania_a_space_nightmare.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-meltdown",
+    "displayName": "Meltdown",
+    "filename": "meltdown.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-meteor-defence",
+    "displayName": "Meteor Defence",
+    "filename": "meteor_defence.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-midnight-magic",
+    "displayName": "Midnight Magic",
+    "filename": "midnight_magic.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-millipede",
+    "displayName": "Millipede",
+    "filename": "millipede.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-min-golf",
+    "displayName": "MIN_GOLF",
+    "filename": "min_golf.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mind-maze",
+    "displayName": "Mind Maze",
+    "filename": "mind_maze.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-miner-2049er-starring-bounty-bob",
+    "displayName": "Miner 2049er - Starring Bounty Bob",
+    "filename": "miner_2049er_starring_bounty_bob.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-miner-2049er-volume-ii",
+    "displayName": "Miner 2049er Volume II",
+    "filename": "miner_2049er_volume_ii.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mines-of-minos",
+    "displayName": "Mines of Minos",
+    "filename": "mines_of_minos.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-minesweeper",
+    "displayName": "Minesweeper",
+    "filename": "minesweeper.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-miniature-golf",
+    "displayName": "Miniature Golf",
+    "filename": "miniature_golf.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-miniature-golf-arcade-golf",
+    "displayName": "Miniature Golf - Arcade Golf",
+    "filename": "miniature_golf_arcade_golf.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-minrvol2",
+    "displayName": "MINRVOL2",
+    "filename": "minrvol2.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-miss-piggy",
+    "displayName": "Miss Piggy",
+    "filename": "miss_piggy.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-missile-command",
+    "displayName": "Missile Command",
+    "filename": "missile_command.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-missile-control",
+    "displayName": "Missile Control",
+    "filename": "missile_control.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mission-3000-ad-mission-3000",
+    "displayName": "Mission 3,000 A.D. - Mission 3000",
+    "filename": "mission_3000_ad_mission_3000.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mission-survive",
+    "displayName": "Mission Survive",
+    "filename": "mission_survive.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mogul-maniac",
+    "displayName": "Mogul Maniac",
+    "filename": "mogul_maniac.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mole-hunter",
+    "displayName": "Mole Hunter",
+    "filename": "mole_hunter.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mondopong",
+    "displayName": "MondoPong",
+    "filename": "mondopong.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-monster-cise",
+    "displayName": "Monster Cise",
+    "filename": "monster_cise.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-monstercise",
+    "displayName": "Monstercise",
+    "filename": "monstercise.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-montezumas-revenge-featuring-panama-joe",
+    "displayName": "Montezuma's Revenge - Featuring Panama Joe",
+    "filename": "montezumas_revenge_featuring_panama_joe.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-moon-patrol",
+    "displayName": "Moon Patrol",
+    "filename": "moon_patrol.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-moonsweeper",
+    "displayName": "Moonsweeper",
+    "filename": "moonsweeper.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-motocross",
+    "displayName": "Motocross",
+    "filename": "motocross.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-motocross-racer",
+    "displayName": "Motocross Racer",
+    "filename": "motocross_racer.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-motorodeo",
+    "displayName": "MotoRodeo",
+    "filename": "motorodeo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mountain-king",
+    "displayName": "Mountain King",
+    "filename": "mountain_king.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mouse-trap",
+    "displayName": "Mouse Trap",
+    "filename": "mouse_trap.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mr-do",
+    "displayName": "Mr. Do!",
+    "filename": "mr_do.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mr-dos-castle",
+    "displayName": "Mr. Do!'s Castle",
+    "filename": "mr_dos_castle.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mr-postman-der-postmann",
+    "displayName": "Mr. Postman - Der Postmann",
+    "filename": "mr_postman_der_postmann.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ms-pac-man",
+    "displayName": "Ms. Pac-Man",
+    "filename": "ms_pac_man.bin",
+    "genre": "action",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-mtnking",
+    "displayName": "MTNKING",
+    "filename": "mtnking.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-multi-sprite-demo",
+    "displayName": "Multi-Sprite Demo",
+    "filename": "multi_sprite_demo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-music-machine-the",
+    "displayName": "Music Machine, The",
+    "filename": "music_machine_the.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-my-golf",
+    "displayName": "My Golf",
+    "filename": "my_golf.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-mysterious-thief-a",
+    "displayName": "Mysterious Thief, A",
+    "filename": "mysterious_thief_a.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-name-this-game",
+    "displayName": "Name This Game",
+    "filename": "name_this_game.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-nexar",
+    "displayName": "Nexar",
+    "filename": "nexar.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-night-driver",
+    "displayName": "Night Driver",
+    "filename": "night_driver.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-night-stalker",
+    "displayName": "Night Stalker",
+    "filename": "night_stalker.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-nightmare",
+    "displayName": "Nightmare",
+    "filename": "nightmare.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-no-escape",
+    "displayName": "No Escape!",
+    "filename": "no_escape.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-nuts",
+    "displayName": "Nuts",
+    "filename": "nuts.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-obelix",
+    "displayName": "Obelix",
+    "filename": "obelix.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ocean-city-defender",
+    "displayName": "Ocean City Defender",
+    "filename": "ocean_city_defender.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-octopus",
+    "displayName": "Octopus",
+    "filename": "octopus.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-off-the-wall",
+    "displayName": "Off the Wall",
+    "filename": "off_the_wall.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-off-your-rocker",
+    "displayName": "Off Your Rocker",
+    "filename": "off_your_rocker.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-official-frogger-the",
+    "displayName": "Official Frogger, The",
+    "filename": "official_frogger_the.bin",
+    "genre": "platformer",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-oink",
+    "displayName": "Oink!",
+    "filename": "oink.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-okie-dokie",
+    "displayName": "Okie Dokie",
+    "filename": "okie_dokie.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-omega-race",
+    "displayName": "Omega Race",
+    "filename": "omega_race.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-open-sesame-sesam-oeffne-dich",
+    "displayName": "Open, Sesame! - Sesam, Oeffne Dich",
+    "filename": "open_sesame_sesam_oeffne_dich.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-oscars-trash-race",
+    "displayName": "Oscar's Trash Race",
+    "filename": "oscars_trash_race.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-othello",
+    "displayName": "Othello",
+    "filename": "othello.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-out-of-control",
+    "displayName": "Out of Control",
+    "filename": "out_of_control.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-outerspc",
+    "displayName": "Outerspc",
+    "filename": "outerspc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-outlaw",
+    "displayName": "Outlaw",
+    "filename": "outlaw.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-outlaw-gunslinger",
+    "displayName": "Outlaw - Gunslinger",
+    "filename": "outlaw_gunslinger.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-oystron",
+    "displayName": "Oystron",
+    "filename": "oystron.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pac-kong",
+    "displayName": "Pac Kong",
+    "filename": "pac_kong.bin",
+    "genre": "platformer",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pac-man",
+    "displayName": "Pac-Man",
+    "filename": "pac_man.bin",
+    "genre": "action",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-pac-space",
+    "displayName": "Pac-Space",
+    "filename": "pac_space.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-panda-chase",
+    "displayName": "Panda Chase",
+    "filename": "panda_chase.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-parachute",
+    "displayName": "Parachute",
+    "filename": "parachute.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-party-mix-bop-a-buggy-tug-of-war-wizards-keep-down-on-the-line-handcar",
+    "displayName": "Party Mix - Bop a Buggy, Tug of War, Wizard's Keep, Down on the Line, Handcar",
+    "filename": "party_mix_bop_a_buggy_tug_of_war_wizards_keep_down_on_the_line_handcar.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-peek-a-boo",
+    "displayName": "Peek-A-Boo",
+    "filename": "peek_a_boo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-peles-championship-soccer",
+    "displayName": "Pele's Championship Soccer",
+    "filename": "peles_championship_soccer.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pele",
+    "displayName": "Pele",
+    "filename": "pele.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pengo",
+    "displayName": "Pengo",
+    "filename": "pengo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pepsi-invaders-coke-wins",
+    "displayName": "Pepsi Invaders - Coke Wins",
+    "filename": "pepsi_invaders_coke_wins.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pete-rose-baseball",
+    "displayName": "Pete Rose Baseball",
+    "filename": "pete_rose_baseball.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-phantom-tank",
+    "displayName": "Phantom Tank",
+    "filename": "phantom_tank.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-phantom-tank-phantom-panzer",
+    "displayName": "Phantom Tank - Phantom-Panzer",
+    "filename": "phantom_tank_phantom_panzer.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-phantompanzer",
+    "displayName": "phantompanzer",
+    "filename": "phantompanzer.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pharaohs-curse",
+    "displayName": "Pharaoh's Curse",
+    "filename": "pharaohs_curse.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-phaser-patrol",
+    "displayName": "Phaser Patrol",
+    "filename": "phaser_patrol.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-philly-flasher",
+    "displayName": "Philly Flasher",
+    "filename": "philly_flasher.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-phoenix",
+    "displayName": "Phoenix",
+    "filename": "phoenix.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pick-n-pile",
+    "displayName": "Pick 'n' Pile",
+    "filename": "pick_n_pile.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pick-up",
+    "displayName": "Pick Up",
+    "filename": "pick_up.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-picnic",
+    "displayName": "Picnic",
+    "filename": "picnic.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-piece-o-cake",
+    "displayName": "Piece o' Cake",
+    "filename": "piece_o_cake.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pigs-in-space-starring-miss-piggy",
+    "displayName": "Pigs in Space - Starring Miss Piggy",
+    "filename": "pigs_in_space_starring_miss_piggy.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pitfall-ii-lost-caverns",
+    "displayName": "Pitfall II - Lost Caverns",
+    "filename": "pitfall_ii_lost_caverns.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-pitfall",
+    "displayName": "Pitfall!",
+    "filename": "pitfall.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-pitfall-pitfall-harrys-jungle-adventure",
+    "displayName": "Pitfall! - Pitfall Harry's Jungle Adventure",
+    "filename": "pitfall_pitfall_harrys_jungle_adventure.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-pitfall-no-walls-hack",
+    "displayName": "Pitfall! No Walls Hack",
+    "filename": "pitfall_no_walls_hack.bin",
+    "genre": "adventure",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-pizza-chef-pizza-time",
+    "displayName": "Pizza Chef - Pizza Time",
+    "filename": "pizza_chef_pizza_time.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-planet-of-the-apes",
+    "displayName": "Planet of the Apes",
+    "filename": "planet_of_the_apes.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-planet-patrol",
+    "displayName": "Planet Patrol",
+    "filename": "planet_patrol.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-plaque-attack",
+    "displayName": "Plaque Attack",
+    "filename": "plaque_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pleiades",
+    "displayName": "Pleiades",
+    "filename": "pleiades.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-poker-squares",
+    "displayName": "poker_squares",
+    "filename": "poker_squares.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-polaris",
+    "displayName": "Polaris",
+    "filename": "polaris.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pole-position",
+    "displayName": "Pole Position",
+    "filename": "pole_position.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-polo",
+    "displayName": "Polo",
+    "filename": "polo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pompeii",
+    "displayName": "Pompeii",
+    "filename": "pompeii.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pooyan",
+    "displayName": "Pooyan",
+    "filename": "pooyan.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-popeye",
+    "displayName": "Popeye",
+    "filename": "popeye.bin",
+    "genre": "platformer",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pressgge",
+    "displayName": "pressgge",
+    "filename": "pressgge.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pressure-cooker",
+    "displayName": "Pressure Cooker",
+    "filename": "pressure_cooker.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-private-eye",
+    "displayName": "Private Eye",
+    "filename": "private_eye.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-puzzle",
+    "displayName": "Puzzle",
+    "filename": "puzzle.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-pyramid-war",
+    "displayName": "Pyramid War",
+    "filename": "pyramid_war.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-q-bert",
+    "displayName": "Q-bert",
+    "filename": "q_bert.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-q-berts-qubes",
+    "displayName": "Q-bert's Qubes",
+    "filename": "q_berts_qubes.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-qb215ntsc",
+    "displayName": "qb215NTSC",
+    "filename": "qb215ntsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-qb215pal",
+    "displayName": "qb215PAL",
+    "filename": "qb215pal.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-qb215stella",
+    "displayName": "qb215STELLA",
+    "filename": "qb215stella.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-quadrun",
+    "displayName": "Quadrun",
+    "filename": "quadrun.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-quest-for-quintana-roo",
+    "displayName": "Quest for Quintana Roo",
+    "filename": "quest_for_quintana_roo.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-quick-step",
+    "displayName": "Quick Step!",
+    "filename": "quick_step.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rabbit-transit",
+    "displayName": "Rabbit Transit",
+    "filename": "rabbit_transit.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rabbittr",
+    "displayName": "Rabbittr",
+    "filename": "rabbittr.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-racing-car",
+    "displayName": "Racing Car",
+    "filename": "racing_car.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-racquetball",
+    "displayName": "Racquetball",
+    "filename": "racquetball.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-radar-lock",
+    "displayName": "Radar Lock",
+    "filename": "radar_lock.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-radarlok",
+    "displayName": "Radarlok",
+    "filename": "radarlok.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-raft-rider",
+    "displayName": "Raft Rider",
+    "filename": "raft_rider.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-raiders-of-the-lost-ark",
+    "displayName": "Raiders of the Lost Ark",
+    "filename": "raiders_of_the_lost_ark.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rainbow-invaders-ntsc",
+    "displayName": "Rainbow Invaders NTSC",
+    "filename": "rainbow_invaders_ntsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ram-it",
+    "displayName": "Ram It",
+    "filename": "ram_it.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rampage",
+    "displayName": "Rampage!",
+    "filename": "rampage.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-reactor",
+    "displayName": "Reactor",
+    "filename": "reactor.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-realsports-baseball",
+    "displayName": "RealSports Baseball",
+    "filename": "realsports_baseball.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-realsports-basketball",
+    "displayName": "RealSports Basketball",
+    "filename": "realsports_basketball.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-realsports-boxing",
+    "displayName": "RealSports Boxing",
+    "filename": "realsports_boxing.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-realsports-football",
+    "displayName": "RealSports Football",
+    "filename": "realsports_football.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-realsports-soccer-football-realsports-soccer",
+    "displayName": "RealSports Soccer - Football - RealSports Soccer",
+    "filename": "realsports_soccer_football_realsports_soccer.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-realsports-tennis",
+    "displayName": "RealSports Tennis",
+    "filename": "realsports_tennis.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-realsports-volleyball",
+    "displayName": "RealSports Volleyball",
+    "filename": "realsports_volleyball.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rescue-bira-bira",
+    "displayName": "Rescue Bira Bira",
+    "filename": "rescue_bira_bira.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rescue-terra-i",
+    "displayName": "Rescue Terra I",
+    "filename": "rescue_terra_i.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-resgate-espacial",
+    "displayName": "Resgate Espacial",
+    "filename": "resgate_espacial.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-revenge-of-the-beefsteak-tomatoes",
+    "displayName": "Revenge of the Beefsteak Tomatoes",
+    "filename": "revenge_of_the_beefsteak_tomatoes.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-revengeoftheapes",
+    "displayName": "RevengeOfTheApes",
+    "filename": "revengeoftheapes.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-riddle-of-the-sphinx",
+    "displayName": "Riddle of the Sphinx",
+    "filename": "riddle_of_the_sphinx.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-river-patrol",
+    "displayName": "River Patrol",
+    "filename": "river_patrol.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-river-raid",
+    "displayName": "River Raid",
+    "filename": "river_raid.bin",
+    "genre": "action",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-river-raid-ii",
+    "displayName": "River Raid II",
+    "filename": "river_raid_ii.bin",
+    "genre": "action",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-river-tw",
+    "displayName": "River_tw",
+    "filename": "river_tw.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rivraid2",
+    "displayName": "Rivraid2",
+    "filename": "rivraid2.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-road-runner",
+    "displayName": "Road Runner",
+    "filename": "road_runner.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-robin-hood",
+    "displayName": "Robin Hood",
+    "filename": "robin_hood.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-robot-fight",
+    "displayName": "Robot Fight",
+    "filename": "robot_fight.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-robot-tank",
+    "displayName": "Robot Tank",
+    "filename": "robot_tank.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-roc-n-rope",
+    "displayName": "Roc 'n Rope",
+    "filename": "roc_n_rope.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rocky-and-bullwinkle",
+    "displayName": "Rocky & Bullwinkle",
+    "filename": "rocky_and_bullwinkle.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-room-of-doom",
+    "displayName": "Room of Doom",
+    "filename": "room_of_doom.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rubiks-cube-3-d",
+    "displayName": "Rubik's Cube 3-D",
+    "filename": "rubiks_cube_3_d.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-rush-hour",
+    "displayName": "Rush Hour",
+    "filename": "rush_hour.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-saboteur",
+    "displayName": "Saboteur",
+    "filename": "saboteur.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sagent",
+    "displayName": "sagent",
+    "filename": "sagent.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-save-mary",
+    "displayName": "Save Mary!",
+    "filename": "save_mary.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-save-our-ship",
+    "displayName": "Save Our Ship",
+    "filename": "save_our_ship.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-save-the-whales",
+    "displayName": "Save the Whales",
+    "filename": "save_the_whales.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-scsi130-cge2k1",
+    "displayName": "scsi130-cge2k1",
+    "filename": "scsi130_cge2k1.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-scsi130sp-cge2k1",
+    "displayName": "scsi130sp-cge2k1",
+    "filename": "scsi130sp_cge2k1.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-scsi200-ntsc",
+    "displayName": "scsi200_NTSC",
+    "filename": "scsi200_ntsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-scuba-diver",
+    "displayName": "Scuba Diver",
+    "filename": "scuba_diver.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-scudiv-p",
+    "displayName": "SCUDIV_P",
+    "filename": "scudiv_p.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sea-battle",
+    "displayName": "Sea Battle",
+    "filename": "sea_battle.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sea-hawk",
+    "displayName": "Sea Hawk",
+    "filename": "sea_hawk.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sea-hunt",
+    "displayName": "Sea Hunt",
+    "filename": "sea_hunt.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sea-monster-see-monster",
+    "displayName": "Sea Monster - See-Monster",
+    "filename": "sea_monster_see_monster.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-seahawk",
+    "displayName": "Seahawk",
+    "filename": "seahawk.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-seantsc",
+    "displayName": "seantsc",
+    "filename": "seantsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-seaquest",
+    "displayName": "Seaquest",
+    "filename": "seaquest.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-secret-agent",
+    "displayName": "Secret Agent",
+    "filename": "secret_agent.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-secret-quest",
+    "displayName": "Secret Quest",
+    "filename": "secret_quest.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-secretq",
+    "displayName": "SECRETQ",
+    "filename": "secretq.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-seesaw",
+    "displayName": "Seesaw",
+    "filename": "seesaw.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sentinel",
+    "displayName": "Sentinel",
+    "filename": "sentinel.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-shark-attack",
+    "displayName": "Shark Attack",
+    "filename": "shark_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-shootacd",
+    "displayName": "shootacd",
+    "filename": "shootacd.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-shootin-gallery",
+    "displayName": "Shootin' Gallery",
+    "filename": "shootin_gallery.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-shooting-arcade",
+    "displayName": "Shooting Arcade",
+    "filename": "shooting_arcade.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-shuttle-orbiter",
+    "displayName": "Shuttle Orbiter",
+    "filename": "shuttle_orbiter.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sinistar",
+    "displayName": "Sinistar",
+    "filename": "sinistar.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sir-lancelot",
+    "displayName": "Sir Lancelot",
+    "filename": "sir_lancelot.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skate-boardin",
+    "displayName": "Skate Boardin'",
+    "filename": "skate_boardin.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skateboardin",
+    "displayName": "Skateboardin'",
+    "filename": "skateboardin.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skeet-shoot",
+    "displayName": "Skeet Shoot",
+    "filename": "skeet_shoot.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skel-pal",
+    "displayName": "skel-pal",
+    "filename": "skel_pal.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skeleton",
+    "displayName": "skeleton",
+    "filename": "skeleton.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skelplus",
+    "displayName": "SkelPlus",
+    "filename": "skelplus.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skelppal",
+    "displayName": "SkelPPAL",
+    "filename": "skelppal.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ski-hunt",
+    "displayName": "Ski Hunt",
+    "filename": "ski_hunt.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ski-run",
+    "displayName": "Ski Run",
+    "filename": "ski_run.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skiing",
+    "displayName": "Skiing",
+    "filename": "skiing.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skiing-le-ski",
+    "displayName": "Skiing - Le Ski",
+    "filename": "skiing_le_ski.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-skindiver",
+    "displayName": "Skindiver",
+    "filename": "skindiver.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sky-alien",
+    "displayName": "Sky Alien",
+    "filename": "sky_alien.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sky-diver",
+    "displayName": "Sky Diver",
+    "filename": "sky_diver.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sky-diver-dare-diver",
+    "displayName": "Sky Diver - Dare Diver",
+    "filename": "sky_diver_dare_diver.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sky-jinks",
+    "displayName": "Sky Jinks",
+    "filename": "sky_jinks.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sky-patrol",
+    "displayName": "Sky Patrol",
+    "filename": "sky_patrol.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sky-skipper",
+    "displayName": "Sky Skipper",
+    "filename": "sky_skipper.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-slot-machine",
+    "displayName": "Slot Machine",
+    "filename": "slot_machine.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-slot-machine-slots",
+    "displayName": "Slot Machine - Slots",
+    "filename": "slot_machine_slots.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-slot-racers",
+    "displayName": "Slot Racers",
+    "filename": "slot_racers.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-slot-racers-maze",
+    "displayName": "Slot Racers - Maze",
+    "filename": "slot_racers_maze.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-smurf-rescue-in-gargamels-castle",
+    "displayName": "Smurf - Rescue in Gargamel's Castle",
+    "filename": "smurf_rescue_in_gargamels_castle.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-smurfs-rescue-in-gargamels-castle",
+    "displayName": "Smurfs - Rescue in Gargamel's Castle",
+    "filename": "smurfs_rescue_in_gargamels_castle.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-smurfs-save-the-day",
+    "displayName": "Smurfs Save the Day",
+    "filename": "smurfs_save_the_day.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-snail-against-squirrel-schnecke-gegen-eichhoernchen",
+    "displayName": "Snail Against Squirrel - Schnecke gegen Eichhoernchen",
+    "filename": "snail_against_squirrel_schnecke_gegen_eichhoernchen.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sneak-n-peek",
+    "displayName": "Sneak 'n Peek",
+    "filename": "sneak_n_peek.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-snoopy-and-the-red-baron",
+    "displayName": "Snoopy and the Red Baron",
+    "filename": "snoopy_and_the_red_baron.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-snow-white-and-the-seven-dwarfs",
+    "displayName": "Snow White and the Seven Dwarfs",
+    "filename": "snow_white_and_the_seven_dwarfs.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-snthcart",
+    "displayName": "snthcart",
+    "filename": "snthcart.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-soccer",
+    "displayName": "Soccer",
+    "filename": "soccer.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-solar-fox",
+    "displayName": "Solar Fox",
+    "filename": "solar_fox.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-solar-storm",
+    "displayName": "Solar Storm",
+    "filename": "solar_storm.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-solaris",
+    "displayName": "Solaris",
+    "filename": "solaris.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-solarplexus",
+    "displayName": "SolarPlexus",
+    "filename": "solarplexus.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sorcerer",
+    "displayName": "Sorcerer",
+    "filename": "sorcerer.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sorcerers-apprentice",
+    "displayName": "Sorcerer's Apprentice",
+    "filename": "sorcerers_apprentice.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sp-dl",
+    "displayName": "SP-DL",
+    "filename": "sp_dl.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-attack",
+    "displayName": "Space Attack",
+    "filename": "space_attack.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-canyon",
+    "displayName": "Space Canyon",
+    "filename": "space_canyon.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-cavern-les-guerriers-de-lespace",
+    "displayName": "Space Cavern - Les guerriers de l'espace",
+    "filename": "space_cavern_les_guerriers_de_lespace.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-invaders",
+    "displayName": "Space Invaders",
+    "filename": "space_invaders.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-space-jockey",
+    "displayName": "Space Jockey",
+    "filename": "space_jockey.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-raid",
+    "displayName": "Space Raid",
+    "filename": "space_raid.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-robot",
+    "displayName": "Space Robot",
+    "filename": "space_robot.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-shuttle-a-journey-into-space",
+    "displayName": "Space Shuttle - A Journey Into Space",
+    "filename": "space_shuttle_a_journey_into_space.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-tunnel-weltraum-tunnel",
+    "displayName": "Space Tunnel - Weltraum-Tunnel",
+    "filename": "space_tunnel_weltraum_tunnel.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-war",
+    "displayName": "Space War",
+    "filename": "space_war.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-space-war-space-combat",
+    "displayName": "Space War - Space Combat",
+    "filename": "space_war_space_combat.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-spaceadventure-zellers",
+    "displayName": "SpaceAdventure_Zellers",
+    "filename": "spaceadventure_zellers.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-spacechase",
+    "displayName": "Spacechase",
+    "filename": "spacechase.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spacemaster-x-7",
+    "displayName": "SpaceMaster X-7",
+    "filename": "spacemaster_x_7.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spider-fighter",
+    "displayName": "Spider Fighter",
+    "filename": "spider_fighter.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spider-monster-inca-gold",
+    "displayName": "Spider Monster - Inca Gold",
+    "filename": "spider_monster_inca_gold.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spider-man",
+    "displayName": "Spider-Man",
+    "filename": "spider_man.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spiderdroid",
+    "displayName": "Spiderdroid",
+    "filename": "spiderdroid.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spikes-peak",
+    "displayName": "Spike's Peak",
+    "filename": "spikes_peak.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spinning-fireball-fire-spinner-fireball-spinner",
+    "displayName": "Spinning Fireball - Fire Spinner - Fireball Spinner",
+    "filename": "spinning_fireball_fire_spinner_fireball_spinner.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spitfire-attack",
+    "displayName": "Spitfire Attack",
+    "filename": "spitfire_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-springer",
+    "displayName": "Springer",
+    "filename": "springer.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sprint-master",
+    "displayName": "Sprint Master",
+    "filename": "sprint_master.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-spy-hunter",
+    "displayName": "Spy Hunter",
+    "filename": "spy_hunter.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-squeeze-box",
+    "displayName": "Squeeze Box",
+    "filename": "squeeze_box.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-squoosh",
+    "displayName": "Squoosh",
+    "filename": "squoosh.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sssnake",
+    "displayName": "Sssnake",
+    "filename": "sssnake.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stampede",
+    "displayName": "Stampede",
+    "filename": "stampede.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-fox",
+    "displayName": "Star Fox",
+    "filename": "star_fox.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-raiders",
+    "displayName": "Star Raiders",
+    "filename": "star_raiders.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-ship-outer-space",
+    "displayName": "Star Ship - Outer Space",
+    "filename": "star_ship_outer_space.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-strike",
+    "displayName": "Star Strike",
+    "filename": "star_strike.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-trek-strategic-operations-simulator",
+    "displayName": "Star Trek - Strategic Operations Simulator",
+    "filename": "star_trek_strategic_operations_simulator.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-voyager",
+    "displayName": "Star Voyager",
+    "filename": "star_voyager.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-wars-jedi-arena",
+    "displayName": "Star Wars - Jedi Arena",
+    "filename": "star_wars_jedi_arena.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-wars-return-of-the-jedi-death-star-battle",
+    "displayName": "Star Wars - Return of the Jedi - Death Star Battle",
+    "filename": "star_wars_return_of_the_jedi_death_star_battle.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-wars-return-of-the-jedi-ewok-adventure",
+    "displayName": "Star Wars - Return of the Jedi - Ewok Adventure",
+    "filename": "star_wars_return_of_the_jedi_ewok_adventure.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-star-wars-the-arcade-game",
+    "displayName": "Star Wars - The Arcade Game",
+    "filename": "star_wars_the_arcade_game.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-star-wars-the-empire-strikes-back",
+    "displayName": "Star Wars - The Empire Strikes Back",
+    "filename": "star_wars_the_empire_strikes_back.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starempr",
+    "displayName": "STAREMPR",
+    "filename": "starempr.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stargate",
+    "displayName": "Stargate",
+    "filename": "stargate.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stargn",
+    "displayName": "STARGN",
+    "filename": "stargn.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stargunner",
+    "displayName": "Stargunner",
+    "filename": "stargunner.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starmaster-kommando-galaxis",
+    "displayName": "StarMaster - Kommando Galaxis",
+    "filename": "starmaster_kommando_galaxis.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starmaster",
+    "displayName": "Starmaster",
+    "filename": "starmaster.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-communist-mutants-from-space",
+    "displayName": "Starpath - Communist Mutants From Space",
+    "filename": "starpath_communist_mutants_from_space.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-dragonstomper",
+    "displayName": "Starpath - Dragonstomper",
+    "filename": "starpath_dragonstomper.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-escape-from-the-mindmaster",
+    "displayName": "Starpath - Escape from the Mindmaster",
+    "filename": "starpath_escape_from_the_mindmaster.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-fireball",
+    "displayName": "Starpath - Fireball",
+    "filename": "starpath_fireball.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-frogger",
+    "displayName": "Starpath - Frogger",
+    "filename": "starpath_frogger.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-starpath-killer-satellites",
+    "displayName": "Starpath - Killer Satellites",
+    "filename": "starpath_killer_satellites.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-party-mix",
+    "displayName": "Starpath - Party Mix",
+    "filename": "starpath_party_mix.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-phaser-patrol",
+    "displayName": "Starpath - Phaser Patrol",
+    "filename": "starpath_phaser_patrol.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-rabbit-transit",
+    "displayName": "Starpath - Rabbit Transit",
+    "filename": "starpath_rabbit_transit.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-suicide-mission",
+    "displayName": "Starpath - Suicide Mission",
+    "filename": "starpath_suicide_mission.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-survival-island",
+    "displayName": "Starpath - Survival Island",
+    "filename": "starpath_survival_island.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-sweat-the-decathalon-game",
+    "displayName": "Starpath - Sweat! - The Decathalon Game",
+    "filename": "starpath_sweat_the_decathalon_game.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starpath-sword-of-saros",
+    "displayName": "Starpath - Sword Of Saros",
+    "filename": "starpath_sword_of_saros.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-startrek",
+    "displayName": "STARTREK",
+    "filename": "startrek.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-starvygr",
+    "displayName": "STARVYGR",
+    "filename": "starvygr.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-steeplechase",
+    "displayName": "Steeplechase",
+    "filename": "steeplechase.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stell-a-sketch",
+    "displayName": "Stell-A-Sketch",
+    "filename": "stell_a_sketch.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stellar-track",
+    "displayName": "Stellar Track",
+    "filename": "stellar_track.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-strategy-x",
+    "displayName": "Strategy X",
+    "filename": "strategy_x.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stratogemsdeluxe",
+    "displayName": "StratOGemsDeluxe",
+    "filename": "stratogemsdeluxe.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-strawberry-shortcake-musical-match-ups",
+    "displayName": "Strawberry Shortcake - Musical Match-Ups",
+    "filename": "strawberry_shortcake_musical_match_ups.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-street-racer-speedway-ii",
+    "displayName": "Street Racer - Speedway II",
+    "filename": "street_racer_speedway_ii.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stronghold",
+    "displayName": "Stronghold",
+    "filename": "stronghold.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stunt-cycle",
+    "displayName": "Stunt Cycle",
+    "filename": "stunt_cycle.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stunt-man",
+    "displayName": "Stunt Man",
+    "filename": "stunt_man.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-stunt",
+    "displayName": "stunt",
+    "filename": "stunt.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sub-scan",
+    "displayName": "Sub-Scan",
+    "filename": "sub_scan.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-submarine-commander",
+    "displayName": "Submarine Commander",
+    "filename": "submarine_commander.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-subterranea",
+    "displayName": "Subterranea",
+    "filename": "subterranea.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-suicide-mission",
+    "displayName": "Suicide Mission",
+    "filename": "suicide_mission.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-summer-games",
+    "displayName": "Summer Games",
+    "filename": "summer_games.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-super-baseball",
+    "displayName": "Super Baseball",
+    "filename": "super_baseball.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-super-box",
+    "displayName": "Super Box",
+    "filename": "super_box.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-super-breakout",
+    "displayName": "Super Breakout",
+    "filename": "super_breakout.bin",
+    "genre": "puzzle",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-super-challenge-baseball-baseball",
+    "displayName": "Super Challenge Baseball - Baseball",
+    "filename": "super_challenge_baseball_baseball.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-super-challenge-football-football",
+    "displayName": "Super Challenge Football - Football",
+    "filename": "super_challenge_football_football.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-super-cobra",
+    "displayName": "Super Cobra",
+    "filename": "super_cobra.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-super-ferrari",
+    "displayName": "Super Ferrari",
+    "filename": "super_ferrari.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-super-football",
+    "displayName": "Super Football",
+    "filename": "super_football.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-super-futebol",
+    "displayName": "Super Futebol",
+    "filename": "super_futebol.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-superman",
+    "displayName": "Superman",
+    "filename": "superman.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-suprman2",
+    "displayName": "Suprman2",
+    "filename": "suprman2.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-surfs-up",
+    "displayName": "Surf's Up",
+    "filename": "surfs_up.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-surfers-paradise-but-danger-below",
+    "displayName": "Surfer's Paradise - But Danger Below!",
+    "filename": "surfers_paradise_but_danger_below.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-surround-chase",
+    "displayName": "Surround - Chase",
+    "filename": "surround_chase.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-survival-island",
+    "displayName": "Survival Island",
+    "filename": "survival_island.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-survival-run",
+    "displayName": "Survival Run",
+    "filename": "survival_run.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sweat-the-decathlon-game",
+    "displayName": "Sweat! - The Decathlon Game",
+    "filename": "sweat_the_decathlon_game.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-sword-of-saros",
+    "displayName": "Sword of Saros",
+    "filename": "sword_of_saros.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-swordfight",
+    "displayName": "Swordfight",
+    "filename": "swordfight.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-swordquest-earthworld",
+    "displayName": "Swordquest - EarthWorld",
+    "filename": "swordquest_earthworld.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-swordquest-fireworld",
+    "displayName": "Swordquest - FireWorld",
+    "filename": "swordquest_fireworld.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-swordquest-waterworld",
+    "displayName": "Swordquest - WaterWorld",
+    "filename": "swordquest_waterworld.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tf-space-invaders",
+    "displayName": "T.F. Space Invaders",
+    "filename": "tf_space_invaders.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-tac-scan",
+    "displayName": "Tac-Scan",
+    "filename": "tac_scan.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tacscan",
+    "displayName": "Tacscan",
+    "filename": "tacscan.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tank-brigade",
+    "displayName": "Tank Brigade",
+    "filename": "tank_brigade.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tanks-but-no-tanks",
+    "displayName": "Tanks But No Tanks",
+    "filename": "tanks_but_no_tanks.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tapeworm",
+    "displayName": "Tapeworm",
+    "filename": "tapeworm.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tapper",
+    "displayName": "Tapper",
+    "filename": "tapper.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-targ",
+    "displayName": "Targ",
+    "filename": "targ.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-task-force",
+    "displayName": "Task Force",
+    "filename": "task_force.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tax-avoiders",
+    "displayName": "Tax Avoiders",
+    "filename": "tax_avoiders.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-taz",
+    "displayName": "Taz",
+    "filename": "taz.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-teddy-apple",
+    "displayName": "Teddy Apple",
+    "filename": "teddy_apple.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-telepathy",
+    "displayName": "Telepathy",
+    "filename": "telepathy.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tempest",
+    "displayName": "Tempest",
+    "filename": "tempest.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tennis",
+    "displayName": "Tennis",
+    "filename": "tennis.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tennis-le-tennis",
+    "displayName": "Tennis - Le Tennis",
+    "filename": "tennis_le_tennis.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-test",
+    "displayName": "Test",
+    "filename": "test.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-testcart",
+    "displayName": "testcart",
+    "filename": "testcart.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tetris-2600",
+    "displayName": "Tetris 2600",
+    "filename": "tetris_2600.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-texas-chainsaw-massacre-the",
+    "displayName": "Texas Chainsaw Massacre, The",
+    "filename": "texas_chainsaw_massacre_the.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-texas-chainsaw-massacre",
+    "displayName": "Texas Chainsaw Massacre",
+    "filename": "texas_chainsaw_massacre.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-this-planet-sucks",
+    "displayName": "This Planet Sucks",
+    "filename": "this_planet_sucks.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-threshold",
+    "displayName": "Threshold",
+    "filename": "threshold.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-thrust-v126",
+    "displayName": "Thrust v1.26",
+    "filename": "thrust_v126.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-thrust",
+    "displayName": "Thrust+",
+    "filename": "thrust.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-thunderground",
+    "displayName": "Thunderground",
+    "filename": "thunderground.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-thwocker",
+    "displayName": "Thwocker",
+    "filename": "thwocker.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-time-machine",
+    "displayName": "Time Machine",
+    "filename": "time_machine.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-time-pilot",
+    "displayName": "Time Pilot",
+    "filename": "time_pilot.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-time-race",
+    "displayName": "Time Race",
+    "filename": "time_race.bin",
+    "genre": "racing",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-time-warp",
+    "displayName": "Time Warp",
+    "filename": "time_warp.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-title-match-pro-wrestling",
+    "displayName": "Title Match Pro Wrestling",
+    "filename": "title_match_pro_wrestling.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tom-boy",
+    "displayName": "Tom Boy",
+    "filename": "tom_boy.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tomarc-the-barbarian",
+    "displayName": "Tomarc the Barbarian",
+    "filename": "tomarc_the_barbarian.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tomcat-the-f-14-fighter-simulator",
+    "displayName": "Tomcat - The F-14 Fighter Simulator",
+    "filename": "tomcat_the_f_14_fighter_simulator.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tooth-protectors",
+    "displayName": "Tooth Protectors",
+    "filename": "tooth_protectors.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-towering-inferno",
+    "displayName": "Towering Inferno",
+    "filename": "towering_inferno.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tps",
+    "displayName": "Tps",
+    "filename": "tps.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-track-and-field",
+    "displayName": "Track and Field",
+    "filename": "track_and_field.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-traffic",
+    "displayName": "Traffic",
+    "filename": "traffic.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-treasure-below",
+    "displayName": "Treasure Below",
+    "filename": "treasure_below.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-treasure-island",
+    "displayName": "Treasure Island",
+    "filename": "treasure_island.bin",
+    "genre": "adventure",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-treat",
+    "displayName": "treat",
+    "filename": "treat.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-treat-ntsc",
+    "displayName": "treat_ntsc",
+    "filename": "treat_ntsc.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-trick-shot",
+    "displayName": "Trick Shot",
+    "filename": "trick_shot.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tron-deadly-discs",
+    "displayName": "TRON - Deadly Discs",
+    "filename": "tron_deadly_discs.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tuby-bird",
+    "displayName": "Tuby Bird",
+    "filename": "tuby_bird.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tunnel-runner",
+    "displayName": "Tunnel Runner",
+    "filename": "tunnel_runner.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-turmoil",
+    "displayName": "Turmoil",
+    "filename": "turmoil.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-tutankham",
+    "displayName": "Tutankham",
+    "filename": "tutankham.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-ufo-patrol",
+    "displayName": "UFO Patrol",
+    "filename": "ufo_patrol.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-universal-chaos",
+    "displayName": "Universal Chaos",
+    "filename": "universal_chaos.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-universalproto",
+    "displayName": "UniversalProto",
+    "filename": "universalproto.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-unknown-activision-game-1",
+    "displayName": "Unknown Activision Game #1",
+    "filename": "unknown_activision_game_1.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-unknown-activision-game-2",
+    "displayName": "Unknown Activision Game #2",
+    "filename": "unknown_activision_game_2.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-unknown-datatech-game",
+    "displayName": "Unknown Datatech Game",
+    "filename": "unknown_datatech_game.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-unknown-universal-game",
+    "displayName": "Unknown Universal Game",
+    "filename": "unknown_universal_game.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-up-n-down",
+    "displayName": "Up 'n Down",
+    "filename": "up_n_down.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-vanguard",
+    "displayName": "Vanguard",
+    "filename": "vanguard.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-vaultassault",
+    "displayName": "VaultAssault",
+    "filename": "vaultassault.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-venetian-blinds-demo",
+    "displayName": "Venetian Blinds Demo",
+    "filename": "venetian_blinds_demo.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-venture",
+    "displayName": "Venture",
+    "filename": "venture.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-vg-survi",
+    "displayName": "Vg_survi",
+    "filename": "vg_survi.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-checkers-checkers-atari-video-checkers",
+    "displayName": "Video Checkers - Checkers - Atari Video Checkers",
+    "filename": "video_checkers_checkers_atari_video_checkers.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-chess",
+    "displayName": "Video Chess",
+    "filename": "video_chess.bin",
+    "genre": "puzzle",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-cube",
+    "displayName": "Video Cube",
+    "filename": "video_cube.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-jogger",
+    "displayName": "Video Jogger",
+    "filename": "video_jogger.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-life",
+    "displayName": "Video Life",
+    "filename": "video_life.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-olympics-pong-sports",
+    "displayName": "Video Olympics - Pong Sports",
+    "filename": "video_olympics_pong_sports.bin",
+    "genre": "sports",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-pinball-arcade-pinball",
+    "displayName": "Video Pinball - Arcade Pinball",
+    "filename": "video_pinball_arcade_pinball.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-reflex",
+    "displayName": "Video Reflex",
+    "filename": "video_reflex.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-video-time-machine",
+    "displayName": "Video Time Machine",
+    "filename": "video_time_machine.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-vidpin",
+    "displayName": "Vidpin",
+    "filename": "vidpin.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-vultureattack-ktel",
+    "displayName": "VultureAttack_KTel",
+    "filename": "vultureattack_ktel.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-wabbit",
+    "displayName": "Wabbit",
+    "filename": "wabbit.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-walker",
+    "displayName": "Walker",
+    "filename": "walker.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-wall-ball",
+    "displayName": "Wall Ball",
+    "filename": "wall_ball.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-wall-break",
+    "displayName": "Wall Break",
+    "filename": "wall_break.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-wall-defender",
+    "displayName": "Wall-Defender",
+    "filename": "wall_defender.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-war-2000",
+    "displayName": "War 2000",
+    "filename": "war_2000.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-warlords",
+    "displayName": "Warlords",
+    "filename": "warlords.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-warplock",
+    "displayName": "Warplock",
+    "filename": "warplock.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-warworm",
+    "displayName": "warworm",
+    "filename": "warworm.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-weltraum-tunnel",
+    "displayName": "Weltraum Tunnel",
+    "filename": "weltraum_tunnel.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-wing-war",
+    "displayName": "Wing War",
+    "filename": "wing_war.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-wings",
+    "displayName": "Wings",
+    "filename": "wings.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-winter-games",
+    "displayName": "Winter Games",
+    "filename": "winter_games.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-wizard",
+    "displayName": "Wizard",
+    "filename": "wizard.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-wizard-of-wor",
+    "displayName": "Wizard of Wor",
+    "filename": "wizard_of_wor.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-word-zapper",
+    "displayName": "Word Zapper",
+    "filename": "word_zapper.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-words-attack",
+    "displayName": "Words-Attack",
+    "filename": "words_attack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-world-end",
+    "displayName": "World End",
+    "filename": "world_end.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-worm-war-i",
+    "displayName": "Worm War I",
+    "filename": "worm_war_i.bin",
+    "genre": "shooter",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-xmission",
+    "displayName": "X'Mission",
+    "filename": "xmission.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-x-doom",
+    "displayName": "X-Doom",
+    "filename": "x_doom.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-x-man",
+    "displayName": "X-Man",
+    "filename": "x_man.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-xenophobe",
+    "displayName": "Xenophobe",
+    "filename": "xenophobe.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-xevious",
+    "displayName": "Xevious",
+    "filename": "xevious.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-yahtzee",
+    "displayName": "Yahtzee",
+    "filename": "yahtzee.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-yars-revenge",
+    "displayName": "Yars' Revenge",
+    "filename": "yars_revenge.bin",
+    "genre": "shooter",
+    "favorite": true
+  },
+  {
+    "id": "atari2600-z-tack",
+    "displayName": "Z-Tack",
+    "filename": "z_tack.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-zaxxon",
+    "displayName": "Zaxxon",
+    "filename": "zaxxon.bin",
+    "genre": "action",
+    "favorite": false
+  },
+  {
+    "id": "atari2600-zoo-fun",
+    "displayName": "Zoo Fun",
+    "filename": "zoo_fun.bin",
+    "genre": "action",
+    "favorite": false
+  }
+]

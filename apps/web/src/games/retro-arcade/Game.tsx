@@ -13,8 +13,15 @@ import {
 import { useAuthSync } from "@/shared/hooks/useAuthSync";
 import { IOSInstallPrompt } from "@/shared/components/IOSInstallPrompt";
 import { FullscreenButton } from "@/shared/components/FullscreenButton";
-import { GameBrowser } from "./components/GameBrowser";
-import { type CatalogGame, SNES_CATALOG } from "./lib/snes-catalog";
+import { GameBrowser, type CatalogGame } from "./components/GameBrowser";
+import {
+  SNES_CATALOG,
+  getRomUrl as getSnesRomUrl,
+} from "./lib/snes-catalog";
+import {
+  ATARI_2600_CATALOG,
+  getRomUrl as getAtariRomUrl,
+} from "./lib/atari-2600-catalog";
 
 // Console selection card
 function ConsoleCard({
@@ -369,8 +376,33 @@ export function RetroArcadeGame() {
   if (store.currentSystem) {
     const system = SYSTEMS[store.currentSystem];
 
-    // SNES gets special treatment - show game browser with 150 pre-loaded games
-    if (store.currentSystem === "snes" && !showUploader) {
+    // Get catalog info for systems that have pre-loaded games
+    const getCatalogInfo = (): {
+      catalog: CatalogGame[];
+      getRomUrl: (game: CatalogGame) => string;
+      systemName: string;
+    } | null => {
+      if (store.currentSystem === "snes") {
+        return {
+          catalog: SNES_CATALOG as CatalogGame[],
+          getRomUrl: getSnesRomUrl as (game: CatalogGame) => string,
+          systemName: "SNES",
+        };
+      }
+      if (store.currentSystem === "atari2600") {
+        return {
+          catalog: ATARI_2600_CATALOG as CatalogGame[],
+          getRomUrl: getAtariRomUrl as (game: CatalogGame) => string,
+          systemName: "Atari 2600",
+        };
+      }
+      return null;
+    };
+
+    const catalogInfo = getCatalogInfo();
+
+    // Systems with catalogs get game browser (SNES, Atari 2600)
+    if (catalogInfo && !showUploader) {
       return (
         <div
           className={`min-h-screen bg-gradient-to-b ${system.bgGradient} p-4 sm:p-6 flex flex-col`}
@@ -384,11 +416,11 @@ export function RetroArcadeGame() {
                 Back
               </button>
               <div className="text-white/60 text-sm">
-                {SNES_CATALOG.length} games
+                {catalogInfo.catalog.length} games
               </div>
             </div>
             <h1 className="text-2xl sm:text-4xl font-bold text-white text-center">
-              Super Nintendo
+              {system.fullName}
             </h1>
             <p className="text-white/70 text-center mt-1 text-sm sm:text-base">
               Pick a game to play!
@@ -397,6 +429,9 @@ export function RetroArcadeGame() {
 
           <div className="flex-1 overflow-y-auto">
             <GameBrowser
+              catalog={catalogInfo.catalog}
+              getRomUrl={catalogInfo.getRomUrl}
+              systemName={catalogInfo.systemName}
               onGameSelect={handleGameSelect}
               onUploadClick={() => setShowUploader(true)}
             />
@@ -416,7 +451,10 @@ export function RetroArcadeGame() {
       );
     }
 
-    // Other systems (or SNES with uploader) show ROM uploader
+    // Check if this system has a catalog (can go back to library)
+    const hasCatalog = store.currentSystem === "snes" || store.currentSystem === "atari2600";
+
+    // Other systems (or catalog systems with uploader) show ROM uploader
     return (
       <div
         className={`min-h-screen bg-gradient-to-b ${system.bgGradient} p-6 flex flex-col`}
@@ -424,7 +462,7 @@ export function RetroArcadeGame() {
         <header className="mb-8">
           <button
             onClick={() => {
-              if (store.currentSystem === "snes" && showUploader) {
+              if (hasCatalog && showUploader) {
                 setShowUploader(false);
               } else {
                 handleBack();
@@ -432,7 +470,7 @@ export function RetroArcadeGame() {
             }}
             className="mb-4 px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-bold rounded-lg transition-colors"
           >
-            {store.currentSystem === "snes" && showUploader ? "Back to Library" : "Back to Consoles"}
+            {hasCatalog && showUploader ? "Back to Library" : "Back to Consoles"}
           </button>
           <h1 className="text-4xl font-bold text-white text-center">
             {system.fullName}
