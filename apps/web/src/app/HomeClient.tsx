@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LoginButton } from "@/shared/components";
+import { Header } from "@/shared/components/Header";
 import type { DisplayCategory } from "@/shared/lib/game-registry";
 
 // Floating emojis for hero background
@@ -14,20 +14,10 @@ interface HomeClientProps {
 export function HomeClient({ categories }: HomeClientProps) {
   return (
     <div className="min-h-screen bg-slate-950 overflow-x-hidden">
-      {/* Header - Fixed top-right */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-end items-center gap-2 p-4 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
-        <Link
-          href="/leaderboards"
-          className="min-w-[44px] min-h-[44px] flex items-center justify-center text-2xl hover:scale-110 transition-transform"
-          aria-label="View Leaderboards"
-        >
-          🏆
-        </Link>
-        <LoginButton />
-      </header>
+      <Header title="Hank's Hits" titleIcon="🎮" showBackButton={false} />
 
       {/* Hero Section - Playful & Energetic */}
-      <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-16">
+      <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Animated background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 opacity-20" />
 

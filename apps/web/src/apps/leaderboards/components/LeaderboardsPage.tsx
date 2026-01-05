@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Leaderboard } from "@/shared/components/Leaderboard";
+import { Header } from "@/shared/components/Header";
 import {
   getGameMetadata,
 } from "@/shared/lib/gameMetadata.generated";
@@ -146,30 +147,7 @@ export function LeaderboardsPage() {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* Header */}
-        <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-white/10">
-          <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-            <Link
-              href="/"
-              className="group flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all duration-300 min-w-[44px] min-h-[44px] border border-white/10 hover:border-white/20"
-            >
-              <span className="text-xl group-hover:-translate-x-1 transition-transform">←</span>
-              <span className="text-white/80 group-hover:text-white font-medium hidden sm:inline">Home</span>
-            </Link>
-
-            {/* Animated Title */}
-            <div className="flex items-center gap-3">
-              <span className="text-3xl md:text-4xl animate-bounce-slow drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]">
-                🏆
-              </span>
-              <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-yellow-300 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-                Hall of Fame
-              </h1>
-            </div>
-
-            <div className="w-20" />
-          </div>
-        </header>
+        <Header title="Hall of Fame" titleIcon="🏆" />
 
         {/* Hero Section */}
         <section className="relative py-8 md:py-12 overflow-hidden">

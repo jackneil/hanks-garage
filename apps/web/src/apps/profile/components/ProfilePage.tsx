@@ -7,6 +7,7 @@ import { signOutAndClear } from "@/lib/auth-client";
 import { GameProgressCard } from "./GameProgressCard";
 import { extractGameStats, type GameDisplayInfo } from "../lib/gameStatExtractor";
 import Link from "next/link";
+import { Header } from "@/shared/components/Header";
 
 interface ProfileData {
   id: string;
@@ -206,17 +207,7 @@ export function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-600 to-purple-700 pb-8">
-      {/* Header */}
-      <header className="p-4 flex items-center justify-between">
-        <Link
-          href="/"
-          className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-bold rounded-xl transition-colors"
-        >
-          ← Home
-        </Link>
-        <h1 className="text-xl font-bold text-white">My Profile</h1>
-        <div className="w-20" /> {/* Spacer for centering */}
-      </header>
+      <Header title="My Profile" titleIcon="👤" />
 
       {/* Profile Card */}
       <section className="mx-4 mb-6">
