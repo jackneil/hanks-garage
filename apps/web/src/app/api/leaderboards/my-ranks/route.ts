@@ -59,6 +59,7 @@ export async function GET() {
           .where(
             and(
               eq(leaderboardEntries.appId, entry.appId),
+              eq(leaderboardEntries.scoreType, entry.scoreType),
               eq(gamingProfiles.showOnLeaderboards, true),
               entry.scoreType === "fastest_time"
                 ? sql`${leaderboardEntries.score} < ${entry.score}`
@@ -77,6 +78,7 @@ export async function GET() {
           .where(
             and(
               eq(leaderboardEntries.appId, entry.appId),
+              eq(leaderboardEntries.scoreType, entry.scoreType),
               eq(gamingProfiles.showOnLeaderboards, true)
             )
           );
