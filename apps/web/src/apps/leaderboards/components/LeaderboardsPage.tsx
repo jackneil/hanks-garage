@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Leaderboard } from "@/shared/components/Leaderboard";
@@ -57,6 +57,34 @@ export function LeaderboardsPage() {
   );
   const [myRanks, setMyRanks] = useState<MyRanksData | null>(null);
   const [myRanksLoading, setMyRanksLoading] = useState(false);
+
+  // Game selector scroll state
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  // Update scroll button visibility
+  const updateScrollButtons = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  }, []);
+
+  // Scroll handlers
+  const scrollLeft = () => {
+    scrollContainerRef.current?.scrollBy({ left: -200, behavior: 'smooth' });
+  };
+  const scrollRight = () => {
+    scrollContainerRef.current?.scrollBy({ left: 200, behavior: 'smooth' });
+  };
+
+  // Update scroll buttons on mount and resize
+  useEffect(() => {
+    updateScrollButtons();
+    window.addEventListener('resize', updateScrollButtons);
+    return () => window.removeEventListener('resize', updateScrollButtons);
+  }, [updateScrollButtons]);
 
   // Fetch user's ranks
   useEffect(() => {
@@ -276,16 +304,40 @@ export function LeaderboardsPage() {
           {/* Outer wrapper constrains width */}
           <div className="max-w-4xl mx-auto px-4">
             <div className="relative">
+              {/* Left arrow button */}
+              {canScrollLeft && (
+                <button
+                  onClick={scrollLeft}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center bg-slate-900/90 hover:bg-slate-800 border border-white/20 rounded-full shadow-lg transition-all hover:scale-110 active:scale-95"
+                  aria-label="Scroll left"
+                >
+                  <span className="text-xl text-white">←</span>
+                </button>
+              )}
+
+              {/* Right arrow button */}
+              {canScrollRight && (
+                <button
+                  onClick={scrollRight}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center bg-slate-900/90 hover:bg-slate-800 border border-white/20 rounded-full shadow-lg transition-all hover:scale-110 active:scale-95"
+                  aria-label="Scroll right"
+                >
+                  <span className="text-xl text-white">→</span>
+                </button>
+              )}
+
               {/* Fade edges to indicate scrollability */}
-              <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
+              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
 
               {/* Scroll container */}
               <div
-                className="overflow-x-auto pb-2 scrollbar-hide"
+                ref={scrollContainerRef}
+                onScroll={updateScrollButtons}
+                className="overflow-x-auto pb-2 px-6 scrollbar-hide"
                 style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
               >
-                <div className="flex flex-nowrap gap-2 px-2">
+                <div className="flex flex-nowrap gap-2">
                   {LEADERBOARD_GAMES.map((game, index) => (
                     <button
                       key={game.appId}
