@@ -111,3 +111,13 @@ html, body {
 .animate-shake {
   animation: shake 0.3s ease-in-out;
 }
+
+/* Slow bounce animation for header icons */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}

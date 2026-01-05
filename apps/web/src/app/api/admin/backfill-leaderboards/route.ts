@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   try {
     // Simple auth via secret header (not bulletproof, but good enough for one-time admin use)
     const authHeader = request.headers.get("x-admin-secret");
-    if (authHeader !== process.env.ADMIN_SECRET && authHeader !== "backfill-please") {
+    if (authHeader !== process.env.ADMIN_SECRET) {
       return NextResponse.json(
         { error: "Unauthorized - missing or invalid admin secret" },
         { status: 401 }

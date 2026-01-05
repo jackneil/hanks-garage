@@ -232,7 +232,7 @@ export function LeaderboardsPage() {
                               <span className="font-bold text-white text-lg">{rank.gameName}</span>
                             </div>
                             <div className="text-sm text-white/50 mt-0.5">
-                              Top {Math.round((rank.rank / rank.totalPlayers) * 100)}% of {rank.totalPlayers.toLocaleString()} players
+                              Top {rank.totalPlayers > 0 ? Math.round((rank.rank / rank.totalPlayers) * 100) : 0}% of {rank.totalPlayers.toLocaleString()} players
                             </div>
                           </div>
 
