@@ -23,7 +23,9 @@
       "Bash(test:*)",
       "Bash(git push)",
       "Bash(git add:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git commit:*)",
+      "Bash(PGPASSWORD=TlMNunqbnsWAsoSsjQPAUmabBfwrwYyx psql:*)"
     ]
   }
 }
