@@ -269,37 +269,46 @@ export function LeaderboardsPage() {
         )}
 
         {/* Game Selector */}
-        <section className="max-w-4xl mx-auto px-4 mb-6">
-          <h3 className="text-sm font-bold text-white/40 uppercase tracking-wider mb-3 px-1">
+        <section className="mb-6">
+          <h3 className="max-w-4xl mx-auto px-4 text-sm font-bold text-white/40 uppercase tracking-wider mb-3">
             Select Game
           </h3>
-          <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
-            <div className="flex gap-2 min-w-max">
-              {LEADERBOARD_GAMES.map((game, index) => (
-                <button
-                  key={game.appId}
-                  onClick={() => setSelectedGame(game.appId)}
-                  className={`
-                    group relative flex items-center gap-2 px-5 py-3 rounded-2xl font-bold
-                    min-w-[44px] min-h-[44px] transition-all duration-300 whitespace-nowrap
-                    ${selectedGame === game.appId
-                      ? "bg-gradient-to-r from-yellow-400 to-pink-500 text-slate-900 shadow-lg shadow-pink-500/30 scale-105"
-                      : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20"
-                    }
-                  `}
-                  style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                  <span className={`text-xl transition-transform ${selectedGame === game.appId ? "scale-110" : "group-hover:scale-110"}`}>
-                    {game.icon}
-                  </span>
-                  <span>{game.name}</span>
+          <div className="relative">
+            {/* Fade edges to indicate scrollability */}
+            <div className="absolute left-0 top-0 bottom-2 w-8 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none" />
 
-                  {/* Active indicator dot */}
-                  {selectedGame === game.appId && (
-                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-300 rounded-full animate-pulse" />
-                  )}
-                </button>
-              ))}
+            <div
+              className="overflow-x-auto pb-2 px-4 scrollbar-hide"
+              style={{ WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
+            >
+              <div className="flex gap-2 w-max">
+                {LEADERBOARD_GAMES.map((game, index) => (
+                  <button
+                    key={game.appId}
+                    onClick={() => setSelectedGame(game.appId)}
+                    className={`
+                      group relative flex items-center gap-2 px-5 py-3 rounded-2xl font-bold
+                      min-w-[44px] min-h-[44px] transition-all duration-300 whitespace-nowrap
+                      ${selectedGame === game.appId
+                        ? "bg-gradient-to-r from-yellow-400 to-pink-500 text-slate-900 shadow-lg shadow-pink-500/30 scale-105"
+                        : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20"
+                      }
+                    `}
+                    style={{ animationDelay: `${index * 0.05}s` }}
+                  >
+                    <span className={`text-xl transition-transform ${selectedGame === game.appId ? "scale-110" : "group-hover:scale-110"}`}>
+                      {game.icon}
+                    </span>
+                    <span>{game.name}</span>
+
+                    {/* Active indicator dot */}
+                    {selectedGame === game.appId && (
+                      <span className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-300 rounded-full animate-pulse" />
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </section>

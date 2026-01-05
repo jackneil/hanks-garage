@@ -216,6 +216,22 @@ export async function POST(request: Request, context: RouteContext) {
           finalData
         );
 
+        // DIAGNOSTIC: Log extraction results to debug empty leaderboards
+        if (!scoreData) {
+          console.warn(
+            `[LEADERBOARD] No score extracted for ${appId}. Progress data keys:`,
+            Object.keys(finalData)
+          );
+        } else if (scoreData.score <= 0) {
+          console.warn(
+            `[LEADERBOARD] Score is ${scoreData.score} for ${appId}, skipping leaderboard update`
+          );
+        } else {
+          console.log(
+            `[LEADERBOARD] Extracted score ${scoreData.score} (${scoreData.scoreType}) for ${appId}`
+          );
+        }
+
         if (scoreData && scoreData.score > 0) {
           // Validate extracted score
           const validated = leaderboardEntrySchema.safeParse(scoreData);
