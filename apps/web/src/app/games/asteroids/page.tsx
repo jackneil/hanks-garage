@@ -15,7 +15,7 @@ const AsteroidsGame = dynamic(() => import("@/games/asteroids"), {
 
 export default function AsteroidsPage() {
   return (
-    <GameShell gameName="Asteroids" canPause>
+    <GameShell gameName="Asteroids" appId="asteroids" canPause>
       <AsteroidsGame />
     </GameShell>
   );

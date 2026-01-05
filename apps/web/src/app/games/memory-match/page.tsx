@@ -22,7 +22,7 @@ const MemoryMatchGame = dynamic(
 
 export default function MemoryMatchPage() {
   return (
-    <GameShell gameName="Memory Match" canPause>
+    <GameShell gameName="Memory Match" appId="memory-match" canPause>
       <MemoryMatchGame />
     </GameShell>
   );

@@ -26,7 +26,7 @@ const HillClimbGame = dynamic(
 
 export default function HillClimbPage() {
   return (
-    <GameShell gameName="Hill Climb" canPause={false} showPauseButton={false}>
+    <GameShell gameName="Hill Climb" appId="hill-climb" canPause={false} showPauseButton={false}>
       <HillClimbGame />
     </GameShell>
   );

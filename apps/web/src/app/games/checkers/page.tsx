@@ -22,7 +22,7 @@ const CheckersGame = dynamic(
 
 export default function CheckersPage() {
   return (
-    <GameShell gameName="Checkers" canPause>
+    <GameShell gameName="Checkers" appId="checkers" canPause>
       <CheckersGame />
     </GameShell>
   );

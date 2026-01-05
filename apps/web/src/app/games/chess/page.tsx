@@ -22,7 +22,7 @@ const ChessGame = dynamic(
 
 export default function ChessPage() {
   return (
-    <GameShell gameName="Chess" canPause>
+    <GameShell gameName="Chess" appId="chess" canPause>
       <ChessGame />
     </GameShell>
   );

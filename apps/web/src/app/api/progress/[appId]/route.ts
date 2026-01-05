@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { db, eq, and } from "@hank-neil/db";
+import { db, eq, and, sql } from "@hank-neil/db";
 import {
   appProgress,
+  gamingProfiles,
+  leaderboardEntries,
   VALID_APP_IDS,
   type ValidAppId,
   type AppProgressData,
@@ -10,6 +12,12 @@ import {
 import { mergeProgress } from "@/lib/progress-merge";
 import { validateProgress } from "@/lib/progress-schemas";
 import { checkProgressRateLimit } from "@/lib/rate-limit";
+import { generateUniqueHandle } from "@/lib/handle-generator";
+import {
+  extractLeaderboardScore,
+  hasLeaderboardSupport,
+} from "@/lib/leaderboard-extractors";
+import { leaderboardEntrySchema } from "@/lib/leaderboard-schemas";
 
 type RouteContext = {
   params: Promise<{ appId: string }>;
@@ -178,27 +186,132 @@ export async function POST(request: Request, context: RouteContext) {
     const now = new Date();
     const progressId = crypto.randomUUID();
 
-    // UPSERT: Insert or update atomically - eliminates race condition
-    // This prevents "duplicate key" errors when multiple requests try to create
-    // the same (userId, appId) record simultaneously
-    await db
-      .insert(appProgress)
-      .values({
-        id: progressId,
-        userId,
-        appId,
-        data: finalData,
-        lastSyncedAt: now,
-        updatedAt: now,
-      })
-      .onConflictDoUpdate({
-        target: [appProgress.userId, appProgress.appId],
-        set: {
+    // TRANSACTION: Save progress and sync leaderboard atomically
+    // This ensures data consistency between appProgress and leaderboard_entries
+    await db.transaction(async (tx) => {
+      // 1. UPSERT progress: Insert or update atomically
+      await tx
+        .insert(appProgress)
+        .values({
+          id: progressId,
+          userId,
+          appId,
           data: finalData,
           lastSyncedAt: now,
           updatedAt: now,
-        },
-      });
+        })
+        .onConflictDoUpdate({
+          target: [appProgress.userId, appProgress.appId],
+          set: {
+            data: finalData,
+            lastSyncedAt: now,
+            updatedAt: now,
+          },
+        });
+
+      // 2. LEADERBOARD SYNC: Extract and upsert leaderboard entry
+      if (hasLeaderboardSupport(appId)) {
+        const scoreData = extractLeaderboardScore(
+          appId as ValidAppId,
+          finalData
+        );
+
+        if (scoreData && scoreData.score > 0) {
+          // Validate extracted score
+          const validated = leaderboardEntrySchema.safeParse(scoreData);
+          if (!validated.success) {
+            console.warn(
+              `[LEADERBOARD] Invalid score for ${appId}:`,
+              validated.error.message
+            );
+            return; // Don't fail transaction, just skip leaderboard update
+          }
+
+          // Get or create gaming profile (server-side lookup by session)
+          // RACE-SAFE: Handles both userId race (same user, two tabs) and
+          // handle collision race (different users get same random handle)
+          let profile = await tx.query.gamingProfiles.findFirst({
+            where: eq(gamingProfiles.userId, userId),
+          });
+
+          if (!profile) {
+            // Try up to 3 times in case of handle collision
+            for (let attempt = 0; attempt < 3; attempt++) {
+              const handle = await generateUniqueHandle(tx as unknown as typeof db);
+              try {
+                const [inserted] = await tx
+                  .insert(gamingProfiles)
+                  .values({
+                    userId,
+                    handle,
+                  })
+                  .onConflictDoNothing({ target: gamingProfiles.userId })
+                  .returning();
+
+                // If insert was a no-op (userId race - another tab won), fetch their profile
+                profile = inserted || await tx.query.gamingProfiles.findFirst({
+                  where: eq(gamingProfiles.userId, userId),
+                });
+                break; // Success - exit retry loop
+              } catch (err) {
+                // Handle collision (different user got same random handle)
+                // The unique constraint on 'handle' column triggers this
+                const isHandleCollision = err instanceof Error &&
+                  err.message.includes("unique") &&
+                  err.message.toLowerCase().includes("handle");
+
+                if (isHandleCollision && attempt < 2) {
+                  console.warn(`[LEADERBOARD] Handle collision on attempt ${attempt + 1}, retrying...`);
+                  continue; // Try again with a new handle
+                }
+                throw err; // Other errors or max retries exceeded
+              }
+            }
+
+            // Should never happen, but handle gracefully
+            if (!profile) {
+              console.error(`[LEADERBOARD] Failed to get/create profile for user ${userId}`);
+              return;
+            }
+          }
+
+          // Upsert leaderboard entry (only if new score is better)
+          const isTimeBased = scoreData.scoreType === "fastest_time";
+
+          await tx
+            .insert(leaderboardEntries)
+            .values({
+              gamingProfileId: profile.id,
+              appId,
+              score: scoreData.score,
+              scoreType: scoreData.scoreType,
+              additionalStats: scoreData.stats || null,
+              achievedAt: now, // SERVER TIMESTAMP - never from client
+              syncedAt: now,
+            })
+            .onConflictDoUpdate({
+              target: [
+                leaderboardEntries.gamingProfileId,
+                leaderboardEntries.appId,
+                leaderboardEntries.scoreType,
+              ],
+              set: {
+                // Only update if new score is better
+                score: isTimeBased
+                  ? sql`CASE WHEN ${scoreData.score} < ${leaderboardEntries.score} THEN ${scoreData.score} ELSE ${leaderboardEntries.score} END`
+                  : sql`CASE WHEN ${scoreData.score} > ${leaderboardEntries.score} THEN ${scoreData.score} ELSE ${leaderboardEntries.score} END`,
+                additionalStats: isTimeBased
+                  ? sql`CASE WHEN ${scoreData.score} < ${leaderboardEntries.score} THEN ${JSON.stringify(scoreData.stats || {})}::jsonb ELSE ${leaderboardEntries.additionalStats} END`
+                  : sql`CASE WHEN ${scoreData.score} > ${leaderboardEntries.score} THEN ${JSON.stringify(scoreData.stats || {})}::jsonb ELSE ${leaderboardEntries.additionalStats} END`,
+                achievedAt: isTimeBased
+                  ? sql`CASE WHEN ${scoreData.score} < ${leaderboardEntries.score} THEN ${now} ELSE ${leaderboardEntries.achievedAt} END`
+                  : sql`CASE WHEN ${scoreData.score} > ${leaderboardEntries.score} THEN ${now} ELSE ${leaderboardEntries.achievedAt} END`,
+                syncedAt: now,
+              },
+            });
+        }
+      }
+    });
 
     return NextResponse.json({
       success: true,
@@ -265,7 +378,28 @@ export async function DELETE(request: Request, context: RouteContext) {
       );
     }
 
-    await db.delete(appProgress).where(eq(appProgress.id, existing.id));
+    // Capture userId before transaction (guaranteed to exist after auth check)
+    const userId = session.user.id;
+
+    // TRANSACTION: Delete progress and leaderboard entry atomically
+    await db.transaction(async (tx) => {
+      // Delete progress
+      await tx.delete(appProgress).where(eq(appProgress.id, existing.id));
+
+      // Delete leaderboard entry (if exists)
+      const profile = await tx.query.gamingProfiles.findFirst({
+        where: eq(gamingProfiles.userId, userId),
+      });
+
+      if (profile) {
+        await tx.delete(leaderboardEntries).where(
+          and(
+            eq(leaderboardEntries.gamingProfileId, profile.id),
+            eq(leaderboardEntries.appId, appId)
+          )
+        );
+      }
+    });
 
     return NextResponse.json({
       success: true,

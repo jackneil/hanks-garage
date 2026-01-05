@@ -15,7 +15,7 @@ const HextrisGame = dynamic(() => import("@/games/hextris"), {
 
 export default function HextrisPage() {
   return (
-    <GameShell gameName="Hextris" canPause>
+    <GameShell gameName="Hextris" appId="hextris" canPause>
       <HextrisGame />
     </GameShell>
   );

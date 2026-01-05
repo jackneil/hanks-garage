@@ -22,7 +22,7 @@ const WordleGame = dynamic(() => import("@/games/wordle"), {
 
 export default function WordlePage() {
   return (
-    <GameShell gameName="Wordle" canPause={false}>
+    <GameShell gameName="Wordle" appId="wordle" canPause={false}>
       <WordleGame />
     </GameShell>
   );

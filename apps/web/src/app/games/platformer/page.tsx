@@ -22,7 +22,7 @@ const PlatformerGame = dynamic(() => import("@/games/platformer"), {
 
 export default function PlatformerPage() {
   return (
-    <GameShell gameName="Hank's Hopper" canPause>
+    <GameShell gameName="Hank's Hopper" appId="platformer" canPause>
       <PlatformerGame />
     </GameShell>
   );

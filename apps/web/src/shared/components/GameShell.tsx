@@ -2,10 +2,14 @@
 
 import { useGameShell } from "../hooks/useGameShell";
 import { PauseMenu } from "./PauseMenu";
+import { LeaderboardButton } from "./LeaderboardButton";
+import { hasLeaderboardSupport } from "@/lib/leaderboard-extractors";
 
 interface GameShellProps {
   children: React.ReactNode;
   gameName: string;
+  /** Optional appId - when provided, shows leaderboard button in header */
+  appId?: string;
   canPause?: boolean;
   onPause?: () => void;
   onResume?: () => void;
@@ -19,6 +23,7 @@ interface GameShellProps {
 export function GameShell({
   children,
   gameName,
+  appId,
   canPause = true,
   onPause,
   onResume,
@@ -34,6 +39,9 @@ export function GameShell({
     onResume,
     pauseOnBlur,
   });
+
+  // Check if this game has leaderboard support
+  const showLeaderboard = appId && hasLeaderboardSupport(appId);
 
   return (
     <div className="relative w-full h-full min-h-screen">
@@ -57,19 +65,27 @@ export function GameShell({
           {gameName}
         </div>
 
-        {/* Pause button */}
-        {showPauseButton && canPause && (
-          <button
-            onClick={togglePause}
-            className="min-w-[44px] min-h-[44px] flex items-center justify-center text-2xl hover:scale-110 transition-transform active:scale-95"
-            title="Pause (ESC)"
-          >
-            ⏸️
-          </button>
-        )}
+        {/* Right side buttons */}
+        <div className="flex items-center gap-1">
+          {/* Leaderboard button */}
+          {showLeaderboard && (
+            <LeaderboardButton appId={appId} variant="icon" />
+          )}
 
-        {/* Spacer if no pause button */}
-        {(!showPauseButton || !canPause) && <div className="w-[44px]" />}
+          {/* Pause button */}
+          {showPauseButton && canPause && (
+            <button
+              onClick={togglePause}
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-2xl hover:scale-110 transition-transform active:scale-95"
+              title="Pause (ESC)"
+            >
+              ⏸️
+            </button>
+          )}
+        </div>
+
+        {/* Spacer if no buttons on right */}
+        {!showLeaderboard && (!showPauseButton || !canPause) && <div className="w-[44px]" />}
       </div>
 
       {/* Game content - offset by header height */}
@@ -83,6 +99,14 @@ export function GameShell({
           onHome={goHome}
           gameName={gameName}
         >
+          {/* Leaderboard button in pause menu */}
+          {showLeaderboard && (
+            <LeaderboardButton
+              appId={appId}
+              variant="full"
+              className="w-full"
+            />
+          )}
           {pauseMenuChildren}
         </PauseMenu>
       )}

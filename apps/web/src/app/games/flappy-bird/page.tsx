@@ -22,7 +22,7 @@ const FlappyBirdGame = dynamic(
 
 export default function FlappyBirdPage() {
   return (
-    <GameShell gameName="Flappy Bird" canPause={false}>
+    <GameShell gameName="Flappy Bird" appId="flappy-bird" canPause={false}>
       <FlappyBirdGame />
     </GameShell>
   );

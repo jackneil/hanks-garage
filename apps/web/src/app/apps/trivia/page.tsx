@@ -22,7 +22,7 @@ const Trivia = dynamic(() => import("@/apps/trivia"), {
 
 export default function TriviaPage() {
   return (
-    <GameShell gameName="Trivia Quiz" canPause={false}>
+    <GameShell gameName="Trivia Quiz" appId="trivia" canPause={false}>
       <Trivia />
     </GameShell>
   );

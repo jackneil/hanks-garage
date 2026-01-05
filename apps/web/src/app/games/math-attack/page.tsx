@@ -22,7 +22,7 @@ const MathAttackGame = dynamic(() => import("@/games/math-attack"), {
 
 export default function MathAttackPage() {
   return (
-    <GameShell gameName="Math Attack" canPause={false}>
+    <GameShell gameName="Math Attack" appId="math-attack" canPause={false}>
       <MathAttackGame />
     </GameShell>
   );

@@ -23,6 +23,21 @@ interface ProgressItem {
   updatedAt: string;
 }
 
+interface MyRank {
+  appId: string;
+  gameName: string;
+  icon: string;
+  rank: number;
+  score: number;
+  scoreType: string;
+  totalPlayers: number;
+}
+
+interface MyRanksData {
+  handle: string | null;
+  ranks: MyRank[];
+}
+
 /**
  * Main profile page component.
  * Shows user info, game progress, and account actions.
@@ -33,6 +48,7 @@ export function ProfilePage() {
 
   const [profile, setProfile] = useState<ProfileData | null>(null);
   const [games, setGames] = useState<GameDisplayInfo[]>([]);
+  const [rankings, setRankings] = useState<MyRanksData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -58,10 +74,11 @@ export function ProfilePage() {
         setLoading(true);
         setError(null);
 
-        // Fetch profile and progress in parallel
-        const [profileRes, progressRes] = await Promise.all([
+        // Fetch profile, progress, and rankings in parallel
+        const [profileRes, progressRes, rankingsRes] = await Promise.all([
           fetch("/api/profile"),
           fetch("/api/progress"),
+          fetch("/api/leaderboards/my-ranks"),
         ]);
 
         if (!profileRes.ok || !progressRes.ok) {
@@ -70,6 +87,12 @@ export function ProfilePage() {
 
         const profileData = await profileRes.json();
         const progressData = await progressRes.json();
+
+        // Rankings are optional - don't fail if not available
+        if (rankingsRes.ok) {
+          const rankingsData = await rankingsRes.json();
+          setRankings(rankingsData);
+        }
 
         setProfile(profileData);
         setNewName(profileData.name || "");
@@ -278,6 +301,80 @@ export function ProfilePage() {
           </div>
         </div>
       </section>
+
+      {/* My Rankings Section */}
+      {rankings && rankings.ranks.length > 0 && (
+        <section className="mx-4 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              <span>🏆</span> My Rankings
+            </h2>
+            <Link
+              href="/leaderboards"
+              className="text-sm text-white/70 hover:text-white transition-colors"
+            >
+              View All →
+            </Link>
+          </div>
+
+          {/* Gaming handle display */}
+          {rankings.handle && (
+            <div className="bg-yellow-500/20 rounded-xl p-3 mb-4 border border-yellow-400/30 flex items-center justify-between">
+              <div>
+                <span className="text-white/60 text-sm">Your Gamer Handle:</span>
+                <span className="ml-2 font-bold text-white">{rankings.handle}</span>
+              </div>
+              <span className="text-2xl">🎮</span>
+            </div>
+          )}
+
+          {/* Rankings grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {rankings.ranks.slice(0, 6).map((rank) => (
+              <Link
+                key={rank.appId}
+                href={`/games/${rank.appId}`}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{rank.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-bold text-white truncate">{rank.gameName}</div>
+                    <div className="text-sm text-white/60">
+                      Rank #{rank.rank} of {rank.totalPlayers.toLocaleString()}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-yellow-400 tabular-nums">
+                      {rank.score.toLocaleString()}
+                    </div>
+                    <div className="text-xs text-white/40">
+                      {rank.scoreType === "wins" ? "wins" : rank.scoreType === "fastest_time" ? "time" : "score"}
+                    </div>
+                  </div>
+                </div>
+                {/* Rank badge for top 3 */}
+                {rank.rank <= 3 && (
+                  <div className="mt-2 flex justify-center">
+                    <span className="text-2xl">
+                      {rank.rank === 1 ? "🥇" : rank.rank === 2 ? "🥈" : "🥉"}
+                    </span>
+                  </div>
+                )}
+              </Link>
+            ))}
+          </div>
+
+          {rankings.ranks.length > 6 && (
+            <Link
+              href="/leaderboards"
+              className="block text-center mt-4 text-white/70 hover:text-white text-sm"
+            >
+              + {rankings.ranks.length - 6} more games
+            </Link>
+          )}
+        </section>
+      )}
 
       {/* Games Section */}
       <section id="games" className="mx-4 mb-6">

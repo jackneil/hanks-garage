@@ -22,7 +22,7 @@ const BreakoutGame = dynamic(
 
 export default function BreakoutPage() {
   return (
-    <GameShell gameName="Breakout" canPause>
+    <GameShell gameName="Breakout" appId="breakout" canPause>
       <BreakoutGame />
     </GameShell>
   );

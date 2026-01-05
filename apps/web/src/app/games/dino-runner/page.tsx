@@ -22,7 +22,7 @@ const DinoRunnerGame = dynamic(
 
 export default function DinoRunnerPage() {
   return (
-    <GameShell gameName="Dino Runner" canPause={false}>
+    <GameShell gameName="Dino Runner" appId="dino-runner" canPause={false}>
       <DinoRunnerGame />
     </GameShell>
   );

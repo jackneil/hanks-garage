@@ -6,7 +6,7 @@ const OregonTrailGame = dynamic(() => import("@/games/oregon-trail/Game"), { ssr
 
 export default function OregonTrailPage() {
   return (
-    <GameShell gameName="Oregon Trail" canPause>
+    <GameShell gameName="Oregon Trail" appId="oregon-trail" canPause>
       <OregonTrailGame />
     </GameShell>
   );

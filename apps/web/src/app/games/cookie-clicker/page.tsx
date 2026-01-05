@@ -22,7 +22,7 @@ const CookieClickerGame = dynamic(
 
 export default function CookieClickerPage() {
   return (
-    <GameShell gameName="Cookie Clicker" canPause={false}>
+    <GameShell gameName="Cookie Clicker" appId="cookie-clicker" canPause={false}>
       <CookieClickerGame />
     </GameShell>
   );

@@ -22,7 +22,7 @@ const QuoridorGame = dynamic(
 
 export default function QuoridorPage() {
   return (
-    <GameShell gameName="Quoridor" canPause>
+    <GameShell gameName="Quoridor" appId="quoridor" canPause>
       <QuoridorGame />
     </GameShell>
   );

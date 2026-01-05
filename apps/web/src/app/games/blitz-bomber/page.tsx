@@ -22,7 +22,7 @@ const BlitzBomberGame = dynamic(
 
 export default function BlitzBomberPage() {
   return (
-    <GameShell gameName="Blitz Bomber" canPause>
+    <GameShell gameName="Blitz Bomber" appId="blitz-bomber" canPause>
       <BlitzBomberGame />
     </GameShell>
   );

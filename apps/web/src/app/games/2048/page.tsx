@@ -21,7 +21,7 @@ const Game2048 = dynamic(
 
 export default function Page2048() {
   return (
-    <GameShell gameName="2048" canPause>
+    <GameShell gameName="2048" appId="2048" canPause>
       <Game2048 />
     </GameShell>
   );

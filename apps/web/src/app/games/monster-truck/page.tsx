@@ -23,7 +23,7 @@ const MonsterTruckGame = dynamic(
 
 export default function MonsterTruckPage() {
   return (
-    <GameShell gameName="Monster Truck" canPause={false} showPauseButton={false}>
+    <GameShell gameName="Monster Truck" appId="monster-truck" canPause={false} showPauseButton={false}>
       <MonsterTruckGame />
     </GameShell>
   );

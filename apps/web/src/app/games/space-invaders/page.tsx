@@ -22,7 +22,7 @@ const SpaceInvadersGame = dynamic(
 
 export default function SpaceInvadersPage() {
   return (
-    <GameShell gameName="Space Invaders" canPause>
+    <GameShell gameName="Space Invaders" appId="space-invaders" canPause>
       <SpaceInvadersGame />
     </GameShell>
   );

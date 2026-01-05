@@ -22,7 +22,7 @@ const SnakeGame = dynamic(
 
 export default function SnakePage() {
   return (
-    <GameShell gameName="Snake" canPause>
+    <GameShell gameName="Snake" appId="snake" canPause>
       <SnakeGame />
     </GameShell>
   );

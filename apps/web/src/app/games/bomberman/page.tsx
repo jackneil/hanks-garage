@@ -15,7 +15,7 @@ const BombermanGame = dynamic(() => import("@/games/bomberman"), {
 
 export default function BombermanPage() {
   return (
-    <GameShell gameName="Bomberman" canPause>
+    <GameShell gameName="Bomberman" appId="bomberman" canPause>
       <BombermanGame />
     </GameShell>
   );

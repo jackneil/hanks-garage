@@ -12,3 +12,8 @@ export { OrientationWarning } from "./OrientationWarning";
 // Game shell components
 export { GameShell } from "./GameShell";
 export { PauseMenu } from "./PauseMenu";
+
+// Leaderboard components
+export { Leaderboard } from "./Leaderboard";
+export { LeaderboardModal } from "./LeaderboardModal";
+export { LeaderboardButton } from "./LeaderboardButton";

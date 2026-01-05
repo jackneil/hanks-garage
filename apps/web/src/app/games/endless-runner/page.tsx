@@ -22,7 +22,7 @@ const EndlessRunnerGame = dynamic(
 
 export default function EndlessRunnerPage() {
   return (
-    <GameShell gameName="Endless Runner" canPause={false}>
+    <GameShell gameName="Endless Runner" appId="endless-runner" canPause={false}>
       <EndlessRunnerGame />
     </GameShell>
   );
