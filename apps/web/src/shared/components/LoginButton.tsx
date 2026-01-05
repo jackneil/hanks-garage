@@ -132,12 +132,12 @@ export function LoginButton() {
           </li>
           <li>
             <Link
-              href="/profile#games"
+              href="/leaderboards"
               onClick={() => setDropdownOpen(false)}
               className="flex items-center gap-2"
             >
-              <span className="text-lg">🎮</span>
-              My Games
+              <span className="text-lg">🏆</span>
+              Leaderboards
             </Link>
           </li>
           <div className="divider my-0" />
