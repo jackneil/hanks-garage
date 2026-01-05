@@ -203,7 +203,7 @@ export function Leaderboard({
   };
 
   return (
-    <div className={`flex flex-col ${className}`}>
+    <div className={`flex flex-col text-white ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
         <div className="flex items-center gap-2">
