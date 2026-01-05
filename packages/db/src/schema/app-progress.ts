@@ -87,6 +87,7 @@ export const VALID_APP_IDS = [
   "trivia",
   "wordle",
   "math-attack",
+  "ball-physics",
 ] as const;
 
 export type ValidAppId = (typeof VALID_APP_IDS)[number];

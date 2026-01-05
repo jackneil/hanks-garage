@@ -655,6 +655,17 @@ const virtualPetSchema = z.object({
 });
 
 // ============================================================================
+// Ball Physics
+// ============================================================================
+const ballPhysicsSchema = z.object({
+  highScore: z.number().min(0).max(MAX_CURRENCY),
+  totalGamesPlayed: z.number().min(0).max(MAX_COUNT),
+  totalBallsSpawned: z.number().min(0).max(MAX_COUNT),
+  highestMultiplier: z.number().min(0).max(100),
+  lastModified: timestampSchema,
+}).strict();
+
+// ============================================================================
 // Schema Registry
 // ============================================================================
 
@@ -689,6 +700,7 @@ export const PROGRESS_SCHEMAS: Partial<Record<ValidAppId, z.ZodSchema>> = {
   trivia: triviaSchema,
   wordle: wordleSchema,
   "math-attack": mathAttackSchema,
+  "ball-physics": ballPhysicsSchema,
 };
 
 /**

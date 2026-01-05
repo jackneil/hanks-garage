@@ -382,6 +382,19 @@ export function extractGameStats(
         ].filter(Boolean) as { label: string; value: string }[],
       };
 
+    case "ball-physics":
+      return {
+        ...baseInfo,
+        primaryStat: data.highScore
+          ? { label: "High Score", value: formatNumber(data.highScore as number) }
+          : null,
+        secondaryStats: [
+          data.totalGamesPlayed && { label: "Games", value: String(data.totalGamesPlayed) },
+          data.totalBallsSpawned && { label: "Balls Spawned", value: formatNumber(data.totalBallsSpawned as number) },
+          data.highestMultiplier && { label: "Best Multiplier", value: `${data.highestMultiplier}x` },
+        ].filter(Boolean) as { label: string; value: string }[],
+      };
+
     case "virtual-pet": {
       const pet = data.pet as { name?: string; happiness?: number } | undefined;
       const stats = data.stats as { daysCaredFor?: number } | undefined;
