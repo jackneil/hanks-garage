@@ -95,31 +95,32 @@ export const useArkanoidStore = create<State & Actions>()(
           multiplier: 1,
           wasNewHighScore: false,
           balls: [
-            // Start with 3 blue balls (velocities scaled for seconds-based dt)
-            // Negative vy = moving DOWN toward paddle (y increases upward in this coord system)
+            // Start with 3 blue balls
+            // Velocities ~1 unit/sec so balls take ~2 sec to cross screen
+            // Negative vy = moving DOWN toward paddle
             {
               id: "initial-1",
               type: "blue",
               x: -0.3,
               y: 0.5,
-              vx: 8,
-              vy: -12,
+              vx: 0.8,
+              vy: -1.2,
             },
             {
               id: "initial-2",
               type: "blue",
               x: 0,
               y: 0.4,
-              vx: -10,
-              vy: -15,
+              vx: -1.0,
+              vy: -1.5,
             },
             {
               id: "initial-3",
               type: "blue",
               x: 0.3,
               y: 0.5,
-              vx: -6,
-              vy: -10,
+              vx: -0.6,
+              vy: -1.0,
             },
           ],
         });

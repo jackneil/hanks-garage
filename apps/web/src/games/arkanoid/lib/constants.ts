@@ -32,15 +32,16 @@ export const BALL_CONFIG: Record<
   },
 };
 
-// Physics (scaled for seconds-based dt)
+// Physics (tuned for seconds-based dt with no tunneling)
+// Max velocity must be low enough that ball can't skip over walls (0.05 wide)
 export const PHYSICS = {
-  gravity: 0.8, // Slight downward pull (per second)
+  gravity: 0.3, // Gentle downward pull (per second)
   restitution: 0.95, // Bounciness
   friction: 0.001, // Very low friction
   wallRestitution: 0.98, // Wall bounciness
-  paddleRestitution: 1.0, // Paddle bounce
-  maxVelocity: 40, // Speed cap (per second)
-  minVelocity: 5, // Minimum speed to prevent stuck balls (per second)
+  paddleRestitution: 1.05, // Slight boost on paddle hit
+  maxVelocity: 2.5, // Speed cap - prevents tunneling through walls
+  minVelocity: 0.3, // Minimum speed to prevent stuck balls
 };
 
 // Paddle
