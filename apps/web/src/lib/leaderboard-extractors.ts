@@ -46,6 +46,20 @@ export const LEADERBOARD_EXTRACTORS: Partial<
     };
   },
 
+  "ball-physics": (d) => {
+    const score = d.highScore as number;
+    if (!score || score <= 0) return null;
+    return {
+      score,
+      scoreType: "high_score",
+      stats: {
+        totalGamesPlayed: (d.totalGamesPlayed as number) || 0,
+        highestMultiplier: (d.highestMultiplier as number) || 0,
+        totalBallsSpawned: (d.totalBallsSpawned as number) || 0,
+      },
+    };
+  },
+
   snake: (d) => {
     const score = d.highScore as number;
     if (!score || score <= 0) return null;

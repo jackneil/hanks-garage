@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useBallPhysicsStore } from "./lib/store";
+import { useBallPhysicsStore, type Ball } from "./lib/store";
 import { BALL_CONFIG, PHYSICS, PADDLE, WALLS, GAME, GRID } from "./lib/constants";
-import type { Ball } from "./lib/store";
 
 export function BallPhysicsGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -17,28 +16,18 @@ export function BallPhysicsGame() {
     paddleX,
     soundEnabled,
     progress,
+    wasNewHighScore,
     startGame,
     pauseGame,
     resumeGame,
+    endGame,
     setPaddleX,
     addBall,
-    removeBall,
     updateBalls,
     addScore,
     updateMultiplier,
+    toggleSound,
   } = useBallPhysicsStore();
-
-  // Convert screen coordinates to normalized coordinates
-  const screenToNormalized = (
-    screenX: number,
-    screenY: number,
-    canvas: HTMLCanvasElement
-  ) => {
-    const rect = canvas.getBoundingClientRect();
-    const x = ((screenX - rect.left) / rect.width) * 2 - 1;
-    const y = -(((screenY - rect.top) / rect.height) * 2 - 1);
-    return { x, y };
-  };
 
   // Mouse/touch handlers for paddle
   useEffect(() => {
@@ -215,6 +204,12 @@ export function BallPhysicsGame() {
       updateBalls(ballsInBounds);
       updateMultiplier(ballsInBounds.length);
 
+      // Check for game over (all balls fell off)
+      if (ballsInBounds.length === 0) {
+        endGame();
+        return;
+      }
+
       // Render
       render(ctx, canvas, ballsInBounds);
 
@@ -233,10 +228,10 @@ export function BallPhysicsGame() {
     balls,
     paddleX,
     addBall,
-    removeBall,
     updateBalls,
     addScore,
     updateMultiplier,
+    endGame,
   ]);
 
   // Render function
@@ -365,7 +360,7 @@ export function BallPhysicsGame() {
         </div>
 
         {/* Right: Sound toggle */}
-        <button onClick={() => {}} className="btn btn-square btn-ghost text-2xl">
+        <button onClick={toggleSound} className="btn btn-square btn-ghost text-2xl">
           {soundEnabled ? "🔊" : "🔇"}
         </button>
       </div>
@@ -441,7 +436,7 @@ export function BallPhysicsGame() {
               <h2 className="mb-2 text-5xl font-bold text-white">Game Over!</h2>
               <div className="mb-8 space-y-2">
                 <p className="text-3xl text-yellow-400">Score: {score.toLocaleString()}</p>
-                {score > progress.highScore && (
+                {wasNewHighScore && (
                   <p className="text-xl text-green-400">🎉 New High Score! 🎉</p>
                 )}
                 <p className="text-lg text-slate-400">

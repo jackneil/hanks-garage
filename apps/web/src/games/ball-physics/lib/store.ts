@@ -31,6 +31,7 @@ type State = {
   score: number;
   multiplier: number;
   balls: Ball[];
+  wasNewHighScore: boolean;
 
   // Paddle
   paddleX: number; // -1 to 1 (normalized)
@@ -81,6 +82,7 @@ export const useBallPhysicsStore = create<State & Actions>()(
       score: 0,
       multiplier: 1,
       balls: [],
+      wasNewHighScore: false,
       paddleX: 0,
       soundEnabled: true,
       progress: defaultProgress,
@@ -91,6 +93,7 @@ export const useBallPhysicsStore = create<State & Actions>()(
           gameState: "playing",
           score: 0,
           multiplier: 1,
+          wasNewHighScore: false,
           balls: [
             // Start with 3 blue balls
             {
@@ -136,10 +139,12 @@ export const useBallPhysicsStore = create<State & Actions>()(
       endGame: () => {
         const state = get();
         const newProgress = { ...state.progress };
+        let isNewHighScore = false;
 
         // Update progress
         if (state.score > newProgress.highScore) {
           newProgress.highScore = state.score;
+          isNewHighScore = true;
         }
         if (state.multiplier > newProgress.highestMultiplier) {
           newProgress.highestMultiplier = state.multiplier;
@@ -150,6 +155,7 @@ export const useBallPhysicsStore = create<State & Actions>()(
         set({
           gameState: "gameOver",
           progress: newProgress,
+          wasNewHighScore: isNewHighScore,
         });
       },
 
