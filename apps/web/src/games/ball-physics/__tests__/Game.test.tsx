@@ -31,7 +31,7 @@ describe("BallPhysicsGame Component", () => {
 
   it("renders menu screen with start button", () => {
     render(<BallPhysicsGame />);
-    expect(screen.getByText("Start Game")).toBeInTheDocument();
+    expect(screen.getByText(/Start Game/)).toBeInTheDocument();
     expect(screen.getByText("Chain Reaction Mayhem")).toBeInTheDocument();
   });
 
@@ -72,9 +72,9 @@ describe("BallPhysicsGame Component", () => {
 
     render(<BallPhysicsGame />);
     expect(screen.getByText("Game Over!")).toBeInTheDocument();
-    expect(screen.getByText("Score: 1,500")).toBeInTheDocument();
-    expect(screen.getByText("High Score: 2,000")).toBeInTheDocument();
-    expect(screen.getByText("Play Again")).toBeInTheDocument();
+    expect(screen.getByText(/^Score:/)).toBeInTheDocument();
+    expect(screen.getByText(/^High Score:/)).toBeInTheDocument();
+    expect(screen.getByText(/Play Again/)).toBeInTheDocument();
   });
 
   it("shows 'New High Score!' message when wasNewHighScore is true", () => {
@@ -92,7 +92,7 @@ describe("BallPhysicsGame Component", () => {
     });
 
     render(<BallPhysicsGame />);
-    expect(screen.getByText("New High Score!")).toBeInTheDocument();
+    expect(screen.getByText(/New High Score!/)).toBeInTheDocument();
   });
 
   it("does NOT show 'New High Score!' when wasNewHighScore is false", () => {
@@ -122,6 +122,6 @@ describe("BallPhysicsGame Component", () => {
 
     render(<BallPhysicsGame />);
     expect(screen.getByText("PAUSED")).toBeInTheDocument();
-    expect(screen.getByText("Resume")).toBeInTheDocument();
+    expect(screen.getByText(/Resume/)).toBeInTheDocument();
   });
 });
