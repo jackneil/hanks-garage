@@ -46,7 +46,7 @@ export const LEADERBOARD_EXTRACTORS: Partial<
     };
   },
 
-  "ball-physics": (d) => {
+  arkanoid: (d) => {
     const score = d.highScore as number;
     if (!score || score <= 0) return null;
     return {

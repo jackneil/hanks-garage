@@ -1,4 +1,4 @@
-// Ball Physics Game - State Management
+// Arkanoid Game - State Management
 // Zustand store with progress persistence
 
 import { create } from "zustand";
@@ -17,7 +17,7 @@ export type Ball = {
 
 export type GameState = "menu" | "playing" | "paused" | "gameOver";
 
-export type BallPhysicsProgress = {
+export type ArkanoidProgress = {
   highScore: number;
   totalGamesPlayed: number;
   totalBallsSpawned: number;
@@ -40,7 +40,7 @@ type State = {
   soundEnabled: boolean;
 
   // Progress (saved)
-  progress: BallPhysicsProgress;
+  progress: ArkanoidProgress;
 };
 
 type Actions = {
@@ -62,11 +62,11 @@ type Actions = {
   toggleSound: () => void;
 
   // Progress (required for cloud sync)
-  getProgress: () => BallPhysicsProgress;
-  setProgress: (data: BallPhysicsProgress) => void;
+  getProgress: () => ArkanoidProgress;
+  setProgress: (data: ArkanoidProgress) => void;
 };
 
-const defaultProgress: BallPhysicsProgress = {
+const defaultProgress: ArkanoidProgress = {
   highScore: 0,
   totalGamesPlayed: 0,
   totalBallsSpawned: 0,
@@ -74,7 +74,7 @@ const defaultProgress: BallPhysicsProgress = {
   lastModified: Date.now(),
 };
 
-export const useBallPhysicsStore = create<State & Actions>()(
+export const useArkanoidStore = create<State & Actions>()(
   persist(
     (set, get) => ({
       // Initial state
@@ -219,12 +219,12 @@ export const useBallPhysicsStore = create<State & Actions>()(
 
       // Progress (required for cloud sync)
       getProgress: () => get().progress,
-      setProgress: (data: BallPhysicsProgress) => {
+      setProgress: (data: ArkanoidProgress) => {
         set({ progress: data });
       },
     }),
     {
-      name: "ball-physics-state",
+      name: "arkanoid-state",
       partialize: (state) => ({
         progress: state.progress,
         soundEnabled: state.soundEnabled,

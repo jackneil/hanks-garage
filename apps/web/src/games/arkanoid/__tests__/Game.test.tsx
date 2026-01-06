@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { BallPhysicsGame } from "../Game";
-import { useBallPhysicsStore } from "../lib/store";
+import { ArkanoidGame } from "../Game";
+import { useArkanoidStore } from "../lib/store";
 
-describe("BallPhysicsGame Component", () => {
+describe("ArkanoidGame Component", () => {
   beforeEach(() => {
     // Reset store to menu state before each test
-    useBallPhysicsStore.setState({
+    useArkanoidStore.setState({
       gameState: "menu",
       score: 0,
       multiplier: 1,
@@ -25,24 +25,24 @@ describe("BallPhysicsGame Component", () => {
   });
 
   it("renders without crashing", () => {
-    render(<BallPhysicsGame />);
-    expect(screen.getByText("Ball Physics")).toBeInTheDocument();
+    render(<ArkanoidGame />);
+    expect(screen.getByText("Arkanoid")).toBeInTheDocument();
   });
 
   it("renders menu screen with start button", () => {
-    render(<BallPhysicsGame />);
+    render(<ArkanoidGame />);
     expect(screen.getByText(/Start Game/)).toBeInTheDocument();
     expect(screen.getByText("Chain Reaction Mayhem")).toBeInTheDocument();
   });
 
   it("renders game instructions on menu", () => {
-    render(<BallPhysicsGame />);
+    render(<ArkanoidGame />);
     expect(screen.getByText("Move paddle with mouse/touch")).toBeInTheDocument();
     expect(screen.getByText("Balls multiply when they hit walls!")).toBeInTheDocument();
   });
 
   it("renders pause button", () => {
-    render(<BallPhysicsGame />);
+    render(<ArkanoidGame />);
     // Pause button should be present but disabled on menu
     const pauseButton = screen.getByRole("button", { name: /⏸/ });
     expect(pauseButton).toBeInTheDocument();
@@ -50,14 +50,14 @@ describe("BallPhysicsGame Component", () => {
   });
 
   it("renders sound toggle button", () => {
-    render(<BallPhysicsGame />);
+    render(<ArkanoidGame />);
     const soundButton = screen.getByRole("button", { name: /🔊/ });
     expect(soundButton).toBeInTheDocument();
   });
 
   it("shows game over screen with correct content", () => {
     // Set state to game over
-    useBallPhysicsStore.setState({
+    useArkanoidStore.setState({
       gameState: "gameOver",
       score: 1500,
       wasNewHighScore: false,
@@ -70,7 +70,7 @@ describe("BallPhysicsGame Component", () => {
       },
     });
 
-    render(<BallPhysicsGame />);
+    render(<ArkanoidGame />);
     expect(screen.getByText("Game Over!")).toBeInTheDocument();
     expect(screen.getByText(/^Score:/)).toBeInTheDocument();
     expect(screen.getByText(/^High Score:/)).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe("BallPhysicsGame Component", () => {
   });
 
   it("shows 'New High Score!' message when wasNewHighScore is true", () => {
-    useBallPhysicsStore.setState({
+    useArkanoidStore.setState({
       gameState: "gameOver",
       score: 3000,
       wasNewHighScore: true,
@@ -91,12 +91,12 @@ describe("BallPhysicsGame Component", () => {
       },
     });
 
-    render(<BallPhysicsGame />);
+    render(<ArkanoidGame />);
     expect(screen.getByText(/New High Score!/)).toBeInTheDocument();
   });
 
   it("does NOT show 'New High Score!' when wasNewHighScore is false", () => {
-    useBallPhysicsStore.setState({
+    useArkanoidStore.setState({
       gameState: "gameOver",
       score: 500,
       wasNewHighScore: false,
@@ -109,18 +109,18 @@ describe("BallPhysicsGame Component", () => {
       },
     });
 
-    render(<BallPhysicsGame />);
+    render(<ArkanoidGame />);
     expect(screen.queryByText("New High Score!")).not.toBeInTheDocument();
   });
 
   it("shows paused overlay when game is paused", () => {
-    useBallPhysicsStore.setState({
+    useArkanoidStore.setState({
       gameState: "paused",
       score: 100,
       balls: [{ id: "1", type: "blue", x: 0, y: 0, vx: 0, vy: 0 }],
     });
 
-    render(<BallPhysicsGame />);
+    render(<ArkanoidGame />);
     expect(screen.getByText("PAUSED")).toBeInTheDocument();
     expect(screen.getByText(/Resume/)).toBeInTheDocument();
   });

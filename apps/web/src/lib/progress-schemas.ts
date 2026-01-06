@@ -655,9 +655,9 @@ const virtualPetSchema = z.object({
 });
 
 // ============================================================================
-// Ball Physics
+// Arkanoid
 // ============================================================================
-const ballPhysicsSchema = z.object({
+const arkanoidSchema = z.object({
   highScore: z.number().min(0).max(MAX_CURRENCY),
   totalGamesPlayed: z.number().min(0).max(MAX_COUNT),
   totalBallsSpawned: z.number().min(0).max(MAX_COUNT),
@@ -700,7 +700,7 @@ export const PROGRESS_SCHEMAS: Partial<Record<ValidAppId, z.ZodSchema>> = {
   trivia: triviaSchema,
   wordle: wordleSchema,
   "math-attack": mathAttackSchema,
-  "ball-physics": ballPhysicsSchema,
+  arkanoid: arkanoidSchema,
 };
 
 /**

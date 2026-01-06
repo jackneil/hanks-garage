@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useBallPhysicsStore, type Ball } from "./lib/store";
+import { useArkanoidStore, type Ball } from "./lib/store";
 import { BALL_CONFIG, PHYSICS, PADDLE, WALLS, GAME, GRID } from "./lib/constants";
 
-export function BallPhysicsGame() {
+export function ArkanoidGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number | undefined>(undefined);
 
@@ -27,7 +27,7 @@ export function BallPhysicsGame() {
     addScore,
     updateMultiplier,
     toggleSound,
-  } = useBallPhysicsStore();
+  } = useArkanoidStore();
 
   // Mouse/touch handlers for paddle
   useEffect(() => {
@@ -96,8 +96,8 @@ export function BallPhysicsGame() {
       lastTime = now;
 
       // Get current state directly from store (avoid stale closures)
-      const currentBalls = useBallPhysicsStore.getState().balls;
-      const currentPaddleX = useBallPhysicsStore.getState().paddleX;
+      const currentBalls = useArkanoidStore.getState().balls;
+      const currentPaddleX = useArkanoidStore.getState().paddleX;
 
       // Update physics
       const updatedBalls = currentBalls.map((ball) => {
@@ -396,7 +396,7 @@ export function BallPhysicsGame() {
         {gameState === "menu" && (
           <div className="absolute inset-0 flex items-center justify-center bg-slate-900/95">
             <div className="text-center">
-              <h1 className="mb-2 text-6xl font-bold text-white">Ball Physics</h1>
+              <h1 className="mb-2 text-6xl font-bold text-white">Arkanoid</h1>
               <p className="mb-8 text-xl text-slate-300">
                 Chain Reaction Mayhem
               </p>
@@ -449,4 +449,4 @@ export function BallPhysicsGame() {
   );
 }
 
-export default BallPhysicsGame;
+export default ArkanoidGame;

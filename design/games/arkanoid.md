@@ -1,4 +1,4 @@
-# Ball Physics Chain Reaction - Design Document
+# Arkanoid - Design Document
 
 ## Overview
 A hypnotic physics-based arcade game where balls bounce, multiply, and create satisfying chain reactions in a maze-like environment. Control a paddle at the bottom to keep balls in play while they spawn more balls, creating explosive cascades of bouncing spheres. Inspired by Arkanoid/Breakout meets Plinko with particle physics.

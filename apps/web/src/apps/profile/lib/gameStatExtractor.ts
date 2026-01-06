@@ -382,7 +382,7 @@ export function extractGameStats(
         ].filter(Boolean) as { label: string; value: string }[],
       };
 
-    case "ball-physics":
+    case "arkanoid":
       return {
         ...baseInfo,
         primaryStat: data.highScore

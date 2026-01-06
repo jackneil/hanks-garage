@@ -1,4 +1,4 @@
-// Ball Physics Game - Constants
+// Arkanoid Game - Constants
 
 import type { BallType } from "./store";
 
