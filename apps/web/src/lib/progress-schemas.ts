@@ -289,7 +289,7 @@ const monsterTruckSchema = z.object({
   soundEnabled: z.boolean(),
   musicEnabled: z.boolean(),
   lastModified: timestampSchema,
-});
+}).strict();
 
 // ============================================================================
 // Hill Climb

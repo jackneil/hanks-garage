@@ -4,19 +4,29 @@
 import { createNoise2D } from 'simplex-noise';
 import { WORLD, LAKES } from './constants';
 
-// Singleton noise instance with fixed seed for deterministic terrain
-const noise2D = createNoise2D(() => 0.42);
+// Lazy-initialized noise instance with fixed seed for deterministic terrain
+// Using lazy init to avoid blocking module load (createNoise2D is heavy)
+let noise2D: ReturnType<typeof createNoise2D> | null = null;
+
+function getNoise2D() {
+  if (!noise2D) {
+    noise2D = createNoise2D(() => 0.42);
+  }
+  return noise2D;
+}
 
 /**
  * Get terrain height at any world position
  * Uses multi-octave simplex noise for realistic terrain
  */
 export function getTerrainHeight(x: number, z: number): number {
+  const noise = getNoise2D();
+
   // Large scale continental shapes - VISIBLE mountains
-  let h = noise2D(x * 0.003, z * 0.003) * 35;
+  let h = noise(x * 0.003, z * 0.003) * 35;
 
   // Mountain ridges (absolute value creates peaks) - VISIBLE
-  h += Math.abs(noise2D(x * 0.008 + 100, z * 0.008 + 100)) * 20;
+  h += Math.abs(noise(x * 0.008 + 100, z * 0.008 + 100)) * 20;
 
   // REMOVED: Rolling hills, medium bumps, fine detail
   // These were invisible but caused physics instability (ghost collisions, jitter)
