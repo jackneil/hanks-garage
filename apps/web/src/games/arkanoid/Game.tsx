@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { useArkanoidStore, type Ball } from "./lib/store";
 import { BALL_CONFIG, PHYSICS, PADDLE, WALLS, GAME, GRID } from "./lib/constants";
 
@@ -338,14 +339,19 @@ export function ArkanoidGame() {
     <div className="flex h-screen w-full flex-col bg-slate-900">
       {/* HUD */}
       <div className="relative z-10 flex items-center justify-between border-b-2 border-slate-700 bg-slate-800 px-4 py-3">
-        {/* Left: Pause button */}
-        <button
-          onClick={() => (gameState === "playing" ? pauseGame() : resumeGame())}
-          className="btn btn-square btn-primary text-2xl"
-          disabled={gameState === "menu" || gameState === "gameOver"}
-        >
-          {gameState === "paused" ? "▶" : "⏸"}
-        </button>
+        {/* Left: Home + Pause buttons */}
+        <div className="flex gap-2">
+          <Link href="/" className="btn btn-square btn-ghost text-2xl">
+            🏠
+          </Link>
+          <button
+            onClick={() => (gameState === "playing" ? pauseGame() : resumeGame())}
+            className="btn btn-square btn-primary text-2xl"
+            disabled={gameState === "menu" || gameState === "gameOver"}
+          >
+            {gameState === "paused" ? "▶" : "⏸"}
+          </button>
+        </div>
 
         {/* Center: Score */}
         <div className="text-center">
