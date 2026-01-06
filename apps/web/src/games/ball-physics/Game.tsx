@@ -95,8 +95,12 @@ export function BallPhysicsGame() {
       const dt = Math.min(now - lastTime, 50); // Cap delta time
       lastTime = now;
 
+      // Get current state directly from store (avoid stale closures)
+      const currentBalls = useBallPhysicsStore.getState().balls;
+      const currentPaddleX = useBallPhysicsStore.getState().paddleX;
+
       // Update physics
-      const updatedBalls = balls.map((ball) => {
+      const updatedBalls = currentBalls.map((ball) => {
         let { x, y, vx, vy } = ball;
 
         // Apply gravity
@@ -142,8 +146,8 @@ export function BallPhysicsGame() {
         }
 
         // Paddle collision
-        const paddleLeft = paddleX - PADDLE.width / 2;
-        const paddleRight = paddleX + PADDLE.width / 2;
+        const paddleLeft = currentPaddleX - PADDLE.width / 2;
+        const paddleRight = currentPaddleX + PADDLE.width / 2;
         const paddleTop = PADDLE.y + PADDLE.height / 2;
         const paddleBottom = PADDLE.y - PADDLE.height / 2;
 
@@ -158,7 +162,7 @@ export function BallPhysicsGame() {
           y = paddleTop + radius;
 
           // Add horizontal velocity based on hit position
-          const hitOffset = (x - paddleX) / (PADDLE.width / 2);
+          const hitOffset = (x - currentPaddleX) / (PADDLE.width / 2);
           vx += hitOffset * 0.01;
         }
 
@@ -223,16 +227,7 @@ export function BallPhysicsGame() {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [
-    gameState,
-    balls,
-    paddleX,
-    addBall,
-    updateBalls,
-    addScore,
-    updateMultiplier,
-    endGame,
-  ]);
+  }, [gameState, addBall, updateBalls, addScore, updateMultiplier, endGame]);
 
   // Render function
   const render = (
