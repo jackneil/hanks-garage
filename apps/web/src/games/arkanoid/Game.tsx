@@ -69,17 +69,20 @@ export function ArkanoidGame() {
           resumeGame();
         }
       }
+      // Use getState() to avoid stale closure - always gets current paddleX
       if (e.key === "ArrowLeft") {
-        setPaddleX(paddleX - 0.1);
+        const current = useArkanoidStore.getState().paddleX;
+        setPaddleX(Math.max(-0.85, current - 0.1));
       }
       if (e.key === "ArrowRight") {
-        setPaddleX(paddleX + 0.1);
+        const current = useArkanoidStore.getState().paddleX;
+        setPaddleX(Math.min(0.85, current + 0.1));
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [gameState, paddleX, pauseGame, resumeGame, setPaddleX]);
+  }, [gameState, pauseGame, resumeGame, setPaddleX]);
 
   // Main game loop
   useEffect(() => {
@@ -165,7 +168,7 @@ export function ArkanoidGame() {
 
           // Add horizontal velocity based on hit position
           const hitOffset = (x - currentPaddleX) / (PADDLE.width / 2);
-          vx += hitOffset * 0.01;
+          vx += hitOffset * 10;
         }
 
         // Spawn new ball on wall hit
@@ -174,7 +177,7 @@ export function ArkanoidGame() {
           if (Math.random() < spawnChance) {
             // Spawn new ball
             const angle = Math.random() * Math.PI * 2;
-            const speed = 0.015;
+            const speed = 15;
             addBall({
               type: ball.type,
               x: x + Math.cos(angle) * radius * 3,

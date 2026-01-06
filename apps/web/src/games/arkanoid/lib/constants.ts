@@ -32,15 +32,15 @@ export const BALL_CONFIG: Record<
   },
 };
 
-// Physics
+// Physics (scaled for seconds-based dt)
 export const PHYSICS = {
-  gravity: 0.0008, // Slight downward pull
+  gravity: 0.8, // Slight downward pull (per second)
   restitution: 0.95, // Bounciness
   friction: 0.001, // Very low friction
   wallRestitution: 0.98, // Wall bounciness
   paddleRestitution: 1.0, // Paddle bounce
-  maxVelocity: 0.04, // Speed cap
-  minVelocity: 0.005, // Minimum speed to prevent stuck balls
+  maxVelocity: 40, // Speed cap (per second)
+  minVelocity: 5, // Minimum speed to prevent stuck balls (per second)
 };
 
 // Paddle
