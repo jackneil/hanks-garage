@@ -92,7 +92,8 @@ export function ArkanoidGame() {
 
     const gameLoop = () => {
       const now = Date.now();
-      const dt = Math.min(now - lastTime, 50); // Cap delta time
+      const dtMs = Math.min(now - lastTime, 50); // Cap delta time in ms
+      const dt = dtMs / 1000; // Convert to seconds for physics
       lastTime = now;
 
       // Get current state directly from store (avoid stale closures)
